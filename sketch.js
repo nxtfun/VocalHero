@@ -8,7 +8,7 @@ function setup() {
   createCanvas(720, 400);
   strokeWeight(2);
   frameRate(30);
-  //test
+  //test...
 }
 
 function draw() {
