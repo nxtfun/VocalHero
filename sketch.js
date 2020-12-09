@@ -1,16 +1,18 @@
 let xvals = [];
 let yvals = [];
 let a = 720;
-
+//test brancha
 
 
 function setup() {
   createCanvas(720, 400);
   strokeWeight(2);
   frameRate(30);
+  
 }
 
 function draw() {
+ if (Zuzi) console.log('Ciastko');  
 clear();  
 
   a = a-1;

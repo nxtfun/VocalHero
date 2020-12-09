@@ -1,0 +1,106 @@
+
+let iter = 0
+let iter_znak = 1;
+let yy = 1;
+let odstep = 1;
+
+let odstep2 = 15;
+
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  
+    background(255)
+  
+  
+  
+
+  let y1 = 0,
+   y2 = 10,
+   y3 = 20,
+   y4 = 20;
+noFill();  
+
+  ax1 = 150;
+  ay1 = -yy*0.5+10+height/2;
+  ax2 = 280;
+  ay2 = -yy*2+10+height/2;
+  ax3 = 350;
+  ay3 = yy*2+10+height/2;
+  ax4 = 4*width/5;
+  ay4 = -yy*1.6+10+height/2;
+  
+  //circle(ax1,ay1,5)
+  //circle(ax2,ay2,5)
+  //circle(ax3,ay3,5)
+  //circle(ax4,ay4,5)
+  //circle(ax1,ay1,5)
+  
+  
+  
+  //strokeWeight(5);
+  
+  //point(260,5+height/2)
+  
+  strokeWeight(2);
+
+  
+  
+  
+
+ // bezier(ax1, ay1, ax2, ay2, ax3, ay3, ax4, ay4);
+
+
+  yy = bezierPoint(y1, y2, y3, y4, iter);//smooth text movement
+  //circle(100, 70+yy, 20);
+  if (iter < 1 & millis() > 2000)  iter = iter+0.02*iter_znak;
+
+  //if (iter < 0) iter_znak = 1;
+  //if (iter > 1) iter_znak = -1;
+  let b1x = width/4,
+  b1y = -0.5*yy + height/2,
+      
+  b2x = 50+width/4,
+  b2y = -yy + height/2,
+  
+  b3x = 150+width/4,
+  b3y = height/2,
+  
+  b4x = 245+width/4,
+  b4y = -1.6*yy + height/2,
+  b5y = 315+width/4
+  
+  fill(0)
+  textSize(45);
+  text('Lu',b1x,b1y)
+  text('bisz',b2x,b2y)
+  text('ciast',b3x,b3y)
+  text('ka?',b4x,b4y)
+  
+  line(b1x,odstep + b1y,b2x-10,odstep + b1y)
+  
+  line(b2x+10,odstep +b2y,b3x-25,odstep + b2y)
+  
+  line(b3x+10,odstep+ b3y,b4x-10,odstep + b3y)
+  
+  line(b4x+10,odstep + b4y,b5y,odstep + b4y)
+  
+  noFill()
+  
+  bezier(b2x-10,odstep + b1y,b2x-10+odstep2,odstep + b1y,b2x+10-odstep2,odstep +b2y,b2x+10,odstep +b2y)
+  
+  bezier(b3x-25,odstep + b2y,b3x-25+odstep2,odstep + b2y,b3x+10-odstep2,odstep+ b3y,b3x+10,odstep+ b3y)
+  
+  bezier(b4x-10,odstep + b3y,b4x-10+odstep2,odstep + b3y,b4x+10-odstep2,odstep + b4y,b4x+10,odstep + b4y)
+  
+  
+  
+  
+
+  
+
+}
+
