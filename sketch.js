@@ -9,6 +9,7 @@ let yvalues; // Using an array to store height values for the wave
 
 function setup() {
   createCanvas(720, 400);
+  //createCanvas(windowWidth, windowHeight);
   w = width + 16;
   dx = (TWO_PI / period) * xspacing;
   yvalues = new Array(floor(w / xspacing));
@@ -18,13 +19,13 @@ function draw() {
   background(237, 34, 93);
   calcWave();
   renderWave();
-  
+
   fill(255)
-  stroke(0,0,0,0);
+  stroke(0, 0, 0, 0);
   textSize(50);
-  text('VOCAL HERO', 20 ,8* height / 9 );
-  
-  
+  text('VOCAL HERO', 20, 8 * height / 9);
+
+
 }
 
 function calcWave() {
@@ -47,10 +48,14 @@ function renderWave() {
   for (let x = 0; x < yvalues.length; x++) {
     ellipse(x * xspacing, height / 3 + yvalues[x], 16, 16);
   }
-  
-  
-    for (let x = 0; x < yvalues.length; x++) {
-    ellipse(x * xspacing, height / 3 - yvalues[x] +100 , 16, 16);
+
+
+  for (let x = 0; x < yvalues.length; x++) {
+    ellipse(x * xspacing, height / 3 - yvalues[x] + 100, 16, 16);
   }
-  
+
 }
+
+// function mouseClicked(event) {
+//   window.open("https://www.google.com");
+// }
