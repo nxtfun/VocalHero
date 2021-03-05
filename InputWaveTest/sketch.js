@@ -2,7 +2,10 @@ let colour
 let controllers = []
 let connected = 0;
 let sensor = 0;
-let lastTime = 0;
+let previousMillis = 0;
+let currentMillis = 0;
+let secinsample = 10; //how many ms between samples
+let przesuw=0;
 
 function setup() {
   colour=color('white')
@@ -34,15 +37,30 @@ function setup() {
 
 
 function draw() {
-lastTime = millis()-lastTime;
+currentMillis = millis();
+  if(currentMillis - previousMillis > secinsample){
+    previousMillis = currentMillis;
+    //print('Hello');
+    przesuw = przesuw+1;
+  }
+  
 
+  
+    //for (let i = 1; i < width; i++) {
+    //xvals[i - 1] = xvals[i];
+    //yvals[i - 1] = yvals[i];
+  
+  
+  
+  
+  
 background(colour)
 sensor = axisInput();  
   
 text(sensor, 10, 20);
 text('Podłączony: ',10,40);
-text('Delta time: ',10,60);
-text(lastTime,70,60);
+text('Millis: ',10,60);
+text(millis(),50,60);
  
   
 if(connected){
@@ -66,9 +84,8 @@ pop()
   strokeWeight(2);
   stroke(200);
   line(50, 330-sensor, 350, 330-sensor);
-  line(50,330,50,200)
+  line(50+przesuw,330,50+przesuw,200)
   pop()
-  
   
   
   
@@ -110,7 +127,5 @@ function axisInput()
   }
 }
 
-function millisDelay(){
-  
-}
+
   
