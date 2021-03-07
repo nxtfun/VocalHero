@@ -3,12 +3,18 @@ let controllers = []
 let connected = 0;
 let sensor = 0;
 let previousMillis = 0;
+let previousMillis2 = 0;
 let currentMillis = 0;
 let secinsample = 10; //how many ms between samples
 let przesuw=0;
+let xvals = []; // values from sensor saved to buffer
+let xtime = []; // time stamps for every sensor value
+let di=0;
 
 function setup() {
-  colour=color('white')
+//start of setup  
+  
+  colour=color('#white')
   createCanvas(400, 400)
   background(120,0,0)
   noStroke()
@@ -31,36 +37,61 @@ function setup() {
   //frameRate(10);
   
 }
-
+//end of setup
 
 
 
 
 function draw() {
+background(colour)
+
+
+//Input from sensor
+if(!connected){
+  if((-mouseY+332)>=0 &&(-mouseY+332)<131){
+    sensor = -mouseY+332;
+  }
+  else{
+    sensor = 0;
+  }
+  
+}
+  else{
+sensor = axisInput();  
+  } 
+  
+//time  
 currentMillis = millis();
   if(currentMillis - previousMillis > secinsample){
     previousMillis = currentMillis;
     //print('Hello');
+    if(przesuw>300)przesuw = 0;
     przesuw = przesuw+1;
   }
   
 
-  
-    //for (let i = 1; i < width; i++) {
-    //xvals[i - 1] = xvals[i];
-    //yvals[i - 1] = yvals[i];
+//save input data to buffer  
   
   
+    if(di)
+    //for (let i = 0; i < width; i++) {
+    xvals[di] = sensor; //save sensor data with every frame
+    xtime[di] = currentMillis2 - previousMillis2
+    di++;
+      
+      
+      
+    
   
   
   
-background(colour)
-sensor = axisInput();  
+
+  
   
 text(sensor, 10, 20);
 text('Podłączony: ',10,40);
 text('Millis: ',10,60);
-text(millis(),50,60);
+text(round(millis()),50,60);
  
   
 if(connected){
