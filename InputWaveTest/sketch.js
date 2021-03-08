@@ -4,12 +4,25 @@ let connected = 0;
 let sensor = 0;
 let previousMillis = 0;
 let previousMillis2 = 0;
+let timestamp = 0;
 let currentMillis = 0;
 let secinsample = 10; //how many ms between samples
 let przesuw=0;
 let xvals = []; // values from sensor saved to buffer
 let xtime = []; // time stamps for every sensor value
 let di=0;
+let pixpsec = 0.100;//how many pixels in 1 ms on chart
+let rduration = 3000;//how long is one recording
+let chartlen = pixpsec*rduration;//length of chart in px
+
+
+//chartlen - rduration
+//x        - stamp
+
+//x = stamp * chartlen/rduration
+//x= stamp*pixpsec
+
+
 
 function setup() {
 //start of setup  
@@ -62,30 +75,62 @@ sensor = axisInput();
   
 //time  
 currentMillis = millis();
-  if(currentMillis - previousMillis > secinsample){
-    previousMillis = currentMillis;
+//  if(currentMillis - previousMillis > secinsample){
+//    previousMillis = currentMillis;
     //print('Hello');
-    if(przesuw>300)przesuw = 0;
-    przesuw = przesuw+1;
+//    if(przesuw>300)przesuw = 0;
+//    przesuw = przesuw+1;
+//  }
+  
+
+  //save input data to buffer
+  
+    timestamp = round(currentMillis - previousMillis2);//current time in ms from start of recording data
+    
+    
+    xvals[di] = sensor; //save sensor data with every frame
+    xtime[di] = timestamp; //save time from start in ms with every frame
+    
+  //If data gathering time is longer than (value of time in ms), reset the timestamp.
+    if(timestamp>rduration){//
+      di=0;
+      previousMillis2 = currentMillis;
+      //print(xtime);
+    }
+  else{
+    di++;
   }
   
-
-//save input data to buffer  
+push()  
+strokeWeight(10);
+fill(204, 153, 0);
+ellipse(200, 200,10+ sensor,10+ sensor);
+pop()
   
+    push()
+  strokeWeight(2);
+  stroke(200);
+  line(50, 330-sensor, 350, 330-sensor);
+  line(50+przesuw,330,50+przesuw,200)
+  pop()
   
-    if(di)
-    //for (let i = 0; i < width; i++) {
-    xvals[di] = sensor; //save sensor data with every frame
-    xtime[di] = currentMillis2 - previousMillis2
-    di++;
-      
-      
-      
+  //draw chart
+  push() 
+  stroke(100);//line color
+  strokeWeight(2);//line weight
+  
     
-  
+  for (let i = 0; i < xvals.length; i++) {
+    line(pixpsec*xtime[i]+50,-xvals[i]+330,pixpsec*xtime[i+1]+50,-xvals[i+1]+330);
+    
+  }
   
   
 
+
+  
+  line(50, 335, 30+(chartlen), 335);
+pop()
   
   
 text(sensor, 10, 20);
@@ -101,22 +146,13 @@ if(connected){
     text('NIE',80,40);
   }
   
-push()  
-strokeWeight(10);
-fill(204, 153, 0);
-ellipse(200, 200,10+ sensor,10+ sensor);
-pop()
+
 
 push()
 textSize(30);
 text('Lubisz ciastka?',100,140);  
 pop()  
-  push()
-  strokeWeight(2);
-  stroke(200);
-  line(50, 330-sensor, 350, 330-sensor);
-  line(50+przesuw,330,50+przesuw,200)
-  pop()
+
   
   
   
