@@ -11,9 +11,10 @@ let przesuw=0;
 let xvals = []; // values from sensor saved to buffer
 let xtime = []; // time stamps for every sensor value
 let di=0;
-let pixpsec = 0.100;//how many pixels in 1 ms on chart
+let pixpsec = 0.10;//how many pixels in 1 ms on chart
 let rduration = 3000;//how long is one recording
 let chartlen = pixpsec*rduration;//length of chart in px
+let json = {}; //new JSON Object
 
 
 //chartlen - rduration
@@ -95,6 +96,13 @@ currentMillis = millis();
     if(timestamp>rduration){//
       di=0;
       previousMillis2 = currentMillis;
+      
+      json.values = xvals;
+      json.timestamp = xtime;
+      saveJSON(json, 'ciastko.json');
+      
+      
+      xvals = [];//erase data
       //print(xtime);
     }
   else{
