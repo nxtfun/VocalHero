@@ -1,3 +1,6 @@
+//color pallete:
+//https://coolors.co/8ecae6-219ebc-023047-ffb703-fb8500
+let jsonContainer
 let colour 
 let controllers = []
 let connected = 0;
@@ -10,11 +13,18 @@ let secinsample = 10; //how many ms between samples
 let przesuw=0;
 let xvals = []; // values from sensor saved to buffer
 let xtime = []; // time stamps for every sensor value
+let xvals2 = []; // values from file saved to buffer
+let xtime2 = []; // time stamps for every sensor value from file
+
+let startButton;
+let stopButton;
+
 let di=0;
 let pixpsec = 0.10;//how many pixels in 1 ms on chart
-let rduration = 3000;//how long is one recording
+let rduration = 6000;//how long is one recording
 let chartlen = pixpsec*rduration;//length of chart in px
 let json = {}; //new JSON Object
+let startState = 0;//state of chart  '1' after start, '0 when stopped'
 
 
 //chartlen - rduration
@@ -23,14 +33,45 @@ let json = {}; //new JSON Object
 //x = stamp * chartlen/rduration
 //x= stamp*pixpsec
 
+function preload() {
+  
+  jsonContainer = loadJSON('ciastko.json');
 
+  
+}
 
 function setup() {
-//start of setup  
+//start of setup
   
-  colour=color('#white')
-  createCanvas(400, 400)
-  background(120,0,0)
+  startButton = createButton('START!');
+  startButton.position(50,70);
+  startButton.mousePressed(startButtonF);
+  
+  stopButton = createButton('STOP!');
+  stopButton.position(50,90);
+  stopButton.mousePressed(stopButtonF);
+  
+  textFont("Montserrat");
+  xvals2 = Object.values(jsonContainer.values);
+  xtime2 = Object.values(jsonContainer.timestamp);
+  
+//console.log(xvals2);
+//xvals2 = Object.values(xvals2);//to check if valid
+//console.log(typeof xvals2);
+console.log(xtime2[21]);
+ 
+  
+  
+
+  
+  
+  
+  //colour=color('#white')
+  
+  
+  
+  createCanvas(750, 400)
+  //background(120,200,0)
   noStroke()
   window.addEventListener("gamepadconnected", function(e) {
   gamepadHandler(e, true);
@@ -57,15 +98,34 @@ function setup() {
 
 
 function draw() {
-background(colour)
+//clear();  
+background ('#fb8500');
+  
+  
+  
+  push();
+  fill(250)
+  strokeWeight(0);
+  stroke(150);
+  rect(50, 155, chartlen, 200,10);
+  pop(); 
+  
+//background (255,183,3)
 
-
+//print(xvals2[])  ;
+  
 //Input from sensor
 if(!connected){
   if((-mouseY+332)>=0 &&(-mouseY+332)<131){
     sensor = -mouseY+332;
   }
+  else if((-mouseY+332)>=131){
+    sensor = 130;
+          
+          }
   else{
+    
+    
     sensor = 0;
   }
   
@@ -93,39 +153,48 @@ currentMillis = millis();
     xtime[di] = timestamp; //save time from start in ms with every frame
     
   //If data gathering time is longer than (value of time in ms), reset the timestamp.
-    if(timestamp>rduration){//
+    if(timestamp>rduration || (!startState)){//
       di=0;
       previousMillis2 = currentMillis;
       
       json.values = xvals;
       json.timestamp = xtime;
-      saveJSON(json, 'ciastko.json');
+      //saveJSON(json, 'ciastko.json');
       
       
       xvals = [];//erase data
       //print(xtime);
     }
   else{
-    di++;
+    
+
+    di++;//iterate to next frame
   }
+  
+  
+  
+  
+  
   
 push()  
 strokeWeight(10);
-fill(204, 153, 0);
-ellipse(200, 200,10+ sensor,10+ sensor);
+  fill(200)
+//fill(204, 153, 0);
+  //fill('#FFB703')
+//ellipse(50, height,50+ sensor,50+ sensor);
 pop()
   
     push()
   strokeWeight(2);
   stroke(200);
-  line(50, 330-sensor, 350, 330-sensor);
-  line(50+przesuw,330,50+przesuw,200)
+  line(52, 330-sensor, chartlen+48, 330-sensor);
+  //line(50+przesuw,330,50+przesuw,200)
   pop()
   
   //draw chart
   push() 
   stroke(100);//line color
-  strokeWeight(2);//line weight
+  strokeWeight(2.6);//line weight
   
     
   for (let i = 0; i < xvals.length; i++) {
@@ -133,13 +202,28 @@ pop()
     
   }
   
+  stroke(100,200,300);
+/*
+  
+  for (let i = 0; i < xvals2.length; i++) {
+    line(pixpsec*xtime2[i]+50,-xvals2[i]+330,pixpsec*xtime2[i+1]+50,-xvals2[i+1]+330);
+    
+  }
+  stroke(100);
+*/
+  
+    
   
 
 
   
-  line(50, 335, 30+(chartlen), 335);
+  //line(50, 335, 30+(chartlen), 335);
 pop()
   
+
+  
+  
+
   
 text(sensor, 10, 20);
 text('Podłączony: ',10,40);
@@ -158,7 +242,7 @@ if(connected){
 
 push()
 textSize(30);
-text('Lubisz ciastka?',100,140);  
+text('Lubisz ciastka?',250,140);  
 pop()  
 
   
@@ -200,6 +284,17 @@ function axisInput()
   else{
     return 0;
   }
+}
+
+
+function startButtonF() {
+  console.log('Start!');
+  startState = 1;
+}
+
+function stopButtonF() {
+  console.log('Stop!');
+  startState = 0;
 }
 
 
