@@ -47,9 +47,9 @@ function setup() {
   startButton.position(50,70);
   startButton.mousePressed(startButtonF);
   
-  stopButton = createButton('STOP!');
-  stopButton.position(50,90);
-  stopButton.mousePressed(stopButtonF);
+  //stopButton = createButton('STOP!');
+  //stopButton.position(50,90);
+  //stopButton.mousePressed(stopButtonF);
   
   textFont("Montserrat");
   xvals2 = Object.values(jsonContainer.values);
@@ -107,7 +107,7 @@ background ('#fb8500');
   fill(250)
   strokeWeight(0);
   stroke(150);
-  rect(50, 155, chartlen, 200,10);
+  rect(50, 155, chartlen+1, 200,10);
   pop(); 
   
 //background (255,183,3)
@@ -145,32 +145,23 @@ currentMillis = millis();
   
 
   //save input data to buffer
-  
-    timestamp = round(currentMillis - previousMillis2);//current time in ms from start of recording data
-    
-    
-    xvals[di] = sensor; //save sensor data with every frame
-    xtime[di] = timestamp; //save time from start in ms with every frame
-    
-  //If data gathering time is longer than (value of time in ms), reset the timestamp.
-    if(timestamp>rduration || (!startState)){//
-      di=0;
-      previousMillis2 = currentMillis;
-      
-      json.values = xvals;
-      json.timestamp = xtime;
-      //saveJSON(json, 'ciastko.json');
-      
-      
-      xvals = [];//erase data
-      //print(xtime);
-    }
-  else{
-    
-
-    di++;//iterate to next frame
+  if(startState){
+  startRecording();
+  }
+  else {
+    previousMillis2 = currentMillis;
+    //xvals = [];//erase data
+    di=0;
   }
   
+    
+ // push()  
+//strokeWeight(10);
+  //fill(200)
+//fill(204, 153, 0);
+  //fill('#FFB703')
+//ellipse(width/2 -20, height/2 +55,180,180);
+//pop()
   
   
   
@@ -187,7 +178,7 @@ pop()
     push()
   strokeWeight(2);
   stroke(200);
-  line(52, 330-sensor, chartlen+48, 330-sensor);
+  line(52, 330-sensor, chartlen+48+1, 330-sensor);
   //line(50+przesuw,330,50+przesuw,200)
   pop()
   
@@ -288,14 +279,51 @@ function axisInput()
 
 
 function startButtonF() {
+  if(!startState){
   console.log('Start!');
+  xvals = [];//erase data
   startState = 1;
+  di=0;
+    }
 }
 
 function stopButtonF() {
   console.log('Stop!');
   startState = 0;
+  previousMillis2 = currentMillis;
 }
 
 
+function startRecording() {
   
+  timestamp = round(currentMillis - previousMillis2);//current time in ms from start of recording data
+    
+    
+    
+    
+  //If data gathering time is longer than (value of time in ms), reset the timestamp.
+    if(timestamp>rduration){
+      //di=0;
+      //previousMillis2 = currentMillis;
+      
+      json.values = xvals;
+      json.timestamp = xtime;
+      //saveJSON(json, 'ciastko.json');
+      stopButtonF();
+      
+      //xvals = [];//erase data
+      //print(xtime);
+    }
+  else{
+    
+    xvals[di] = sensor; //save sensor data with every frame
+    xtime[di] = timestamp; //save time from start in ms with every frame
+    di++;//iterate to next frame
+  }
+  
+  text('time:',10,130);
+  text(timestamp,40,130);
+  text('frame:',10,145)
+  text(di,45,145)
+  
+}
