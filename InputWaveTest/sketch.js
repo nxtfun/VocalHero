@@ -1,6 +1,7 @@
 //color pallete:
 //https://coolors.co/8ecae6-219ebc-023047-ffb703-fb8500
 let jsonContainer
+let radio //radio buttons
 let colour 
 let controllers = []
 let connected = 0;
@@ -18,6 +19,7 @@ let xtime2 = []; // time stamps for every sensor value from file
 
 let startButton;
 let stopButton;
+let radioVal; //radio button value
 
 let di=0;
 let pixpsec = 0.10;//how many pixels in 1 ms on chart
@@ -43,6 +45,17 @@ function preload() {
 function setup() {
 //start of setup
   
+  //radio buttons
+  radio = createRadio(); 
+  radio.option('1');
+  radio.option('2');
+  radio.option('3');
+  radio.style('width', '200px');
+  radio.style('height', '20px');
+  radio.position(50,5);
+  
+  
+  //buttons
   startButton = createButton('START!');
   startButton.position(50,70);
   startButton.mousePressed(startButtonF);
@@ -100,6 +113,8 @@ console.log(xtime2[21]);
 function draw() {
 //clear();  
 background ('#fb8500');
+  
+  radioVal = radio.value();
   
   
   
@@ -327,3 +342,8 @@ function startRecording() {
   text(di,45,145)
   
 }
+
+function saveCSV(){
+  
+}
+
