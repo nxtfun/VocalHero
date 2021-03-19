@@ -1,6 +1,7 @@
 //color pallete:
 //https://coolors.co/8ecae6-219ebc-023047-ffb703-fb8500
-let jsonContainer
+let jsonContainer//json container to load data to
+let json = {}; //new JSON Object to save data to
 let radio //radio buttons
 let colour 
 let controllers = []
@@ -25,8 +26,23 @@ let di=0;
 let pixpsec = 0.10;//how many pixels in 1 ms on chart
 let rduration = 6000;//how long is one recording
 let chartlen = pixpsec*rduration;//length of chart in px
-let json = {}; //new JSON Object
+
 let startState = 0;//state of chart  '1' after start, '0 when stopped'
+
+//id and markers data
+let taskType = 1; //which module, from (1-3)
+let taskIndex = 0;//which task from start
+let exerciseData; //example to learn
+let hours;
+let minutes;
+let seconds;
+let years;
+let months;
+let days;
+
+let mic, recorder, soundFile; //audio recorder
+
+
 
 
 //chartlen - rduration
@@ -44,6 +60,12 @@ function preload() {
 
 function setup() {
 //start of setup
+  
+  //input text
+  input = createInput();
+  input.position(200, 5);
+  
+  
   
   //radio buttons
   radio = createRadio(); 
@@ -73,6 +95,25 @@ function setup() {
 //console.log(typeof xvals2);
 console.log(xtime2[21]);
  
+  
+  
+  
+  
+  //audio recorder
+    // create an audio in
+  mic = new p5.AudioIn();
+
+  // users must manually enable their browser microphone for recording to work properly!
+  mic.start();
+
+  // create a sound recorder
+  recorder = new p5.SoundRecorder();
+
+  // connect the mic to the recorder
+  recorder.setInput(mic);
+
+  // create an empty sound file that we will use to playback the recording
+  soundFile = new p5.SoundFile();
   
   
 
@@ -110,13 +151,32 @@ console.log(xtime2[21]);
 
 
 
+
+
+
+//---------------------------------------------
+
+
+
+
+
+
+
+//mic.enabled
+
 function draw() {
 //clear();  
 background ('#fb8500');
   
-  radioVal = radio.value();
+  exerciseData=input.value();
   
   
+  
+  
+  //radioVal = radio.value();
+  
+  text('ID:',150,20);
+  text(taskIndex,168,20);//which index is now playing
   
   push();
   fill(250)
@@ -248,7 +308,10 @@ if(connected){
 
 push()
 textSize(30);
-text('Lubisz ciastka?',250,140);  
+//text('Lubisz ciastka?',250,140);
+  text(exerciseData,250,140);
+  
+  
 pop()  
 
   
@@ -294,11 +357,16 @@ function axisInput()
 
 
 function startButtonF() {
-  if(!startState){
+  if(!startState && radio.value()){
   console.log('Start!');
+  taskIndex++;
   xvals = [];//erase data
   startState = 1;
   di=0;
+    
+  recorder.record(soundFile);//record audio  
+    
+    
     }
 }
 
@@ -306,6 +374,7 @@ function stopButtonF() {
   console.log('Stop!');
   startState = 0;
   previousMillis2 = currentMillis;
+  
 }
 
 
@@ -321,9 +390,39 @@ function startRecording() {
       //di=0;
       //previousMillis2 = currentMillis;
       
+      recorder.stop();//stop recording audio
+      
+      
+      
+      
+      hours = hour();
+      minutes = minute();
+      seconds = second();
+      years = year();
+      months = month();
+      days = day();
+      
+
+      
+      
+      json.id = taskIndex;
+      json.module = radio.value();
+      json.exercise = exerciseData;
+      json.date = (str(days) + '.' + str(months) + '.' + str(years));
+      json.hour = (str(hours) + ':' + str(minutes) + ':' + str(seconds));
+      
+      
+      
       json.values = xvals;
       json.timestamp = xtime;
-      //saveJSON(json, 'ciastko.json');
+      
+      
+      saveJSON(json,str(taskIndex) + '_' + 'mod' + str(radio.value() + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds)));
+      
+      
+      saveSound(soundFile,str(taskIndex) + '_' + 'mod' + str(radio.value() + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds))); // save file
+      
+      
       stopButtonF();
       
       //xvals = [];//erase data
