@@ -1,5 +1,21 @@
 //color pallete:
 //https://coolors.co/8ecae6-219ebc-023047-ffb703-fb8500
+
+let zapis = 1;//zmien na zero by nie zapisywac plikow
+
+//wysokosc szarych linii
+let linia1 = 50;
+let linia2 = 50;
+let linia3 = 50;
+let linia4 = 50;
+let linia5 = 50;
+let linia6 = 50;
+let linia7 = 50;
+let linia8 = 50;
+
+
+
+
 let jsonContainer//json container to load data to
 let json = {}; //new JSON Object to save data to
 let radio //radio buttons
@@ -24,7 +40,7 @@ let radioVal; //radio button value
 
 let di=0;
 let pixpsec = 0.10;//how many pixels in 1 ms on chart
-let rduration = 6000;//how long is one recording
+let rduration = 10000;//how long is one recording
 let chartlen = pixpsec*rduration;//length of chart in px
 
 let startState = 0;//state of chart  '1' after start, '0 when stopped'
@@ -63,7 +79,7 @@ function setup() {
   
   //input text
   input = createInput();
-  input.position(200, 5);
+  input.position(400, 5);
   
   
   
@@ -74,12 +90,12 @@ function setup() {
   radio.option('3');
   radio.style('width', '200px');
   radio.style('height', '20px');
-  radio.position(50,5);
+  radio.position(300,5);
   
   
   //buttons
   startButton = createButton('START!');
-  startButton.position(50,70);
+  startButton.position(560,5);
   startButton.mousePressed(startButtonF);
   
   //stopButton = createButton('STOP!');
@@ -124,7 +140,7 @@ console.log(xtime2[21]);
   
   
   
-  createCanvas(750, 400)
+  createCanvas(1100, 400)
   //background(120,200,0)
   noStroke()
   window.addEventListener("gamepadconnected", function(e) {
@@ -175,15 +191,7 @@ background ('#fb8500');
   
   //radioVal = radio.value();
   
-  text('ID:',150,20);
-  text(taskIndex,168,20);//which index is now playing
-  
-  push();
-  fill(250)
-  strokeWeight(0);
-  stroke(150);
-  rect(50, 155, chartlen+1, 200,10);
-  pop(); 
+ 
   
 //background (255,183,3)
 
@@ -206,8 +214,42 @@ if(!connected){
   
 }
   else{
-sensor = axisInput();  
+//sensor = round(axisInput(),2); 
+  sensor = axisInput();
+  //sensor = round(sensor,2);  
+
   } 
+  
+  
+  push()  
+strokeWeight(10);
+  //fill(200)
+fill(204, 153, 0);
+  fill('#FFB703')
+rect(0,height,width,-sensor*2+30);
+pop()
+  
+  
+  
+    push()  
+strokeWeight(10);
+  //fill(200)
+fill(250);
+  //fill('#FFB703')
+rect(50,20,135,70,10);
+pop()
+  
+  
+  
+    text('ID:',700,20);
+  text(taskIndex,720,20);//which index is now playing
+  
+  push();
+  fill(250)
+  strokeWeight(0);
+  stroke(150);
+  rect(50, 105, chartlen+1, 250,10);
+  pop();
   
 //time  
 currentMillis = millis();
@@ -242,18 +284,48 @@ currentMillis = millis();
   
   
   
-push()  
-strokeWeight(10);
-  fill(200)
+//push()  
+//strokeWeight(10);
+//  fill(200)
 //fill(204, 153, 0);
-  //fill('#FFB703')
-//ellipse(50, height,50+ sensor,50+ sensor);
-pop()
+//  fill('#FFB703')
+//ellipse(750, 0,50+ sensor*2,50+ sensor*2);
+//pop()
   
     push()
   strokeWeight(2);
+  stroke('#0CCA4A');
+  line(52, 430-sensor*2, chartlen+48+1, 430-sensor*2);
+ 
+  
+  pop()
+  push()  
+strokeWeight(2);
   stroke(200);
-  line(52, 330-sensor, chartlen+48+1, 330-sensor);
+  
+  
+  
+  
+line(52,430-linia1*2, chartlen+48+1,430-linia1*2);
+  
+  
+line(52,430-linia2*2, chartlen+48+1,430-linia2*2);
+  
+  
+line(52,430-linia3*2, chartlen+48+1,430-linia3*2);
+  
+line(52,430-linia4*2, chartlen+48+1,430-linia4*2);
+  
+line(52,430-linia5*2, chartlen+48+1,430-linia5*2);
+  
+line(52,430-linia6*2, chartlen+48+1,430-linia6*2);
+  
+line(52,430-linia7*2, chartlen+48+1,430-linia7*2);
+  
+line(52,430-linia8*2, chartlen+48+1,430-linia8*2);
+  
+  
+  
   //line(50+przesuw,330,50+przesuw,200)
   pop()
   
@@ -264,7 +336,7 @@ pop()
   
     
   for (let i = 0; i < xvals.length; i++) {
-    line(pixpsec*xtime[i]+50,-xvals[i]+330,pixpsec*xtime[i+1]+50,-xvals[i+1]+330);
+    line(pixpsec*xtime[i]+50,-xvals[i]*2+430,pixpsec*xtime[i+1]+50,-xvals[i+1]*2+430);
     
   }
   
@@ -290,18 +362,22 @@ pop()
   
   
 
+push();
+textSize(40)
+text((round(sensor*100))/100, 60, 70);
+pop(); 
   
-text(sensor, 10, 20);
-text('Podłączony: ',10,40);
-text('Millis: ',10,60);
-text(round(millis()),50,60);
+
+text('Podłączony: ',800,20);
+//text('Millis: ',10,60);
+//text(round(millis()),50,60);
  
   
 if(connected){
-  text('TAK!',80,40);
+  text('TAK!',870,20);
 }
   else {
-    text('NIE',80,40);
+    text('NIE',870,20);
   }
   
 
@@ -309,7 +385,7 @@ if(connected){
 push()
 textSize(30);
 //text('Lubisz ciastka?',250,140);
-  text(exerciseData,250,140);
+  text(exerciseData,200,140);
   
   
 pop()  
@@ -346,7 +422,8 @@ function axisInput()
   {
     let controller=gamepads[i]//controllers[i]
     
-    return 100+controller.axes[7]*100;
+    //return 100+controller.axes[7]*100;
+    return 100+(controller.axes[10]+controller.axes[7])*100;
    
   }
   }
@@ -416,12 +493,12 @@ function startRecording() {
       json.values = xvals;
       json.timestamp = xtime;
       
+      if(zapis){
+      saveJSON(json,str(taskIndex) + '_' + 'mod' + str(radio.value() + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData));
       
-      saveJSON(json,str(taskIndex) + '_' + 'mod' + str(radio.value() + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds)));
       
-      
-      saveSound(soundFile,str(taskIndex) + '_' + 'mod' + str(radio.value() + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds))); // save file
-      
+      saveSound(soundFile,str(taskIndex) + '_' + 'mod' + str(radio.value() + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData)); // save file
+      }
       
       stopButtonF();
       
