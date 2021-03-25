@@ -193,6 +193,10 @@ background ('#fb8500');
   
   
   
+  
+  
+  
+  
   //radioVal = radio.value();
   
  
@@ -439,6 +443,7 @@ function axisInput()
 
 function startButtonF() {
   if(!startState && radio.value()){
+  getAudioContext().resume();
   console.log('Start!');
   taskIndex++;
   xvals = [];//erase data
