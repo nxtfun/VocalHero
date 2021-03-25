@@ -73,8 +73,9 @@ let mic, recorder, soundFile; //audio recorder
 
 function preload() {
   
-  jsonContainer = loadJSON('ciastko.json');
-
+  //jsonContainer = loadJSON('ciastko.json');
+  jsonContainer = loadJSON(databaseLocation + '2/1.json');
+  sound = loadSound(databaseLocation + '2/1.wav');
   
 }
 
@@ -349,14 +350,14 @@ line(52,430-linia8*2, chartlen+48+1,430-linia8*2);
   }
   
   stroke(100,200,300);
-/*
+
   
   for (let i = 0; i < xvals2.length; i++) {
     line(pixpsec*xtime2[i]+50,-xvals2[i]+330,pixpsec*xtime2[i+1]+50,-xvals2[i+1]+330);
     
   }
   stroke(100);
-*/
+
   
     
   
@@ -444,6 +445,7 @@ function axisInput()
 function startButtonF() {
   if(!startState && radio.value()){
   getAudioContext().resume();
+  sound.play();
   console.log('Start!');
   taskIndex++;
   xvals = [];//erase data
