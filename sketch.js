@@ -41,6 +41,7 @@ let exercise2 = []; // exercise from json
 let startButton;
 let stopButton;
 let radioVal; //radio button value
+let playButton;
 
 let di = 0;
 let pixpsec = 0.10;//how many pixels in 1 ms on chart
@@ -112,6 +113,10 @@ function setup() {
   startButton = createButton('START!');
   startButton.position(560, 5);
   startButton.mousePressed(startButtonF);
+
+  playButton = createButton('Przykład');
+  playButton.position(560, 25);
+  playButton.mousePressed(playButtonF);
 
   //stopButton = createButton('STOP!');
   //stopButton.position(50,90);
@@ -469,10 +474,6 @@ function draw() {
   strokeWeight(2.6);//line weight
 
 
-  for (let i = 0; i < xvals.length; i++) {
-    line(pixpsec * xtime[i] + 50, -xvals[i] * 2 + 430, pixpsec * xtime[i + 1] + 50, -xvals[i + 1] * 2 + 430);
-
-  }
 
   stroke(100, 200, 300);
 
@@ -481,7 +482,16 @@ function draw() {
     line(pixpsec * xtime2[i] + 50, -xvals2[i] + 330, pixpsec * xtime2[i + 1] + 50, -xvals2[i + 1] + 330);
 
   }
+
   stroke(100);
+
+  for (let i = 0; i < xvals.length; i++) {
+    line(pixpsec * xtime[i] + 50, -xvals[i] * 2 + 430, pixpsec * xtime[i + 1] + 50, -xvals[i + 1] * 2 + 430);
+
+  }
+
+
+
 
 
 
@@ -580,7 +590,7 @@ function startButtonF() {
     getAudioContext().resume(); //needed by browser to use microphone and audio
 
 
-    sound.play();
+
     console.log('Start!');
     taskIndex++;
 
@@ -598,6 +608,12 @@ function stopButtonF() {
   startState = 0;
   startState2 = 0;
   previousMillis2 = currentMillis;
+
+}
+
+
+function playButtonF() {
+  sound.play();
 
 }
 
