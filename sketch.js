@@ -71,6 +71,8 @@ let fade2 = 255;
 let fade3 = 255;
 let fade4 = 255;
 
+let examplesArray = [];//Array of random numbers from 1 to n, where n is number of examples in database
+
 //loadSound('https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/1_mod1_24-3-2021_23-26-6_kkk.wav')
 
 
@@ -87,6 +89,7 @@ function preload() {
   //jsonContainer = loadJSON('ciastko.json');
   jsonContainer = loadJSON(databaseLocation + '2/1.json');
   sound = loadSound(databaseLocation + '2/1.wav');
+  console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
 
 }
 
@@ -684,6 +687,62 @@ function startRecording() {
 }
 
 function saveCSV() {
+
+}
+
+
+
+function shuffleArray(n) {
+
+
+  //create array of n recurring elements
+
+  for (let i = 1; i - 1 < n; i++) {
+    examplesArray[i - 1] = i;
+  }
+
+
+  /* Randomize array in-place using Durstenfeld shuffle algorithm */
+
+  for (var i = examplesArray.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = examplesArray[i];
+    examplesArray[i] = examplesArray[j];
+    examplesArray[j] = temp;
+  }
+  return examplesArray;
+}
+
+
+//checkes if URL is valid
+function UrlExists(url) {
+  var http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  http.send();
+  if (http.status != 404) {
+    return 1;
+  }
+
+  else {
+    return 0;
+  }
+
+}
+
+
+
+
+//that function checkes how many examples are in database in 'n' module
+function checkHowManyExamples(n) {
+  let i = 0;
+  while (1) {
+    if (UrlExists(databaseLocation + str(n) + '/' + str(i + 1) + '.json')) {
+      i++
+    }
+    else {
+      return i;
+    }
+  }
 
 }
 
