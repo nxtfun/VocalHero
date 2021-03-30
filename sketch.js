@@ -16,10 +16,10 @@ let linia8 = 50;
 let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/';
 
 
-let jsonContainer//json container to load data to
+let jsonContainer;//json container to load data to
 let json = {}; //new JSON Object to save data to
-let radio //radio buttons
-let colour
+let radio; //radio buttons
+let colour;
 let controllers = []
 let connected = 0;
 let sensor = 0;
@@ -89,7 +89,9 @@ function preload() {
   //jsonContainer = loadJSON('ciastko.json');
   jsonContainer = loadJSON(databaseLocation + '2/1.json');
   sound = loadSound(databaseLocation + '2/1.wav');
-  console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
+  //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
+  examplesArray = shuffleArray(checkHowManyExamples(1));
+  console.log(examplesArray);
 
 }
 
@@ -164,7 +166,7 @@ function setup() {
 
 
 
-  createCanvas(1100, 400)
+  createCanvas(1100, 400);
   //background(120,200,0)
   noStroke()
   window.addEventListener("gamepadconnected", function (e) {
@@ -262,10 +264,37 @@ function draw() {
   push()
   strokeWeight(10);
   //fill(200)
-  fill(250);
+  fill(240);
+  stroke('#023047');
+  strokeWeight(2);
   //fill('#FFB703')
-  rect(50, 20, 135, 70, 10);
+  rect(900, 30, 150, 50, 10);
   pop()
+
+
+  push()
+
+  fill(250);
+  stroke('#023047');
+  strokeWeight(2);
+
+  rect(50, 30, 150, 50, 10);//start
+  rect(250, 30, 190, 50, 10);//przyklad
+  pop()
+
+  //023047
+  push()
+  textSize(30);
+  fill(20);
+  textAlign(CENTER);
+  text('START', 80, 65, 100);
+  text('PRZYKŁAD', 300, 65, 100);
+
+
+  pop()
+
+
+
 
 
 
@@ -509,7 +538,7 @@ function draw() {
 
   push();
   textSize(40)
-  text((round(sensor * 100)) / 100, 60, 70);
+  text((round(sensor * 100)) / 100, 910, 70);
   pop();
 
 
@@ -535,6 +564,21 @@ function draw() {
 
   pop()
 
+
+  //pop-ups
+  if (0) {
+
+    //greys out whole screen
+    push()
+    // strokeWeight(10);
+    //fill(200)
+    fill(240, 240, 240, 200);
+    //stroke('#023047');
+    strokeWeight(2);
+    //fill('#FFB703')
+    rect(0, 0, width, height);
+    pop()
+  }
 
 
 
@@ -735,7 +779,7 @@ function UrlExists(url) {
 //that function checkes how many examples are in database in 'n' module
 function checkHowManyExamples(n) {
   let i = 0;
-  while (1) {
+  for (let i = 0; i < 200; i++) {
     if (UrlExists(databaseLocation + str(n) + '/' + str(i + 1) + '.json')) {
       i++
     }
@@ -746,3 +790,13 @@ function checkHowManyExamples(n) {
 
 }
 
+
+
+function mousePressed() {
+  //console.log('Hello! MousePressed');
+
+
+
+
+
+}
