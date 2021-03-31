@@ -87,8 +87,8 @@ let examplesArray = [];//Array of random numbers from 1 to n, where n is number 
 function preload() {
 
   //jsonContainer = loadJSON('ciastko.json');
-  jsonContainer = loadJSON(databaseLocation + '2/1.json');
-  sound = loadSound(databaseLocation + '2/1.wav');
+  jsonContainer = loadJSON(databaseLocation + '1/1.json');
+  sound = loadSound(databaseLocation + '1/1.wav');
   //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
   examplesArray = shuffleArray(checkHowManyExamples(1));
   console.log(examplesArray);
@@ -115,13 +115,13 @@ function setup() {
 
 
   //buttons
-  startButton = createButton('START!');
-  startButton.position(560, 5);
-  startButton.mousePressed(startButtonF);
+  //startButton = createButton('START!');
+  //startButton.position(560, 5);
+  //startButton.mousePressed(startButtonF);
 
-  playButton = createButton('Przykład');
-  playButton.position(560, 25);
-  playButton.mousePressed(playButtonF);
+  //playButton = createButton('Przykład');
+  //playButton.position(560, 25);
+  //playButton.mousePressed(playButtonF);
 
   //stopButton = createButton('STOP!');
   //stopButton.position(50,90);
@@ -279,7 +279,7 @@ function draw() {
   strokeWeight(2);
 
   rect(50, 30, 150, 50, 10);//start
-  rect(250, 30, 190, 50, 10);//przyklad
+  rect(230, 30, 230, 50, 10);//odsłuchaj
   pop()
 
   //023047
@@ -288,10 +288,13 @@ function draw() {
   fill(20);
   textAlign(CENTER);
   text('START', 80, 65, 100);
-  text('PRZYKŁAD', 300, 65, 100);
+  text('ODSŁUCHAJ', 300, 65, 100);
 
 
   pop()
+
+  text(mouseX, 10, 20);
+  text(mouseY, 50, 20);
 
 
 
@@ -313,88 +316,6 @@ function draw() {
 
 
 
-  if (startCountdown) {
-
-
-
-    timestamp3 = currentMillis - previousMillis3;
-    if (timestamp3 > 0 && timestamp3 < 1000) {
-
-      push()
-      fill(0, 0, 0, fade1)
-      textSize(60);
-      textAlign(CENTER);
-      text('3', width / 2, 250);
-      pop()
-
-      fade1 = fade1 - 5;
-    }
-
-    if (timestamp3 > 1000 && timestamp3 < 2000) {
-
-      push()
-      fill(0, 0, 0, fade2)
-      textSize(60);
-      textAlign(CENTER);
-      text('2', width / 2, 250);
-      pop()
-
-      fade2 = fade2 - 5;
-
-    }
-
-    if (timestamp3 > 2000 && timestamp3 < 3000) {
-
-      push()
-      fill(0, 0, 0, fade3)
-      textSize(60);
-      textAlign(CENTER);
-      text('1', width / 2, 250);
-      pop()
-
-      fade3 = fade3 - 5;
-    }
-
-
-    if (timestamp3 > 3000 && timestamp3 < 3500) {
-
-      push()
-      fill(0, 0, 0, fade4)
-      textSize(60);
-      textAlign(CENTER);
-      text('START!', width / 2, 250);
-      pop()
-
-      fade4 = fade4 - 10;
-
-    }
-
-
-    if (timestamp3 > 3000) {
-
-      startState2 = 1; //start chart
-
-    }
-
-
-    if (timestamp3 > 4000) {
-
-      startCountdown = 0; //stop this function
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-  }
 
 
 
@@ -565,6 +486,94 @@ function draw() {
   pop()
 
 
+
+  if (startCountdown) {
+
+
+
+    timestamp3 = currentMillis - previousMillis3;
+    if (timestamp3 > 0 && timestamp3 < 1000) {
+
+      push()
+      fill(0, 0, 0, fade1)
+      textSize(60);
+      textAlign(CENTER);
+      text('3', width / 2, 250);
+      pop()
+
+      fade1 = fade1 - 5;
+    }
+
+    if (timestamp3 > 1000 && timestamp3 < 2000) {
+
+      push()
+      fill(0, 0, 0, fade2)
+      textSize(60);
+      textAlign(CENTER);
+      text('2', width / 2, 250);
+      pop()
+
+      fade2 = fade2 - 5;
+
+    }
+
+    if (timestamp3 > 2000 && timestamp3 < 3000) {
+
+      push()
+      fill(0, 0, 0, fade3)
+      textSize(60);
+      textAlign(CENTER);
+      text('1', width / 2, 250);
+      pop()
+
+      fade3 = fade3 - 5;
+    }
+
+
+    if (timestamp3 > 3000 && timestamp3 < 3500) {
+
+      push()
+      fill(0, 0, 0, fade4)
+      textSize(60);
+      textAlign(CENTER);
+      text('START!', width / 2, 250);
+      pop()
+
+      fade4 = fade4 - 10;
+
+    }
+
+
+    if (timestamp3 > 3000) {
+
+      startState2 = 1; //start chart
+
+    }
+
+
+    if (timestamp3 > 4000) {
+
+      startCountdown = 0; //stop this function
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+
+
+
+
   //pop-ups
   if (0) {
 
@@ -723,10 +732,10 @@ function startRecording() {
     di++;//iterate to next frame
   }
 
-  text('time:', 10, 130);
-  text(timestamp, 40, 130);
-  text('frame:', 10, 145)
-  text(di, 45, 145)
+  //text('time:', 10, 130);
+  //text(timestamp, 40, 130);
+  //text('frame:', 10, 145)
+  //text(di, 45, 145)
 
 }
 
@@ -794,9 +803,16 @@ function checkHowManyExamples(n) {
 
 function mousePressed() {
   //console.log('Hello! MousePressed');
+  if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80) {
+    startButtonF();
+  }
+
+  if (mouseX > 230 && mouseX < 460 && mouseY > 30 && mouseY < 80) {
+    playButtonF();
+    console.log('odsluch');
+  }
 
 
-
-
+  //playButtonF
 
 }
