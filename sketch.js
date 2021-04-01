@@ -86,12 +86,15 @@ let examplesArray = [];//Array of random numbers from 1 to n, where n is number 
 
 function preload() {
 
-  //jsonContainer = loadJSON('ciastko.json');
-  jsonContainer = loadJSON(databaseLocation + '1/1.json');
-  sound = loadSound(databaseLocation + '1/1.wav');
-  //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
   examplesArray = shuffleArray(checkHowManyExamples(1));
-  console.log(examplesArray);
+  //jsonContainer = loadJSON('ciastko.json');
+  jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
+  //jsonContainer = loadJSON(databaseLocation + '1/1.json');
+  sound = loadSound(databaseLocation + '1/' + str(examplesArray[1]) + '.wav');
+  //sound = loadSound(databaseLocation + '1/1.wav');
+  //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
+
+  //console.log(examplesArray);
 
 }
 
@@ -278,16 +281,55 @@ function draw() {
   stroke('#023047');
   strokeWeight(2);
 
-  rect(50, 30, 150, 50, 10);//start
+
   rect(230, 30, 230, 50, 10);//odsłuchaj
   pop()
+
+
+
+  //https://coolors.co/a6ebc9-61ff7e-dbfadb-62ab37-393424
+  push()
+
+  if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80 && !startState) {
+    fill('#5EEB5B');
+  }
+  else if (!startState) {
+    fill('#C9F8C9');
+  }
+  else if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80 && startState) {
+    fill('#FF3333');
+  }
+  else {
+    fill('#FFADAD');
+  }
+
+
+
+
+  //fill('#FF3333');
+
+  stroke('#023047');
+  strokeWeight(2);
+
+
+  rect(50, 30, 150, 50, 10);//start
+  pop()
+
+
+  //if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80)
 
   //023047
   push()
   textSize(30);
   fill(20);
   textAlign(CENTER);
-  text('START', 80, 65, 100);
+  if (!startState) {
+    text('START', 80, 65, 100);
+  }
+  else {
+    text('STOP', 80, 65, 100);
+  }
+
   text('ODSŁUCHAJ', 300, 65, 100);
 
 
@@ -496,7 +538,7 @@ function draw() {
 
       push()
       fill(0, 0, 0, fade1)
-      textSize(60);
+      textSize(70);
       textAlign(CENTER);
       text('3', width / 2, 250);
       pop()
@@ -508,7 +550,7 @@ function draw() {
 
       push()
       fill(0, 0, 0, fade2)
-      textSize(60);
+      textSize(70);
       textAlign(CENTER);
       text('2', width / 2, 250);
       pop()
@@ -521,7 +563,7 @@ function draw() {
 
       push()
       fill(0, 0, 0, fade3)
-      textSize(60);
+      textSize(70);
       textAlign(CENTER);
       text('1', width / 2, 250);
       pop()
@@ -534,7 +576,7 @@ function draw() {
 
       push()
       fill(0, 0, 0, fade4)
-      textSize(60);
+      textSize(70);
       textAlign(CENTER);
       text('START!', width / 2, 250);
       pop()
@@ -763,6 +805,7 @@ function shuffleArray(n) {
     examplesArray[i] = examplesArray[j];
     examplesArray[j] = temp;
   }
+  //console.log(examplesArray);
   return examplesArray;
 }
 
@@ -785,15 +828,15 @@ function UrlExists(url) {
 
 
 
-//that function checkes how many examples are in database in 'n' module
+//Checkes how many examples are in database in 'n' module
 function checkHowManyExamples(n) {
-  let i = 0;
+  let ii = 0;
   for (let i = 0; i < 200; i++) {
     if (UrlExists(databaseLocation + str(n) + '/' + str(i + 1) + '.json')) {
-      i++
+      ii++
     }
     else {
-      return i;
+      return ii;
     }
   }
 
@@ -803,9 +846,21 @@ function checkHowManyExamples(n) {
 
 function mousePressed() {
   //console.log('Hello! MousePressed');
-  if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80) {
+  if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80 && !startState) {
+    //getAudioContext().resume(); //needed by browser to use microphone and audio
     startButtonF();
   }
+  else if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80 && startState) {
+    stopButtonF();
+    //timestamp3 = 0;
+    startCountdown = 0;//stop countdown
+    startState = 0;
+
+    recorder.stop();//stop recording audio
+    //getAudioContext().resume(); //needed by browser to use microphone and audio
+  }
+
+
 
   if (mouseX > 230 && mouseX < 460 && mouseY > 30 && mouseY < 80) {
     playButtonF();
