@@ -40,10 +40,11 @@ let xtime = []; // time stamps for every sensor value
 let xvals2 = []; // values from file saved to buffer
 let xtime2 = []; // time stamps for every sensor value from file
 
-let xvalsScaled = []; // values from sensor saved to buffer, scaled 
-let xtimeScaled = [];
-let xvals2Scaled = [];
-let xtime2Scaled = [];
+let xvalsScaled = []; // values from sensor saved to buffer, scaled to chart height 
+let xvalsScaled2 = []; // values from file saved to buffer, scaled to chart height 
+
+
+
 
 let exercise2 = []; // exercise from json
 
@@ -355,8 +356,8 @@ function draw() {
 
   pop()
 
-  text(mouseX, 10, 20);
-  text(mouseY, 50, 20);
+  //text(mouseX, 10, 20);
+  //text(mouseY, 50, 20);
 
   push()
   textSize(30);
@@ -500,22 +501,104 @@ function draw() {
   stroke(100, 200, 300);
 
 
+
+  push();
+  beginShape();
+
+
+  fill(237, 34, 93, 100);
+  stroke(237, 34, 93);
+  //noStroke();
+  strokeWeight(2);
+
+  //chart from data
   for (let i = 0; i < xvals2.length; i++) {
-    line(pixpsec * xtime2[i] + 50, -xvals2[i] + 330, pixpsec * xtime2[i + 1] + 50, -xvals2[i + 1] + 330);
+    vertex(pixpsec * xtime2[i] + 50, - map(xvals2[i], 0, maxSensorValue, 0, 380) + 545);
+
+  }
+  vertex(pixpsec * xtime2[xvals2.length - 1] + 50, 554);
+  vertex(pixpsec * xtime2[0] + 50, 554);
+  vertex(pixpsec * xtime2[0] + 50, - map(xvals2[0], 0, maxSensorValue, 0, 380) + 545);
+
+
+
+
+  endShape();
+  pop();
+
+
+
+  /*
+    //chart from data
+    for (let i = 0; i < xvals2.length; i++) {
+      line(pixpsec * xtime2[i] + 50, -xvalsScaled2[i] + 545, pixpsec * xtime2[i + 1] + 50, -xvalsScaled2[i + 1] + 545);
+  
+    }
+  */
+
+
+
+
+
+
+
+  beginShape();
+
+
+  fill(2, 48, 71, 200);
+  stroke(2, 48, 71);
+  strokeWeight(2);
+  //chart from sensor, live
+  for (let i = 0; i < xvalsScaled.length; i++) {
+    vertex(pixpsec * xtime[i] + 50, -xvalsScaled[i] + 545);
 
   }
 
-  stroke(100);
+  vertex(pixpsec * xtime[xvalsScaled.length - 1] + 50, 554);
+  vertex(pixpsec * xtime[0] + 50, 554);
+  vertex(pixpsec * xtime[0] + 50, - xvalsScaled[0] + 545);
 
-  for (let i = 0; i < xvals.length; i++) {
-    line(pixpsec * xtime[i] + 50, -xvals[i] * 2 + 430, pixpsec * xtime[i + 1] + 50, -xvals[i + 1] * 2 + 430);
+
+
+
+  endShape();
+
+  /*
+
+//chart from sensor, live
+  for (let i = 0; i < xvalsScaled.length; i++) {
+    line(pixpsec * xtime[i] + 50, -xvalsScaled[i] + 545, pixpsec * xtime[i + 1] + 50, -xvalsScaled[i + 1] + 545);
 
   }
 
+*/
 
 
 
 
+  /*
+beginShape();
+  for (let i = 1; i < width; i++) {
+    stroke(0,255,94);
+    point(i, 4 * height / 6 + xvals[i] / 3);
+    
+    fill(237, 34, 93,100)
+    stroke(237, 34, 93);
+    point(i-(2*width/5),-xvalsScaled[i] + 545);
+
+    
+    vertex(i-(2*width/5),-xvalsScaled[i] + 545)
+      
+
+
+  }
+  vertex(3*width/5, height);
+  //vertex(width, height);
+  vertex(0, height);
+  endShape(CLOSE);
+
+
+*/
 
 
 
@@ -547,9 +630,9 @@ function draw() {
 
 
   push()
-  textSize(30);
+  textSize(40);
   textAlign(CENTER);
-  text(exerciseData, 0, 140, width);
+  text(exerciseData, 0, 150, width);
 
 
   pop()
@@ -565,9 +648,9 @@ function draw() {
 
       push()
       fill(0, 0, 0, fade1)
-      textSize(70);
+      textSize(90);
       textAlign(CENTER);
-      text('3', width / 2, 250);
+      text('3', width / 2, 350);
       pop()
 
       fade1 = fade1 - 5;
@@ -577,9 +660,9 @@ function draw() {
 
       push()
       fill(0, 0, 0, fade2)
-      textSize(70);
+      textSize(90);
       textAlign(CENTER);
-      text('2', width / 2, 250);
+      text('2', width / 2, 350);
       pop()
 
       fade2 = fade2 - 5;
@@ -590,9 +673,9 @@ function draw() {
 
       push()
       fill(0, 0, 0, fade3)
-      textSize(70);
+      textSize(90);
       textAlign(CENTER);
-      text('1', width / 2, 250);
+      text('1', width / 2, 350);
       pop()
 
       fade3 = fade3 - 5;
@@ -603,9 +686,9 @@ function draw() {
 
       push()
       fill(0, 0, 0, fade4)
-      textSize(70);
+      textSize(90);
       textAlign(CENTER);
-      text('START!', width / 2, 250);
+      text('START!', width / 2, 350);
       pop()
 
       fade4 = fade4 - 10;
@@ -713,6 +796,7 @@ function startButtonF() {
     startCountdown = 1;
 
     xvals = [];//erase data
+    xvalsScaled = []//erase chart
     getAudioContext().resume(); //needed by browser to use microphone and audio
 
 
@@ -802,6 +886,9 @@ function startRecording() {
 
     xvals[di] = sensor; //save sensor data with every frame
     xtime[di] = timestamp; //save time from start in ms with every frame
+
+    xvalsScaled[di] = scaledSensor2;//scaled data array for chart drawing
+
     di++;//iterate to next frame
   }
 
