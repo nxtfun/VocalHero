@@ -43,6 +43,7 @@ let xtime2 = []; // time stamps for every sensor value from file
 let xvalsScaled = []; // values from sensor saved to buffer, scaled to chart height 
 let xvalsScaled2 = []; // values from file saved to buffer, scaled to chart height 
 
+let popUp = 1;//pop-up state. 0 means its off
 
 
 
@@ -73,6 +74,10 @@ let seconds;
 let years;
 let months;
 let days;
+
+
+
+
 
 let mic, recorder, soundFile; //audio recorder
 
@@ -728,18 +733,48 @@ beginShape();
 
 
   //pop-ups
-  if (0) {
+  if (popUp) {
 
     //greys out whole screen
     push()
     // strokeWeight(10);
     //fill(200)
     fill(240, 240, 240, 200);
-    //stroke('#023047');
-    strokeWeight(2);
+    //stroke('#FFB703');
+    strokeWeight(1);
     //fill('#FFB703')
     rect(0, 0, width, height);
+
+    stroke('#FFB703');
+    fill(250);
+    rect(width / 4, height / 4, width / 2, height / 2, 0);
+    fill('#FFB703');
+    rect(width / 4, 200 + height / 4, width / 2, height / 6, 0);
+
+
     pop()
+
+
+    push()
+    push()
+    textSize(40);
+    fill(20);
+    textAlign(CENTER);
+    text('Dobra robota!', width / 2, 200);
+    fill(250);
+    text('DALEJ', width / 2, 410);
+
+    pop()
+
+
+
+
+
+
+
+
+
+
   }
 
 
