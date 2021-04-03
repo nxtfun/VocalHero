@@ -15,6 +15,7 @@ let linia8 = 50;
 
 let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/';
 
+let maxSensorValue = 155;//value from sensor at maximum force
 
 let jsonContainer;//json container to load data to
 let json = {}; //new JSON Object to save data to
@@ -23,6 +24,8 @@ let colour;
 let controllers = []
 let connected = 0;
 let sensor = 0;
+let scaledSensor = 0;//sensor value scaled to 0-100 range
+let scaledSensor2 = 0;//sensor value scaled to 0-(height of chart) range
 let previousMillis1 = 0;
 let previousMillis2 = 0;
 let previousMillis3 = 0;
@@ -36,7 +39,14 @@ let xvals = []; // values from sensor saved to buffer
 let xtime = []; // time stamps for every sensor value
 let xvals2 = []; // values from file saved to buffer
 let xtime2 = []; // time stamps for every sensor value from file
+
+let xvalsScaled = []; // values from sensor saved to buffer, scaled 
+let xtimeScaled = [];
+let xvals2Scaled = [];
+let xtime2Scaled = [];
+
 let exercise2 = []; // exercise from json
+
 
 let startButton;
 let stopButton;
@@ -50,6 +60,7 @@ let chartlen = pixpsec * rduration;//length of chart in px
 
 let startState = 0;//state of "Start" button  0 - unlocked, 1 - locked (after start, to not push it again)
 let startState2 = 0;//state of chart  '1' after countdown, '0 when stopped'
+let audioRecordFlag = 0;
 
 //id and markers data
 let taskType = 1; //which module, from (1-3)
@@ -169,7 +180,7 @@ function setup() {
 
 
 
-  createCanvas(1100, 400);
+  createCanvas(1100, 600);
   //background(120,200,0)
   noStroke()
   window.addEventListener("gamepadconnected", function (e) {
@@ -249,6 +260,15 @@ function draw() {
   else {
     //sensor = round(axisInput(),2); 
     sensor = axisInput();
+    if (sensor > maxSensorValue) {
+      sensor = maxSensorValue;
+    }
+    scaledSensor = map(sensor, 0, maxSensorValue, 0, 100);
+    scaledSensor2 = map(sensor, 0, maxSensorValue, 0, 380);
+
+
+
+
     //sensor = round(sensor,2);  
 
   }
@@ -259,7 +279,7 @@ function draw() {
   //fill(200)
   fill(204, 153, 0);
   fill('#FFB703')
-  rect(0, height, width, -sensor * 2 + 30);
+  rect(0, height, width, -scaledSensor2 - 55); //background line rising up with sensor
   pop()
 
 
@@ -268,17 +288,17 @@ function draw() {
   strokeWeight(10);
   //fill(200)
   fill(240);
-  stroke('#023047');
+  //stroke('#023047');
   strokeWeight(2);
   //fill('#FFB703')
-  rect(900, 30, 150, 50, 10);
+  rect(900, 30, 150, 50, 10); //background to sensor value
   pop()
 
 
   push()
 
   fill(250);
-  stroke('#023047');
+  //stroke('#023047');
   strokeWeight(2);
 
 
@@ -308,11 +328,11 @@ function draw() {
 
   //fill('#FF3333');
 
-  stroke('#023047');
+  //stroke('#023047');
   strokeWeight(2);
 
 
-  rect(50, 30, 150, 50, 10);//start
+  rect(50, 30, 150, 50, 25);//start
   pop()
 
 
@@ -338,6 +358,13 @@ function draw() {
   text(mouseX, 10, 20);
   text(mouseY, 50, 20);
 
+  push()
+  textSize(30);
+  fill(20);
+  textAlign(CENTER);
+  text(taskIndex, 800, 65, 100);
+  pop();
+
 
 
 
@@ -347,10 +374,10 @@ function draw() {
   //text(taskIndex, 720, 20);//which index is now playing
 
   push();
-  fill(250)
+  fill(250, 250, 250, 210)
   strokeWeight(0);
   stroke(150);
-  rect(50, 105, chartlen + 1, 250, 10);
+  rect(50, 105, chartlen + 1, 450, 00);// background for graph
   pop();
 
   //time  
@@ -429,7 +456,7 @@ function draw() {
   push()
   strokeWeight(2);
   stroke('#0CCA4A');
-  line(52, 430 - sensor * 2, chartlen + 48 + 1, 430 - sensor * 2);
+  line(52, 545 - scaledSensor2, chartlen + 48 + 1, 545 - scaledSensor2);
 
 
   pop()
@@ -440,23 +467,23 @@ function draw() {
 
 
 
-  line(52, 430 - linia1 * 2, chartlen + 48 + 1, 430 - linia1 * 2);
+  // line(52, 430 - linia1 * 2, chartlen + 48 + 1, 430 - linia1 * 2);
 
 
-  line(52, 430 - linia2 * 2, chartlen + 48 + 1, 430 - linia2 * 2);
+  // line(52, 430 - linia2 * 2, chartlen + 48 + 1, 430 - linia2 * 2);
 
 
-  line(52, 430 - linia3 * 2, chartlen + 48 + 1, 430 - linia3 * 2);
+  // line(52, 430 - linia3 * 2, chartlen + 48 + 1, 430 - linia3 * 2);
 
-  line(52, 430 - linia4 * 2, chartlen + 48 + 1, 430 - linia4 * 2);
+  //line(52, 430 - linia4 * 2, chartlen + 48 + 1, 430 - linia4 * 2);
 
-  line(52, 430 - linia5 * 2, chartlen + 48 + 1, 430 - linia5 * 2);
+  // line(52, 430 - linia5 * 2, chartlen + 48 + 1, 430 - linia5 * 2);
 
-  line(52, 430 - linia6 * 2, chartlen + 48 + 1, 430 - linia6 * 2);
+  // line(52, 430 - linia6 * 2, chartlen + 48 + 1, 430 - linia6 * 2);
 
-  line(52, 430 - linia7 * 2, chartlen + 48 + 1, 430 - linia7 * 2);
+  // line(52, 430 - linia7 * 2, chartlen + 48 + 1, 430 - linia7 * 2);
 
-  line(52, 430 - linia8 * 2, chartlen + 48 + 1, 430 - linia8 * 2);
+  // line(52, 430 - linia8 * 2, chartlen + 48 + 1, 430 - linia8 * 2);
 
 
 
@@ -501,7 +528,7 @@ function draw() {
 
   push();
   textSize(40)
-  text((round(sensor * 100)) / 100, 910, 70);
+  text((round(scaledSensor * 100)) / 100, 910, 70);
   pop();
 
 
@@ -588,6 +615,7 @@ function draw() {
 
     if (timestamp3 > 3000) {
 
+      audioRecordFlag = 1;
       startState2 = 1; //start chart
 
     }
@@ -695,7 +723,7 @@ function startButtonF() {
 
     di = 0;//xvals[di] = sensor
 
-    recorder.record(soundFile);//record audio  
+    // recorder.record(soundFile);//record audio  
 
 
   }
@@ -720,7 +748,10 @@ function startRecording() {
 
   timestamp = round(currentMillis - previousMillis2);//current time in ms from start of recording data
 
-
+  if (audioRecordFlag) {
+    audioRecordFlag = 0;
+    recorder.record(soundFile);//record audio  
+  }
 
 
   //If data gathering time is longer than (value of time in ms), reset the timestamp.
