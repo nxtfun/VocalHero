@@ -99,7 +99,7 @@ let exercise3 = [];
 let soundArray = [];
 let thisManyExercises = 3; // set number of exercises in each module
 let currentExercise = 1;
-let currentModule = 2;//set which module should be vieved
+//let currentModule = 2;//set which module should be vieved
 
 let nextExercise = 0;
 
@@ -280,10 +280,17 @@ function draw() {
 
   if (nextExercise) { // this is called once, after exercise to load new example
     nextExercise = 0;
+    /*
     if (currentExercise < thisManyExercises) {//iterate to next exercise number
       currentExercise++;
     }
+*/
+    currentExercise++;
 
+    if (currentExercise > thisManyExercises) {//iterate to next exercise number
+      window.open("task" + str(currentModule + 1) + ".html", "_self");
+      currentExercise--;
+    }
 
 
     xvals2 = Object.values(jsonArray[currentExercise - 1].values);
@@ -691,18 +698,21 @@ beginShape();
   text((round(scaledSensor * 100)) / 100, 910, 70);
   pop();
 
-
-  text('Podłączony: ', 800, 20);
-  //text('Millis: ',10,60);
-  //text(round(millis()),50,60);
-
-
-  if (connected) {
-    text('TAK!', 870, 20);
-  }
-  else {
-    text('NIE', 870, 20);
-  }
+  /*
+    text('Podłączony: ', 800, 20);
+    //text('Millis: ',10,60);
+    //text(round(millis()),50,60);
+  
+  
+    if (connected) {
+      text('TAK!', 870, 20);
+    }
+    else {
+      text('NIE', 870, 20);
+    }
+  
+  */
+  text('Moduł: ' + currentModule, 1000, 20);
 
 
 
