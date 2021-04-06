@@ -106,9 +106,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 2.5rem; }
 
 .content--grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 3rem; }
+}
 
 .information {
   padding: 5rem 10rem; }
