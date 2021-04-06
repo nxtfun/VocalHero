@@ -230,9 +230,9 @@ function setup() {
 
 
   var myCanvas = createCanvas(1100, 600);
-  myCanvas.parent("canvas-parent");
+  myCanvas.parent("canvas-parent"); //sensor information on bar fix
 
-  
+
   //background(120,200,0)
   noStroke()
   window.addEventListener("gamepadconnected", function (e) {
