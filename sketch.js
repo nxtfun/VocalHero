@@ -99,7 +99,7 @@ let exercise3 = [];
 let soundArray = [];
 let thisManyExercises = 3; // set number of exercises in each module
 let currentExercise = 1;
-let currentModule = 1;//set which module should be vieved
+let currentModule = 2;//set which module should be vieved
 
 let nextExercise = 0;
 
@@ -114,7 +114,7 @@ let nextExercise = 0;
 
 function preload() {
 
-  examplesArray = shuffleArray(checkHowManyExamples(1));//number = current module 1 - 3
+  examplesArray = shuffleArray(checkHowManyExamples(currentModule));//number = current module 1 - 3
 
 
 
