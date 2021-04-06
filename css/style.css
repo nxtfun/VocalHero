@@ -88,9 +88,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer {
   position: absolute;
-  bottom: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   padding: 3rem 3rem;
   background-color: #023047; }
   .footer__info-bar {
@@ -106,6 +105,14 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   font-size: 2.5rem; }
 
+.container__task--text {
+  margin-bottom: 7rem;
+}
+
+.container__task {
+  padding: 4rem;
+}
+
 .content--grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -115,17 +122,3 @@ h1, h2, h3, h4, h5, h6 {
   padding: 5rem 10rem; }
   .information__text {
     text-align: justify; }
-
-.container__task {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: 2fr 3fr;
-  grid-gap: 4rem;
-  padding: 4rem; }
-  .container__task--sound {
-    display: flex;
-    flex-grow: 0;
-    justify-content: center;
-    align-items: center; }
-  .container__task--plot {
-    grid-column: 1/3; }

@@ -229,7 +229,10 @@ function setup() {
 
 
 
-  createCanvas(1100, 600);
+  var myCanvas = createCanvas(1100, 600);
+  myCanvas.parent("canvas-parent");
+
+  
   //background(120,200,0)
   noStroke()
   window.addEventListener("gamepadconnected", function (e) {
