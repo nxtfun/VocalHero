@@ -1,0 +1,13 @@
+.content--grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 3rem;
+}
+
+.information {
+  padding: 5rem 10rem;
+
+  &__text {
+    text-align: justify;
+  }
+}
