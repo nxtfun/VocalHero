@@ -88,9 +88,20 @@ let fade2 = 255;
 let fade3 = 255;
 let fade4 = 255;
 
-let examplesArray = [];//Array of random numbers from 1 to n, where n is number of examples in database
+let examplesArray = [];//Array of random, shuffled numbers from 1 to n, where n is number of examples in database
 
 //loadSound('https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/1_mod1_24-3-2021_23-26-6_kkk.wav')
+
+let jsonArray = [];//array of jsons
+let xvals3 = [];
+let xtime3 = [];
+let exercise3 = [];
+let soundArray = [];
+let thisManyExercises = 3; // set number of exercises in each module
+let currentExercise = 1;
+let currentModule = 1;//set which module should be vieved
+
+let nextExercise = 0;
 
 
 
@@ -103,15 +114,42 @@ let examplesArray = [];//Array of random numbers from 1 to n, where n is number 
 
 function preload() {
 
-  examplesArray = shuffleArray(checkHowManyExamples(1));
+  examplesArray = shuffleArray(checkHowManyExamples(1));//number = current module 1 - 3
+
+
+
+  if (thisManyExercises > examplesArray.length) {//limits number of exercises if there is less of them in database
+    thisManyExercises = examplesArray.length;
+  }
+
+
+  //load all examples without first one
+  for (let i = 1; i < thisManyExercises; i++) {
+
+    jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
+    soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
+
+
+  }
+
+
+
+  //preload first example only
   //jsonContainer = loadJSON('ciastko.json');
-  jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
+  //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
+  jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
   //jsonContainer = loadJSON(databaseLocation + '1/1.json');
-  sound = loadSound(databaseLocation + '1/' + str(examplesArray[1]) + '.wav');
+  sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
   //sound = loadSound(databaseLocation + '1/1.wav');
   //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
 
   //console.log(examplesArray);
+
+
+
+
+
+
 
 }
 
@@ -148,9 +186,14 @@ function setup() {
   //stopButton.mousePressed(stopButtonF);
 
   textFont("Montserrat");
-  xvals2 = Object.values(jsonContainer.values);
-  xtime2 = Object.values(jsonContainer.timestamp);
-  exercise2 = jsonContainer.exercise;
+  //xvals2 = Object.values(jsonContainer.values);
+  //xtime2 = Object.values(jsonContainer.timestamp);
+  //exercise2 = jsonContainer.exercise;
+  xvals2 = Object.values(jsonArray[0].values);
+  xtime2 = Object.values(jsonArray[0].timestamp);
+  exercise2 = jsonArray[0].exercise;
+
+
 
   //console.log(xvals2);
   //xvals2 = Object.values(xvals2);//to check if valid
@@ -230,6 +273,32 @@ function draw() {
   //clear();  
   background('#fb8500');
 
+
+
+  if (nextExercise) { // this is called once, after exercise to load new example
+    nextExercise = 0;
+    if (currentExercise < thisManyExercises) {//iterate to next exercise number
+      currentExercise++;
+    }
+
+
+
+    xvals2 = Object.values(jsonArray[currentExercise - 1].values);
+    xtime2 = Object.values(jsonArray[currentExercise - 1].timestamp);
+    exercise2 = jsonArray[currentExercise - 1].exercise;
+    sound = soundArray[currentExercise - 1];
+
+
+    xvalsScaled = [];//erase chart
+
+  }
+
+
+
+
+
+
+
   //exerciseData = input.value();//changes char input to int input;
   exerciseData = exercise2;
 
@@ -283,7 +352,7 @@ function draw() {
 
 
 
-  text(sensor, 200, 100);
+  //text(sensor, 200, 100);
 
   push()
   strokeWeight(10);
@@ -335,11 +404,6 @@ function draw() {
   }
 
 
-
-
-  //fill('#FF3333');
-
-  //stroke('#023047');
   strokeWeight(2);
 
 
@@ -739,7 +803,7 @@ beginShape();
 
   //pop-ups
   if (popUp) {
-
+    //popUp
     //greys out whole screen
     push()
     // strokeWeight(10);
@@ -751,7 +815,7 @@ beginShape();
     rect(0, 0, width, height);
 
     stroke('#FFB703');
-    fill(250);
+    fill(250, 250, 250, 150);
     rect(width / 4, height / 4, width / 2, height / 2, 0);
     fill('#FFB703');
     rect(width / 4, 200 + height / 4, width / 2, height / 6, 0);
@@ -768,9 +832,50 @@ beginShape();
     text('Dobra robota!', width / 2, 200);
     fill(250);
     text('DALEJ', width / 2, 410);
+    fill(100);
+    text('...albo spróbuj ponownie!', width / 2, 500);
+
+
+
+    stroke(100);
+    //fill(100);
+    noFill();
+    strokeWeight(2);
+    bezier(282, 486, 168, 460, 140, 256, 123, 95);
+    line(123, 95, 99, 121);
+    line(123, 95, 150, 115);
+    //fill(100);
 
     pop()
 
+
+    push()
+
+    fill('#5EEB5B');
+
+
+    strokeWeight(2);
+
+
+    rect(50, 30, 150, 50, 25);//start
+
+
+
+
+    pop()
+
+
+    push()
+    textSize(30);
+    fill(20);
+    textAlign(CENTER);
+    text('START', 80, 65, 100);
+
+
+
+
+
+    pop()
 
 
 
@@ -827,6 +932,7 @@ function axisInput() {
 
 function startButtonF() {
   if (!startState) {
+    popUp = 0;
     startState = 1;
     fade1 = 255;
     fade2 = 255;
@@ -855,6 +961,7 @@ function startButtonF() {
 
 function stopButtonF() {
   console.log('Stop!');
+
   startState = 0;
   startState2 = 0;
   previousMillis2 = currentMillis;
@@ -883,6 +990,7 @@ function startRecording() {
     //di=0;
     //previousMillis2 = currentMillis;
 
+    popUp = 1;//open pop-up screen
     recorder.stop();//stop recording audio
 
 
@@ -1023,6 +1131,16 @@ function mousePressed() {
   if (mouseX > 230 && mouseX < 460 && mouseY > 30 && mouseY < 80) {
     playButtonF();
     console.log('odsluch');
+  }
+
+
+
+
+
+  if (mouseX > 275 && mouseX < 825 && mouseY > 351 && mouseY < 453 && popUp) {
+    popUp = 0;
+    console.log('dalej');
+    nextExercise = 1;
   }
 
 
