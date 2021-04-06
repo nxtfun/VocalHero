@@ -229,11 +229,9 @@ function setup() {
 
 
 
-  createCanvas(1100, 600);
-  let main = document.querySelector("#main");
-  let canvas0 = document.querySelector("#defaultCanvas0");
-  main.after(canvas0);
-  background("pink");
+  var myCanvas = createCanvas(1100, 600);
+  myCanvas.parent("canvas-parent");
+
   
   //background(120,200,0)
   noStroke()
