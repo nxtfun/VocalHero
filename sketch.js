@@ -43,7 +43,7 @@ let xtime2 = []; // time stamps for every sensor value from file
 let xvalsScaled = []; // values from sensor saved to buffer, scaled to chart height 
 let xvalsScaled2 = []; // values from file saved to buffer, scaled to chart height 
 
-let popUp = 1;//pop-up state. 0 means its off
+let popUp = 0;//pop-up state. 0 means its off
 
 
 
@@ -249,11 +249,11 @@ function draw() {
 
   //Input from sensor
   if (!connected) {
-    if ((-mouseY + 332) >= 0 && (-mouseY + 332) < 131) {
-      sensor = -mouseY + 332;
+    if (mouseY <= 547 && mouseY > 166) {
+      sensor = map(mouseY, 547, 166, 0, 155);
     }
-    else if ((-mouseY + 332) >= 131) {
-      sensor = 130;
+    else if (mouseY <= 166) {
+      sensor = 155;
 
     }
     else {
@@ -266,11 +266,6 @@ function draw() {
   else {
     //sensor = round(axisInput(),2); 
     sensor = axisInput();
-    if (sensor > maxSensorValue) {
-      sensor = maxSensorValue;
-    }
-    scaledSensor = map(sensor, 0, maxSensorValue, 0, 100);
-    scaledSensor2 = map(sensor, 0, maxSensorValue, 0, 380);
 
 
 
@@ -279,6 +274,16 @@ function draw() {
 
   }
 
+  if (sensor > maxSensorValue) {
+    sensor = maxSensorValue;
+  }
+  scaledSensor = map(sensor, 0, maxSensorValue, 0, 100);
+  scaledSensor2 = map(sensor, 0, maxSensorValue, 0, 380);
+
+
+
+
+  text(sensor, 200, 100);
 
   push()
   strokeWeight(10);
@@ -361,8 +366,8 @@ function draw() {
 
   pop()
 
-  //text(mouseX, 10, 20);
-  //text(mouseY, 50, 20);
+  text(mouseX, 10, 20);
+  text(mouseY, 50, 20);
 
   push()
   textSize(30);
