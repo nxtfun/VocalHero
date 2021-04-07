@@ -3,60 +3,72 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>VocalHero</title>
 
     <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:600,700|Rasa:300,400,500"
-        rel="stylesheet">
+          rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="content--grid">
-        <div class="column--left">
-            <header class="u--margin-bottom-medium">
-                <h1 class="header">
-                    <span class="header__text--main">Witaj w <span class="u-underline--magical">xPress</span></span>
-                    <span class="header__text--small">aplikacji wspomagającej naukę intonacji</span>
-                </h1>
-            </header>
 
-            <main class="information">
-                <div class="information__text u--margin-bottom-medium">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </p>
-                    <p>
-                        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi
-                        ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea
-                        voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
-                        voluptas nulla pariatur?
-                    </p>
-                </div>
-                <div class="information_buttons">
-                    <button class="button button-train">Rozpocznij trening</button>
-                    <button class="button button-test">Rozpocznij test</button>
-                    <a href="task.html">bubububub</a>
-                </div>
+<header class="u--margin-bottom-medium">
+    <h1 class="header">
+        <span class="header__text--main">Witaj w <span class="u-underline--magical">VocalHero</span></span>
+        <span class="header__text--small">aplikacji wspomagającej naukę intonacji</span>
+    </h1>
+</header>
 
-            </main>
-        </div>
-
-        <div class="column--right">
-            <div class="placeholder-chart">
-                https://www.smashingmagazine.com/2014/12/chartist-js-open-source-library-responsive-charts/
-            </div>
-        </div>
+<main class="information content--grid">
+    <div class="information__text u--margin-bottom-medium">
+        <p>
+            Zadaniem aplikacji jest pomoc w opanowaniu kontroli nad siłą nacisku, niezbędnej do używania intonacji podczas mówienia przy pomocy krtani elektronicznej.
+        </p>
+        <br>
+        <p>
+            W aplikacji dostępne są dwa tryby:
+        <li>tryb treningu, który oferuje wzrokowe wskazówki dotyczące siły, z jaką naciska się na guzik krtani</li>
+        <li>tryb testu, w którym można sprawdzić dokonane postępy</li>
+        <br>
+        Trening z aplikacją będzie podzielony na dwie serie codziennych ćwiczeń po pięć dni, z których każda rozpocznie się i zakończy się sesją testową.
+        </p>
+        <br>
+        <p><b>Przed każdą sesją należy upewnić się, że krtań elektroniczna jest podłączona do komputera.</b> Jak to zrobić?
+        <li>instrukcje od Marka</li>
+        <li>upewnij się, że status krtani widoczny na granatowym pasku na dole ekranu to <span class="u--text-important">podłączona</span></li></p>
+        <br>
     </div>
-    <footer class="footer">
-        <div class="footer__info-bar">
-            <p><span>Stan krtani elektronicznej: </span><span class="u--text-important">PODŁĄCZONA</span></p>
-        </div>
-    </footer>
+
+    <div class="information_buttons">
+        <a class="button button-train" href="task.html">Rozpocznij trening</a>
+        <a class="button button-train" href="test.html">Sesja testowa</a>
+    </div>
+    <script src="sketch.js"></script>
+</main>
+
+<footer class="footer">
+    <div class="footer__info-bar">
+        <p><span>Stan krtani elektronicznej: </span><span class="u--text-important status">PODŁĄCZONA</span></p>
+    </div>
+</footer>
 
 </body>
 
 </html>
+
+
+<script>
+
+
+    var test = 1;
+    setInterval(function () {
+        if (connected !== test) {
+            document.querySelector('.status').textContent = "niepodłączona";
+
+        } else {
+            document.querySelector('.status').textContent = "podłączona";
+        }
+    }, 100);
+
+
+</script>
