@@ -16,39 +16,39 @@
 
 
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>VocalHero</title>
 
     <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:600,700|Rasa:300,500" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <main class="container__task">
-        <div class="container__task--text">
-            <h1 class="task--header u--margin-bottom-medium">BLOK DRUGI</h1>
-            <p class="task--text">
-                W tej części Twoim zadaniem będzie <b>utrzymanie stałej siły nacisku</b> przez 10 sekund.
-                Zapoznaj się z dźwiękiem o stałej wysokości, który usłyszysz po kliknięciu guzika znajdującego się po
-                prawej stronie ekranu. Na wykresie poniżej docelowa siła nacisku jest zaznaczona
-                kolorem zielonym. Twoja siła nacisku zaznaczona jest kolorem szarym. Aby uzyskać dźwięk taki sam jak w
-                nagraniu, staraj się utrzymać nacisk na poziomie zielonej, docelowej linii. <br><br> Utrzymuj
-                stałą siłę nacisku przez <b>10 sekund</b>, aż do wyświetlenia informacji o zakończeniu próby.
+<main class="container__task">
+    <div class="container__task--text">
+        <h1 class="task--header u--margin-bottom-medium">BLOK DRUGI</h1>
+        <p class="task--text">
+            W tej części Twoim zadaniem będzie <b>utrzymanie stałej siły nacisku</b> przez 10 sekund.
+            Zapoznaj się z dźwiękiem o stałej wysokości, który usłyszysz po kliknięciu guzika znajdującego się po
+            prawej stronie ekranu. Na wykresie poniżej docelowa siła nacisku jest zaznaczona
+            kolorem zielonym. Twoja siła nacisku zaznaczona jest kolorem szarym. Aby uzyskać dźwięk taki sam jak w
+            nagraniu, staraj się utrzymać nacisk na poziomie zielonej, docelowej linii. <br><br> Utrzymuj
+            stałą siłę nacisku przez <b>10 sekund</b>, aż do wyświetlenia informacji o zakończeniu próby.
 
-            </p>
-        </div>
+        </p>
+    </div>
 
 
-        <div class="container__task--plot" id="canvas-parent">
+    <div class="container__task--plot" id="canvas-parent">
 
-            <script src="sketch.js"></script> <!--  Aplikacja p5 (wykres) -->
+        <script src="sketch.js"></script> <!--  Aplikacja p5 (wykres) -->
 
-        </div>
-    </main>
-    <footer class="footer">
-        <div class="footer__info-bar">
-            <p><span>Stan krtani elektronicznej: </span><span class="u--text-important">PODŁĄCZONA</span></p>
-        </div>
-    </footer>
+    </div>
+</main>
+<footer class="footer">
+    <div class="footer__info-bar">
+        <p><span>Stan krtani elektronicznej: </span><span class="u--text-important status">PODŁĄCZONA</span></p>
+    </div>
+</footer>
 
 </body>
 
@@ -60,10 +60,10 @@
     var test = 1;
     setInterval(function () {
         if (connected !== test) {
-            document.querySelector('.u--text-important').textContent = "niepodłączona";
+            document.querySelector('.status').textContent = "niepodłączona";
 
         } else {
-            document.querySelector('.u--text-important').textContent = "podłączona";
+            document.querySelector('.status').textContent = "podłączona";
         }
     }, 100);
 
