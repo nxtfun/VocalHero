@@ -15,6 +15,8 @@ let linia8 = 50;
 
 let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/';
 
+//let maxSensorValue = 50;//value from sensor at maximum force
+//let minSensorValue = 8;//value from sensor at minimum force
 let maxSensorValue = 50;//value from sensor at maximum force
 let minSensorValue = 8;//value from sensor at minimum force
 
@@ -871,13 +873,14 @@ function axisInput() {
 
             }
 
-
-
+            AllAxes = (AllAxes * 100) + 100;
+            console.log(AllAxes);
 
             //return 100+controller.axes[7]*100;
 
             //return 100 + (controller.axes[0] + controller.axes[1] + controller.axes[2] + controller.axes[3] + controller.axes[4] + controller.axes[5] + controller.axes[6] + controller.axes[7] + controller.axes[8] + controller.axes[9] + controller.axes[10]) * 100;
-            return 100 + (AllAxes) * 100;
+            //return 100 + (AllAxes) * 100;
+            return AllAxes;
 
 
         }
