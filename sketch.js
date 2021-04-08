@@ -932,13 +932,28 @@ function gamepadHandler(event, connecting) {
 
 
 function axisInput() {
+  let AllAxes = 0;
   if (connected) {
     var gamepads = navigator.getGamepads()
     for (let i in controllers) {
       let controller = gamepads[i]//controllers[i]
 
       //return 100+controller.axes[7]*100;
-      return 100 + (controller.axes[10] + controller.axes[7]) * 100;
+      //return 100 + (controller.axes[10] + controller.axes[7]) * 100;
+
+      for (let j = 0; j < controller.axes.length; j++) {
+
+        AllAxes = AllAxes + controller.axes[j];
+
+      }
+
+      AllAxes = (AllAxes * 100) + 100;
+      AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
+      console.log(AllAxes);
+
+      return AllAxes;
+
+
 
     }
   }

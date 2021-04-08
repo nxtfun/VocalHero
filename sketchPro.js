@@ -17,6 +17,8 @@ let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/
 
 let maxSensorValue = 50;//value from sensor at maximum force
 let minSensorValue = 8;//value from sensor at minimum force
+//let maxSensorValue = -807;//value from sensor at maximum force
+//let minSensorValue = -869;//value from sensor at minimum force
 
 let jsonContainer;//json container to load data to
 let json = {}; //new JSON Object to save data to
@@ -859,13 +861,28 @@ function gamepadHandler(event, connecting) {
 
 
 function axisInput() {
+    let AllAxes = 0;
     if (connected) {
         var gamepads = navigator.getGamepads()
         for (let i in controllers) {
             let controller = gamepads[i]//controllers[i]
+            console.log(controller.axes);
+            for (let j = 0; j < controller.axes.length; j++) {
+
+                AllAxes = AllAxes + controller.axes[j];
+
+            }
+
+            AllAxes = (AllAxes * 100) + 100;
+            AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
+            //console.log(AllAxes);
 
             //return 100+controller.axes[7]*100;
-            return 100 + (controller.axes[10] + controller.axes[7]) * 100;
+
+            //return 100 + (controller.axes[0] + controller.axes[1] + controller.axes[2] + controller.axes[3] + controller.axes[4] + controller.axes[5] + controller.axes[6] + controller.axes[7] + controller.axes[8] + controller.axes[9] + controller.axes[10]) * 100;
+            //return 100 + (AllAxes) * 100;
+            return AllAxes;
+
 
         }
     }
