@@ -874,7 +874,7 @@ function axisInput() {
             }
 
             AllAxes = (AllAxes * 100) + 100;
-            AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue)
+            AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue);
             console.log(AllAxes);
 
             //return 100+controller.axes[7]*100;
