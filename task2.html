@@ -9,11 +9,8 @@
 
     <script src="m2settings.js"></script>
 
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
-
-
 
     <meta charset="UTF-8">
     <title>VocalHero</title>
@@ -27,16 +24,13 @@
     <div class="container__task--text">
         <h1 class="task--header u--margin-bottom-medium">BLOK DRUGI</h1>
         <p class="task--text">
-            W tej części Twoim zadaniem będzie <b>utrzymanie stałej siły nacisku</b> przez 10 sekund.
-            Zapoznaj się z dźwiękiem o stałej wysokości, który usłyszysz po kliknięciu guzika znajdującego się po
-            prawej stronie ekranu. Na wykresie poniżej docelowa siła nacisku jest zaznaczona
-            kolorem zielonym. Twoja siła nacisku zaznaczona jest kolorem szarym. Aby uzyskać dźwięk taki sam jak w
-            nagraniu, staraj się utrzymać nacisk na poziomie zielonej, docelowej linii. <br><br> Utrzymuj
-            stałą siłę nacisku przez <b>10 sekund</b>, aż do wyświetlenia informacji o zakończeniu próby.
+            W tej części Twoim zadaniem będzie <b>odwzorowanie dźwięków o zmiennej wysokości</b> za pomocą kontrolowania siły nacisku na krtań elektroniczną.
+            Zapoznaj się z dźwiękiem, który usłyszysz po kliknięciu przycisku znajdującego się po prawej stronie panelu. Na wykresie poniżej polecenia wzorcowa siła nacisku jest zaznaczona kolorem
+            czerwonym. Twoja siła nacisku zaznaczona jest kolorem szarym. Aby uzyskać taki sam dźwięk, jak w nagraniu, postaraj się utrzymać swoją siłę nacisku na poziomie zielonej, docelowej linii.
+            Kontroluj tę siłę przez 10 sekund, aż do wyświetlenia informacji o zakończeniu próby.
 
         </p>
     </div>
-
 
     <div class="container__task--plot" id="canvas-parent">
 
@@ -56,7 +50,6 @@
 
 <script>
 
-
     var test = 1;
     setInterval(function () {
         if (connected !== test) {
@@ -66,6 +59,5 @@
             document.querySelector('.status').textContent = "podłączona";
         }
     }, 100);
-
 
 </script>
