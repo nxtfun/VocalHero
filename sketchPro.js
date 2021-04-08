@@ -15,7 +15,8 @@ let linia8 = 50;
 
 let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/';
 
-let maxSensorValue = 155;//value from sensor at maximum force
+let maxSensorValue = 50;//value from sensor at maximum force
+let minSensorValue = 8;//value from sensor at minimum force
 
 let jsonContainer;//json container to load data to
 let json = {}; //new JSON Object to save data to
@@ -121,7 +122,15 @@ function preload() {
     //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
     jsonArray[0] = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
     //jsonContainer = loadJSON(databaseLocation + '1/1.json');
-    sound = loadSound(databaseLocation + '1/' + str(examplesArray[1]) + '.wav');
+
+
+
+    //sound = loadSound(databaseLocation + '1/' + str(examplesArray[1]) + '.wav');
+
+
+
+
+
     //sound = loadSound(databaseLocation + '1/1.wav');
     //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
 
@@ -133,8 +142,8 @@ function setup() {
     //start of setup
 
     //input text
-    //input = createInput();
-    //input.position(400, 5);
+    input = createInput();
+    input.position(470, 30);
 
 
 
@@ -249,8 +258,8 @@ function draw() {
     //clear();  
     background('#fb8500');
 
-    //exerciseData = input.value();//changes char input to int input;
-    exerciseData = exercise2;
+    exerciseData = input.value();//changes char input to int input;
+    //exerciseData = exercise2;
 
 
 
@@ -296,13 +305,19 @@ function draw() {
     if (sensor > maxSensorValue) {
         sensor = maxSensorValue;
     }
-    scaledSensor = map(sensor, 0, maxSensorValue, 0, 100);
-    scaledSensor2 = map(sensor, 0, maxSensorValue, 0, 380);
+    if (sensor < minSensorValue) {
+        sensor = minSensorValue;
+    }
+
+    scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
 
 
 
 
-    text(sensor, 200, 100);
+    text(sensor, 910, 100);
+
+    text('Wpisz przykład ^', 500, 70);
 
     push()
     strokeWeight(10);
@@ -531,30 +546,33 @@ function draw() {
 
 
 
-    push();
-    beginShape();
 
-
-    fill(237, 34, 93, 100);
-    stroke(237, 34, 93);
-    //noStroke();
-    strokeWeight(2);
-
-    //chart from data
-    for (let i = 0; i < xvals2.length; i++) {
-        vertex(pixpsec * xtime2[i] + 50, - map(xvals2[i], 0, maxSensorValue, 0, 380) + 545);
-
-    }
-    vertex(pixpsec * xtime2[xvals2.length - 1] + 50, 554);
-    vertex(pixpsec * xtime2[0] + 50, 554);
-    vertex(pixpsec * xtime2[0] + 50, - map(xvals2[0], 0, maxSensorValue, 0, 380) + 545);
-
-
-
-
-    endShape();
-    pop();
-
+    /*
+        
+        push();
+        beginShape();
+    
+    
+        fill(237, 34, 93, 100);
+        stroke(237, 34, 93);
+        //noStroke();
+        strokeWeight(2);
+    
+        //chart from data
+        for (let i = 0; i < xvals2.length; i++) {
+            vertex(pixpsec * xtime2[i] + 50, - map(xvals2[i], 0, maxSensorValue, 0, 380) + 545);
+    
+        }
+        vertex(pixpsec * xtime2[xvals2.length - 1] + 50, 554);
+        vertex(pixpsec * xtime2[0] + 50, 554);
+        vertex(pixpsec * xtime2[0] + 50, - map(xvals2[0], 0, maxSensorValue, 0, 380) + 545);
+    
+    
+    
+    
+        endShape();
+        pop();
+    */
 
 
     /*
@@ -685,7 +703,7 @@ function draw() {
             fade1 = fade1 - 5;
         }
 
-        if (timestamp3 > 1000 && timestamp3 < 2000) {
+        if (timestamp3 > 500 && timestamp3 < 1000) {
 
             push()
             fill(0, 0, 0, fade2)
@@ -698,7 +716,7 @@ function draw() {
 
         }
 
-        if (timestamp3 > 2000 && timestamp3 < 3000) {
+        if (timestamp3 > 1000 && timestamp3 < 1500) {
 
             push()
             fill(0, 0, 0, fade3)
@@ -711,7 +729,7 @@ function draw() {
         }
 
 
-        if (timestamp3 > 3000 && timestamp3 < 3500) {
+        if (timestamp3 > 1500 && timestamp3 < 2000) {
 
             push()
             fill(0, 0, 0, fade4)
@@ -725,7 +743,7 @@ function draw() {
         }
 
 
-        if (timestamp3 > 3000) {
+        if (timestamp3 > 1500) {
 
             audioRecordFlag = 1;
             startState2 = 1; //start chart
@@ -757,7 +775,7 @@ function draw() {
 
 
     //pop-ups
-    if (popUp) {
+    if (0) {
         //popUp
         //greys out whole screen
         push()
@@ -944,12 +962,13 @@ function startRecording() {
         json.values = xvals;
         json.timestamp = xtime;
 
+        sound = soundFile;
 
         if (zapis) {
-            saveJSON(json, str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData);
+            saveJSON(json, str(taskIndex) + '__' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData);
 
 
-            saveSound(soundFile, str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData); // save file
+            saveSound(soundFile, str(taskIndex) + '__' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData); // save file
         }
 
         stopButtonF();
@@ -1064,10 +1083,10 @@ function mousePressed() {
 
 
 
-    if (mouseX > 275 && mouseX < 825 && mouseY > 351 && mouseY < 453 && popUp) {
-        popUp = 0;
-        console.log('dalej');
-    }
+    //if (mouseX > 275 && mouseX < 825 && mouseY > 351 && mouseY < 453 && popUp) {
+    //    popUp = 0;
+    //    console.log('dalej');
+    //}
 
 
     //playButtonF
