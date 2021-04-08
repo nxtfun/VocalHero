@@ -866,7 +866,7 @@ function axisInput() {
         var gamepads = navigator.getGamepads()
         for (let i in controllers) {
             let controller = gamepads[i]//controllers[i]
-
+            console.log(controller.axes);
             for (let j = 0; j < controller.axes.length; j++) {
 
                 AllAxes = AllAxes + controller.axes[j];
@@ -874,8 +874,8 @@ function axisInput() {
             }
 
             AllAxes = (AllAxes * 100) + 100;
-            AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue);
-            console.log(AllAxes);
+            AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
+            //console.log(AllAxes);
 
             //return 100+controller.axes[7]*100;
 
