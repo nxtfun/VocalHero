@@ -278,10 +278,10 @@ function draw() {
     //Input from sensor
     if (!connected) {
         if (mouseY <= 547 && mouseY > 166) {
-            sensor = map(mouseY, 547, 166, 0, 155);
+            sensor = map(mouseY, 547, 166, minSensorValue, maxSensorValue);
         }
         else if (mouseY <= 166) {
-            sensor = 155;
+            sensor = maxSensorValue;
 
         }
         else {

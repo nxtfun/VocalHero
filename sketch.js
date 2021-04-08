@@ -15,7 +15,8 @@ let linia8 = 50;
 
 let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/';
 
-let maxSensorValue = 155;//value from sensor at maximum force
+let maxSensorValue = 50;//value from sensor at maximum force
+let minSensorValue = 8;//value from sensor at maximum force
 
 let jsonContainer;//json container to load data to
 let json = {}; //new JSON Object to save data to
@@ -329,10 +330,10 @@ function draw() {
   //Input from sensor
   if (!connected) {
     if (mouseY <= 547 && mouseY > 166) {
-      sensor = map(mouseY, 547, 166, 0, 155);
+      sensor = map(mouseY, 547, 166, minSensorValue, maxSensorValue);
     }
     else if (mouseY <= 166) {
-      sensor = 155;
+      sensor = maxSensorValue;
 
     }
     else {
@@ -356,8 +357,12 @@ function draw() {
   if (sensor > maxSensorValue) {
     sensor = maxSensorValue;
   }
-  scaledSensor = map(sensor, 0, maxSensorValue, 0, 100);
-  scaledSensor2 = map(sensor, 0, maxSensorValue, 0, 380);
+  if (sensor < minSensorValue) {
+    sensor = minSensorValue;
+  }
+
+  scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
+  scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
 
 
 
