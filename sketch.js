@@ -162,7 +162,7 @@ function setup() {
   //input.position(400, 5);
 
   if (currentModule == 3) {
-    pixpsec = 0.20;//how many pixels in 1 ms on chart
+    pixpsec = 0.25;//how many pixels in 1 ms on chart
     rduration = 4000;//how long is one recording
   }
 
