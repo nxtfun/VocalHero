@@ -189,7 +189,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     border-radius: 4px;
     -webkit-box-shadow: 5px 5px 40px 12px rgb(0 0 0 / 20%);
-    -moz-box-shadow: 5px 5px 40px 12px rgba(0,0,0,0.2);
+    -moz-box-shadow: 5px 5px 40px 12px rgba(0, 0, 0, 0.2);
     box-shadow: 5px 5px 40px 12px rgb(0 0 0 / 20%);
 }
 
@@ -207,4 +207,20 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.task--header {
+    font-size: 55px;
+}
+
+.task--text, .task--text li {
+    font-size: 30px;
+}
+
+#chonker-of-the-day {
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 20px;
 }
