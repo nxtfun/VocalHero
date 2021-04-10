@@ -9,11 +9,8 @@
 
     <script src="m3settings.js"></script>
 
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
-
-
 
     <meta charset="UTF-8">
     <title>Title</title>
@@ -29,8 +26,8 @@
         <p class="task--text thank-you--description">
             To już koniec na dzisiaj! Wróć jutro, żeby wykonać kolejny zestaw zadań.
         </p>
+        <img width="300px" id="chonker-of-the-day" src="">
     </div>
-
 
 </main>
 <!--     <footer class="footer">
@@ -40,3 +37,12 @@
     </footer> -->
 
 </body>
+
+<script>
+    var pic = document.getElementById('chonker-of-the-day');
+    const chonker = Math.floor(Math.random() * (13 - 1)) + 1;
+
+    function rouge() {
+        pic.src = `chonkers/${chonker}.jpg`;
+    }
+</script>
