@@ -12,7 +12,7 @@ html {
 
 body {
     box-sizing: border-box;
-    padding: 3rem;
+    margin: 3rem;
     font-size: 2rem;
 }
 
@@ -170,4 +170,41 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-rows: 1fr 1fr;
     grid-gap: 2rem;
     margin: 10rem 5rem;
+}
+
+.task-final--bg {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    background-image: url("/moroccan-flower-dark.png");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.task-final {
+    background-color: #ffffff;
+    width: 95%;
+    height: 90%;
+    display: block;
+    border-radius: 4px;
+    -webkit-box-shadow: 5px 5px 40px 12px rgb(0 0 0 / 20%);
+    -moz-box-shadow: 5px 5px 40px 12px rgba(0,0,0,0.2);
+    box-shadow: 5px 5px 40px 12px rgb(0 0 0 / 20%);
+}
+
+.thank-you--text {
+    font-size: 100px;
+    text-align: center;
+}
+
+.thank-you--description {
+    font-size: 40px;
+    text-align: center;
+}
+
+.thank-you--section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
