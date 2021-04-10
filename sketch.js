@@ -104,7 +104,7 @@ let currentExercise = 1;
 
 let nextExercise = 0;
 
-
+let xvals2Length = 100;//variable to limit chart length
 
 
 //chartlen - rduration
@@ -161,7 +161,10 @@ function setup() {
   //input = createInput();
   //input.position(400, 5);
 
-
+  if (currentModule == 3) {
+    pixpsec = 0.20;//how many pixels in 1 ms on chart
+    rduration = 5000;//how long is one recording
+  }
 
   //radio buttons
   //radio = createRadio();
@@ -193,6 +196,23 @@ function setup() {
   xvals2 = Object.values(jsonArray[0].values);
   xtime2 = Object.values(jsonArray[0].timestamp);
   exercise2 = jsonArray[0].exercise;
+
+
+
+  if (currentModule == 3) {
+    for (let iii = 0; iii < xtime2.length; iii++) {
+
+      if (xtime2[iii] > rduration) {
+        xvals2Length = iii;
+        break;
+      }
+
+    }
+
+  }
+  else {
+    xvals2Length = xvals2.length;
+  }
 
 
 
@@ -298,6 +318,26 @@ function draw() {
     xtime2 = Object.values(jsonArray[currentExercise - 1].timestamp);
     exercise2 = jsonArray[currentExercise - 1].exercise;
     sound = soundArray[currentExercise - 1];
+
+
+    if (currentModule == 3) {
+      for (let iii = 0; iii < xtime2.length; iii++) {
+
+        if (xtime2[iii] > rduration) {
+          xvals2Length = iii;
+          break;
+        }
+
+      }
+
+    }
+    else {
+      xvals2Length = xvals2.length;
+    }
+
+
+
+
 
 
     xvalsScaled = [];//erase chart
@@ -597,11 +637,11 @@ function draw() {
   strokeWeight(2);
 
   //chart from data
-  for (let i = 0; i < xvals2.length; i++) {
+  for (let i = 0; i < xvals2Length; i++) {
     vertex(pixpsec * xtime2[i] + 50, - map(xvals2[i], 0, maxSensorValue, 0, 380) + 545);
 
   }
-  vertex(pixpsec * xtime2[xvals2.length - 1] + 50, 554);
+  vertex(pixpsec * xtime2[xvals2Length - 1] + 50, 554);
   vertex(pixpsec * xtime2[0] + 50, 554);
   vertex(pixpsec * xtime2[0] + 50, - map(xvals2[0], 0, maxSensorValue, 0, 380) + 545);
 
@@ -788,7 +828,9 @@ beginShape();
 
     if (timestamp3 > 3000) {
 
-      audioRecordFlag = 1;
+      if (!startState2)
+        audioRecordFlag = 1;
+
       startState2 = 1; //start chart
 
     }
@@ -947,7 +989,8 @@ function axisInput() {
 
       AllAxes = (AllAxes * 100) + 100;
       AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
-      console.log(AllAxes);
+      //console.log(AllAxes);
+      console.log(controller.axes);
 
       return AllAxes;
 
@@ -979,7 +1022,7 @@ function startButtonF() {
 
 
     console.log('Start!');
-    taskIndex++;
+
 
 
     di = 0;//xvals[di] = sensor
@@ -1011,6 +1054,7 @@ function startRecording() {
   timestamp = round(currentMillis - previousMillis2);//current time in ms from start of recording data
 
   if (audioRecordFlag) {
+    taskIndex++;
     audioRecordFlag = 0;
     recorder.record(soundFile);//record audio  
   }
