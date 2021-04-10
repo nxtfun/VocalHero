@@ -192,3 +192,19 @@ h1, h2, h3, h4, h5, h6 {
     -moz-box-shadow: 5px 5px 40px 12px rgba(0,0,0,0.2);
     box-shadow: 5px 5px 40px 12px rgb(0 0 0 / 20%);
 }
+
+.thank-you--text {
+    font-size: 100px;
+    text-align: center;
+}
+
+.thank-you--description {
+    font-size: 40px;
+    text-align: center;
+}
+
+.thank-you--section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
