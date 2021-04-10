@@ -163,7 +163,7 @@ function setup() {
 
   if (currentModule == 3) {
     pixpsec = 0.20;//how many pixels in 1 ms on chart
-    rduration = 5000;//how long is one recording
+    rduration = 4000;//how long is one recording
   }
 
   //radio buttons
