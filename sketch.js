@@ -641,12 +641,12 @@ function draw() {
 
   //chart from data
   for (let i = 0; i < xvals2Length; i++) {
-    vertex(pixpsec * xtime2[i] + 50, - map(xvals2[i], 0, maxSensorValue, 0, 380) + 545);
+    vertex(pixpsec * xtime2[i] + 50, - map(xvals2[i], minSensorValue, maxSensorValue, 0, 380) + 545);
 
   }
   vertex(pixpsec * xtime2[xvals2Length - 1] + 50, 554);
   vertex(pixpsec * xtime2[0] + 50, 554);
-  vertex(pixpsec * xtime2[0] + 50, - map(xvals2[0], 0, maxSensorValue, 0, 380) + 545);
+  vertex(pixpsec * xtime2[0] + 50, - map(xvals2[0], minSensorValue, maxSensorValue, 0, 380) + 545);
 
 
 
