@@ -57,9 +57,11 @@ let radioVal; //radio button value
 let playButton;
 
 let di = 0;
-let pixpsec = 0.10;//how many pixels in 1 ms on chart
+//let pixpsec = 0.10;//how many pixels in 1 ms on chart
 let rduration = 10000;//how long is one recording
-let chartlen = pixpsec * rduration;//length of chart in px
+//let chartlen = pixpsec * rduration;//length of chart in px
+let chartlen = 1000;//length of chart in px
+let pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
 
 let startState = 0;//state of "Start" button  0 - unlocked, 1 - locked (after start, to not push it again)
 let startState2 = 0;//state of chart  '1' after countdown, '0 when stopped'
@@ -162,8 +164,9 @@ function setup() {
   //input.position(400, 5);
 
   if (currentModule == 3) {
-    pixpsec = 0.25;//how many pixels in 1 ms on chart
+
     rduration = 4000;//how long is one recording
+    pixpsec = chartlen / rduration;
   }
 
   //radio buttons
@@ -219,7 +222,7 @@ function setup() {
   //console.log(xvals2);
   //xvals2 = Object.values(xvals2);//to check if valid
   //console.log(typeof xvals2);
-  console.log(xtime2[21]);
+  //console.log(xtime2[21]);
 
 
 
@@ -485,8 +488,8 @@ function draw() {
 
   pop()
 
-  text(mouseX, 10, 20);
-  text(mouseY, 50, 20);
+  //text(mouseX, 10, 20);
+  //text(mouseY, 50, 20);
 
 
 
@@ -988,9 +991,12 @@ function axisInput() {
       }
 
       AllAxes = (AllAxes * 100) + 100;
+      console.log(AllAxes);
+      console.log(controller.axes[0]);
       AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
-      //console.log(AllAxes);
+
       console.log(controller.axes);
+
 
       return AllAxes;
 

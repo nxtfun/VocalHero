@@ -705,7 +705,7 @@ function draw() {
             fade1 = fade1 - 5;
         }
 
-        if (timestamp3 > 500 && timestamp3 < 1000) {
+        if (timestamp3 > 1000 && timestamp3 < 2000) {
 
             push()
             fill(0, 0, 0, fade2)
@@ -718,7 +718,7 @@ function draw() {
 
         }
 
-        if (timestamp3 > 1000 && timestamp3 < 1500) {
+        if (timestamp3 > 2000 && timestamp3 < 3000) {
 
             push()
             fill(0, 0, 0, fade3)
@@ -731,7 +731,7 @@ function draw() {
         }
 
 
-        if (timestamp3 > 1500 && timestamp3 < 2000) {
+        if (timestamp3 > 3000 && timestamp3 < 3500) {
 
             push()
             fill(0, 0, 0, fade4)
@@ -745,7 +745,7 @@ function draw() {
         }
 
 
-        if (timestamp3 > 1500) {
+        if (timestamp3 > 3000) {
 
             audioRecordFlag = 1;
             startState2 = 1; //start chart
