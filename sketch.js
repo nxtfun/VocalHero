@@ -397,7 +397,7 @@ function draw() {
   strokeWeight(2);
 
 
-  rect(230, 30, 230, 50, 10);//odsłuchaj
+  rect(50, 30, 230, 50, 10);//odsłuchaj
   pop()
 
 
@@ -405,13 +405,13 @@ function draw() {
   //https://coolors.co/a6ebc9-61ff7e-dbfadb-62ab37-393424
   push()
 
-  if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80 && !startState) {
+  if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && !startState) {
     fill('#5EEB5B');
   }
   else if (!startState) {
     fill('#C9F8C9');
   }
-  else if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80 && startState) {
+  else if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && startState) {
     fill('#FF3333');
   }
   else {
@@ -422,7 +422,7 @@ function draw() {
   strokeWeight(2);
 
 
-  rect(50, 30, 150, 50, 25);//start
+  rect(320, 30, 150, 50, 25);//start button
   pop()
 
 
@@ -434,13 +434,13 @@ function draw() {
   fill(20);
   textAlign(CENTER);
   if (!startState) {
-    text('START', 80, 65, 100);
+    text('START', 350, 65, 100);
   }
   else {
-    text('STOP', 80, 65, 100);
+    text('STOP', 350, 65, 100);
   }
 
-  text('ODSŁUCHAJ', 300, 65, 100);
+  text('ODSŁUCHAJ', 118, 65, 100);
 
 
   pop()
@@ -448,12 +448,8 @@ function draw() {
   text(mouseX, 10, 20);
   text(mouseY, 50, 20);
 
-  push()
-  textSize(30);
-  fill(20);
-  textAlign(CENTER);
-  text(taskIndex, 800, 65, 100);
-  pop();
+
+
 
 
 
@@ -718,6 +714,8 @@ beginShape();
   
   */
   text('Moduł: ' + currentModule, 1000, 20);
+  text('Próba: ' + taskIndex, 900, 20);
+  //text('Audio: ' + sound.isPlaying(), 800, 20);
 
 
 
@@ -859,9 +857,9 @@ beginShape();
     //fill(100);
     noFill();
     strokeWeight(2);
-    bezier(282, 486, 168, 460, 140, 256, 123, 95);
-    line(123, 95, 99, 121);
-    line(123, 95, 150, 115);
+    bezier(282, 486, 168, 460, 140, 256, 300, 90);
+    line(300, 90, 270, 90);
+    line(300, 90, 301, 118);
     //fill(100);
 
     pop()
@@ -875,7 +873,7 @@ beginShape();
     strokeWeight(2);
 
 
-    rect(50, 30, 150, 50, 25);//start
+    rect(320, 30, 150, 50, 25);//start button
 
 
 
@@ -887,7 +885,7 @@ beginShape();
     textSize(30);
     fill(20);
     textAlign(CENTER);
-    text('START', 80, 65, 100);
+    text('START', 350, 65, 100);
 
 
 
@@ -1145,11 +1143,11 @@ function checkHowManyExamples(n) {
 
 function mousePressed() {
   //console.log('Hello! MousePressed');
-  if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80 && !startState) {
+  if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && !startState) {//if mouse over start button and nothing is playing
     //getAudioContext().resume(); //needed by browser to use microphone and audio
     startButtonF();
   }
-  else if (mouseX > 50 && mouseX < 200 && mouseY > 30 && mouseY < 80 && startState) {
+  else if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && startState) {//if mouse over start and example is playing
     stopButtonF();
     //timestamp3 = 0;
     startCountdown = 0;//stop countdown
@@ -1161,9 +1159,17 @@ function mousePressed() {
 
 
 
-  if (mouseX > 230 && mouseX < 460 && mouseY > 30 && mouseY < 80) {
-    playButtonF();
-    console.log('odsluch');
+  if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80) {//if mouse over listening button
+    if (!sound.isPlaying()) {
+      playButtonF();
+      console.log('odsluch');
+    }
+    else {
+      sound.stop();
+    }
+
+
+
   }
 
 
