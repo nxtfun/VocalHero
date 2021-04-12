@@ -90,6 +90,18 @@ let fade1 = 255;
 let fade2 = 255;
 let fade3 = 255;
 let fade4 = 255;
+let fade5 = 255;
+let fade6 = 255;
+let fade7 = 255;
+let fade8 = 255;
+let fade9 = 255;
+let fade10 = 255;
+let fade11 = 255;
+let fade12 = 255;
+let fade13 = 255;
+let fade14 = 255;
+let fade15 = 255;
+let fade16 = 255;
 
 let examplesArray = [];//Array of random, shuffled numbers from 1 to n, where n is number of examples in database
 
@@ -165,7 +177,7 @@ function setup() {
 
   if (currentModule == 3) {
 
-    rduration = 4000;//how long is one recording
+    rduration = 10000;//how long is one recording
     pixpsec = chartlen / rduration;
   }
 
@@ -253,7 +265,7 @@ function setup() {
 
 
 
-  var myCanvas = createCanvas(1100, 600);
+  var myCanvas = createCanvas(1100, 400);
   myCanvas.parent("canvas-parent"); //sensor information on bar fix
 
 
@@ -412,6 +424,7 @@ function draw() {
 
   //text(sensor, 200, 100);
 
+  /*
   push()
   strokeWeight(10);
   //fill(200)
@@ -420,7 +433,7 @@ function draw() {
   rect(0, height, width, -scaledSensor2 - 55); //background line rising up with sensor
   pop()
 
-
+*/
 
   push()
   strokeWeight(10);
@@ -488,8 +501,8 @@ function draw() {
 
   pop()
 
-  //text(mouseX, 10, 20);
-  //text(mouseY, 50, 20);
+  text(mouseX, 10, 20);
+  text(mouseY, 50, 20);
 
 
 
@@ -506,7 +519,7 @@ function draw() {
   fill(250, 250, 250, 210)
   strokeWeight(0);
   stroke(150);
-  rect(50, 105, chartlen + 1, 450, 00);// background for graph
+  rect(50, 105, chartlen + 1, 250, 150);// background for graph
   pop();
 
   //time  
@@ -582,6 +595,7 @@ function draw() {
   //ellipse(750, 0,50+ sensor*2,50+ sensor*2);
   //pop()
 
+  /*
   push()
   strokeWeight(2);
   stroke('#0CCA4A');
@@ -589,6 +603,10 @@ function draw() {
 
 
   pop()
+*/
+
+
+
   push()
   strokeWeight(2);
   stroke(200);
@@ -618,6 +636,10 @@ function draw() {
 
   //line(50+przesuw,330,50+przesuw,200)
   pop()
+
+
+
+  /*
 
   //draw chart
   push()
@@ -653,7 +675,7 @@ function draw() {
 
   endShape();
   pop();
-
+*/
 
 
   /*
@@ -668,29 +690,30 @@ function draw() {
 
 
 
-
-
-  beginShape();
-
-
-  fill(2, 48, 71, 200);
-  stroke(2, 48, 71);
-  strokeWeight(2);
-  //chart from sensor, live
-  for (let i = 0; i < xvalsScaled.length; i++) {
-    vertex(pixpsec * xtime[i] + 50, -xvalsScaled[i] + 545);
-
-  }
-
-  vertex(pixpsec * xtime[xvalsScaled.length - 1] + 50, 554);
-  vertex(pixpsec * xtime[0] + 50, 554);
-  vertex(pixpsec * xtime[0] + 50, - xvalsScaled[0] + 545);
-
-
-
-
-  endShape();
-
+  /*
+  
+    beginShape();
+  
+  
+    fill(2, 48, 71, 200);
+    stroke(2, 48, 71);
+    strokeWeight(2);
+    //chart from sensor, live
+    for (let i = 0; i < xvalsScaled.length; i++) {
+      vertex(pixpsec * xtime[i] + 50, -xvalsScaled[i] + 545);
+  
+    }
+  
+    vertex(pixpsec * xtime[xvalsScaled.length - 1] + 50, 554);
+    vertex(pixpsec * xtime[0] + 50, 554);
+    vertex(pixpsec * xtime[0] + 50, - xvalsScaled[0] + 545);
+  
+  
+  
+  
+    endShape();
+  
+    */
   /*
 
 //chart from sensor, live
@@ -733,15 +756,15 @@ beginShape();
 
 
   //line(50, 335, 30+(chartlen), 335);
-  pop()
+  //pop()
 
 
-
-  push();
-  textSize(40)
-  text((round(scaledSensor * 100)) / 100, 910, 70);
-  pop();
-
+  /*
+    push();
+    textSize(40)
+    text((round(scaledSensor * 100)) / 100, 910, 70);
+    pop();
+  */
   /*
     text('Podłączony: ', 800, 20);
     //text('Millis: ',10,60);
@@ -756,9 +779,8 @@ beginShape();
     }
   
   */
-  text('Moduł: ' + currentModule, 1000, 20);
+  text('Moduł testowy', 970, 20);
   text('Próba: ' + taskIndex, 900, 20);
-  //text(timestamp, 800, 20);
   //text('Audio: ' + sound.isPlaying(), 800, 20);
 
 
@@ -767,7 +789,7 @@ beginShape();
   textSize(40);
   textAlign(CENTER);
   text(exerciseData, 0, 150, width);
-
+  //text(timestamp, 0, 200, width);
 
   pop()
 
@@ -784,7 +806,7 @@ beginShape();
       fill(0, 0, 0, fade1)
       textSize(90);
       textAlign(CENTER);
-      text('3', width / 2, 350);
+      text('3', width / 2, 250);
       pop()
 
       fade1 = fade1 - 5;
@@ -796,7 +818,7 @@ beginShape();
       fill(0, 0, 0, fade2)
       textSize(90);
       textAlign(CENTER);
-      text('2', width / 2, 350);
+      text('2', width / 2, 250);
       pop()
 
       fade2 = fade2 - 5;
@@ -809,38 +831,198 @@ beginShape();
       fill(0, 0, 0, fade3)
       textSize(90);
       textAlign(CENTER);
-      text('1', width / 2, 350);
+      text('1', width / 2, 250);
       pop()
 
       fade3 = fade3 - 5;
     }
 
+    /*
+        if (timestamp3 > 3000 && timestamp3 < 3500) {
+    
+          push()
+          fill(0, 0, 0, fade4)
+          textSize(90);
+          textAlign(CENTER);
+          text('START!', width / 2, 250);
+          pop()
+    
+          fade4 = fade4 - 10;
+    
+        }
+    */
 
-    if (timestamp3 > 3000 && timestamp3 < 3500) {
+    if (timestamp3 > 3000 && timestamp3 < 4000) {
 
-      push()
-      fill(0, 0, 0, fade4)
-      textSize(90);
-      textAlign(CENTER);
-      text('START!', width / 2, 350);
-      pop()
-
-      fade4 = fade4 - 10;
-
-    }
-
-
-    if (timestamp3 > 3000) {
-
-      if (!startState2)
+      if (!startState2) {
         audioRecordFlag = 1;
 
-      startState2 = 1; //start chart
+        startState2 = 1; //start chart
+      }
 
     }
 
 
-    if (timestamp3 > 4000) {
+
+
+
+
+    if (timestamp3 > 3000 && timestamp3 < 13000) {
+
+      push()
+      fill(0, 0, 0, 255)
+      textSize(90);
+      textAlign(CENTER);
+      text('TRZYMAJ!', width / 2 - 100, 250);
+      pop()
+
+
+
+      push()
+      fill(0, 0, 0, 255)
+      textSize(30);
+      textAlign(CENTER);
+      text('Naciskaj przycisk krtani', width / 2 - 100, 300);
+      pop()
+
+
+      fade5 = fade5 - 5;
+
+    }
+
+
+
+    if (timestamp3 > 3000 && timestamp3 < 4000) {
+
+      push()
+      fill(0, 0, 0, fade6)
+      textSize(180);
+      textAlign(CENTER);
+      text('10', width / 2 + 350, 290);
+      pop()
+
+      fade6 = fade6 - 5;
+
+    }
+    if (timestamp3 > 4000 && timestamp3 < 5000) {
+
+      push()
+      fill(0, 0, 0, fade7)
+      textSize(180);
+      textAlign(CENTER);
+      text('9', width / 2 + 350, 290);
+      pop()
+
+      fade7 = fade7 - 5;
+
+    }
+    if (timestamp3 > 5000 && timestamp3 < 6000) {
+
+      push()
+      fill(0, 0, 0, fade8)
+      textSize(180);
+      textAlign(CENTER);
+      text('8', width / 2 + 350, 290);
+      pop()
+
+      fade8 = fade8 - 5;
+
+    }
+    if (timestamp3 > 6000 && timestamp3 < 7000) {
+
+      push()
+      fill(0, 0, 0, fade9)
+      textSize(180);
+      textAlign(CENTER);
+      text('7', width / 2 + 350, 290);
+      pop()
+
+      fade9 = fade9 - 5;
+
+    }
+    if (timestamp3 > 7000 && timestamp3 < 8000) {
+
+      push()
+      fill(0, 0, 0, fade10)
+      textSize(180);
+      textAlign(CENTER);
+      text('6', width / 2 + 350, 290);
+      pop()
+
+      fade10 = fade10 - 5;
+
+    }
+    if (timestamp3 > 8000 && timestamp3 < 9000) {
+
+      push()
+      fill(0, 0, 0, fade11)
+      textSize(180);
+      textAlign(CENTER);
+      text('5', width / 2 + 350, 290);
+      pop()
+
+      fade11 = fade11 - 5;
+
+    }
+    if (timestamp3 > 9000 && timestamp3 < 10000) {
+
+      push()
+      fill(0, 0, 0, fade12)
+      textSize(180);
+      textAlign(CENTER);
+      text('4', width / 2 + 350, 290);
+      pop()
+
+      fade12 = fade12 - 5;
+
+    }
+    if (timestamp3 > 10000 && timestamp3 < 11000) {
+
+      push()
+      fill(0, 0, 0, fade13)
+      textSize(180);
+      textAlign(CENTER);
+      text('3', width / 2 + 350, 290);
+      pop()
+
+      fade13 = fade13 - 5;
+
+    }
+    if (timestamp3 > 11000 && timestamp3 < 12000) {
+
+      push()
+      fill(0, 0, 0, fade14)
+      textSize(180);
+      textAlign(CENTER);
+      text('2', width / 2 + 350, 290);
+      pop()
+
+      fade14 = fade14 - 5;
+
+    }
+    if (timestamp3 > 12000 && timestamp3 < 13000) {
+
+      push()
+      fill(0, 0, 0, fade15)
+      textSize(180);
+      textAlign(CENTER);
+      text('1', width / 2 + 350, 290);
+      pop()
+
+      fade15 = fade15 - 5;
+
+    }
+
+
+
+
+
+
+
+
+
+
+    if (timestamp3 > 13000) {
 
       startCountdown = 0; //stop this function
 
@@ -893,53 +1075,42 @@ beginShape();
     textAlign(CENTER);
     text('Dobra robota!', width / 2, 200);
     fill(250);
-    text('DALEJ', width / 2, 410);
+    text('DALEJ', width / 2, 345);
     fill(100);
-    text('...albo spróbuj ponownie!', width / 2, 500);
-
-
-
-    stroke(100);
-    //fill(100);
-    noFill();
-    strokeWeight(2);
-    bezier(282, 486, 168, 460, 140, 256, 300, 90);
-    line(300, 90, 270, 90);
-    line(300, 90, 301, 118);
-    //fill(100);
-
-    pop()
-
-
-    push()
-
-    fill('#5EEB5B');
-
-
-    strokeWeight(2);
-
-
-    rect(320, 30, 150, 50, 25);//start button
-
-
 
 
     pop()
 
+    /*
+        push()
+    
+        fill('#5EEB5B');
+    
+    
+        strokeWeight(2);
+    
+    
+        rect(320, 30, 150, 50, 25);//start button
+    
+    
+    
+    
+        pop()
+    */
+    /* 
+   push()
+   textSize(30);
+   fill(20);
+   textAlign(CENTER);
+   text('START', 350, 65, 100);
 
-    push()
-    textSize(30);
-    fill(20);
-    textAlign(CENTER);
-    text('START', 350, 65, 100);
 
 
 
 
+   pop()
 
-    pop()
-
-
+     */
 
 
 
@@ -1019,6 +1190,18 @@ function startButtonF() {
     fade2 = 255;
     fade3 = 255;
     fade4 = 255;
+    fade5 = 255;
+    fade6 = 255;
+    fade7 = 255;
+    fade8 = 255;
+    fade9 = 255;
+    fade10 = 255;
+    fade11 = 255;
+    fade12 = 255;
+    fade13 = 255;
+    fade14 = 255;
+    fade15 = 255;
+    fade16 = 255;
     previousMillis3 = currentMillis;
     startCountdown = 1;
 
@@ -1101,7 +1284,7 @@ function startRecording() {
 
 
     if (zapis) {
-      saveJSON(json, str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData);
+      saveJSON(json, 'test_' + str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData);
 
 
       saveSound(soundFile, str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData); // save file
@@ -1180,7 +1363,7 @@ function UrlExists(url) {
 function checkHowManyExamples(n) {
   let ii = 0;
   for (let i = 0; i < 200; i++) {
-    if (UrlExists(databaseLocation + str(n) + '/' + str(i + 1) + '.json')) {
+    if (UrlExists(databaseLocation + 'test/' + str(i + 1) + '.wav')) {
       ii++
     }
     else {
@@ -1227,10 +1410,11 @@ function mousePressed() {
 
 
 
-  if (mouseX > 275 && mouseX < 825 && mouseY > 351 && mouseY < 453 && popUp) {
-    popUp = 0;
+  if (mouseX > 275 && mouseX < 825 && mouseY > 302 && mouseY < 369 && popUp) {
+    //popUp = 0;
     console.log('dalej');
-    nextExercise = 1;
+    //nextExercise = 1;
+    window.open("task.html", "_self");
   }
 
 
