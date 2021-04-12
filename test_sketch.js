@@ -501,8 +501,8 @@ function draw() {
 
   pop()
 
-  text(mouseX, 10, 20);
-  text(mouseY, 50, 20);
+  //text(mouseX, 10, 20);
+  //text(mouseY, 50, 20);
 
 
 
