@@ -434,17 +434,17 @@ function draw() {
   pop()
 
 */
-
-  push()
-  strokeWeight(10);
-  //fill(200)
-  fill(240);
-  //stroke('#023047');
-  strokeWeight(2);
-  //fill('#FFB703')
-  rect(900, 30, 150, 50, 10); //background to sensor value
-  pop()
-
+  /*
+    push()
+    strokeWeight(10);
+    //fill(200)
+    fill(240);
+    //stroke('#023047');
+    strokeWeight(2);
+    //fill('#FFB703')
+    rect(900, 30, 150, 50, 10); //background to sensor value
+    pop()
+  */
 
   push()
 
@@ -875,6 +875,24 @@ beginShape();
       textAlign(CENTER);
       text('TRZYMAJ!', width / 2 - 100, 250);
       pop()
+
+
+
+      push()
+      fill(0, 0, 0, 255)
+      textSize(30);
+      textAlign(CENTER);
+      text('Naciskaj przycisk krtani', width / 2 - 100, 300);
+      pop()
+
+
+      fade5 = fade5 - 5;
+
+    }
+
+    if (timestamp3 > 0 && timestamp3 < 13000) {
+
+
 
 
 

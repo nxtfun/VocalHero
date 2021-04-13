@@ -652,7 +652,12 @@ function draw() {
 
 
   endShape();
+
+
+
   pop();
+
+
 
 
 
@@ -687,6 +692,13 @@ function draw() {
   vertex(pixpsec * xtime[0] + 50, - xvalsScaled[0] + 545);
 
 
+
+  push();
+  strokeWeight(2);
+  stroke(100, 100, 100, 200);
+
+  line(pixpsec * xtime[xvalsScaled.length - 1] + 50, 554, pixpsec * xtime[xvalsScaled.length - 1] + 50, 106);//vertical line used as time marker during recording
+  pop();
 
 
   endShape();
@@ -1046,6 +1058,7 @@ function stopButtonF() {
   startState = 0;
   startState2 = 0;
   previousMillis2 = currentMillis;
+  xvalsScaled = [];
 
 }
 
