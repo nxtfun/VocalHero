@@ -31,6 +31,7 @@ let previousMillis1 = 0;
 let previousMillis2 = 0;
 let previousMillis3 = 0;
 let timestamp = 0;
+let timestamp2 = 0;
 let timestamp3 = 0;
 let timer1 = 0;
 let currentMillis = 0;
@@ -45,7 +46,7 @@ let xvalsScaled = []; // values from sensor saved to buffer, scaled to chart hei
 let xvalsScaled2 = []; // values from file saved to buffer, scaled to chart height 
 
 let popUp = 0;//pop-up state. 0 means its off
-
+let isLitening = 0;//listening state
 
 
 let exercise2 = []; // exercise from json
@@ -433,32 +434,48 @@ function draw() {
   pop()
 
 
-  push()
+  push()// listening button
 
-  fill(250);
+  // https://coolors.co/fc9f5b-fbd1a2-ece4b7-7dcfb6-33ca7f
+
+
+  if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80 && !startState) {
+    fill('#3DA485');//before start after hoover
+  }
+  else if (!startState) {
+    fill('#7DCFB6');//before start before hoover
+  }
+  else if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80 && startState) {
+    fill(200);//after start before hoover
+  }
+  else {
+    fill(200);//after start after hoover
+  }
   //stroke('#023047');
   strokeWeight(2);
 
 
-  rect(50, 30, 230, 50, 10);//odsłuchaj
+  rect(50, 30, 230, 50, 00);//odsłuchaj
   pop()
 
 
 
   //https://coolors.co/a6ebc9-61ff7e-dbfadb-62ab37-393424
-  push()
+
+
+  push()//start button
 
   if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && !startState) {
-    fill('#5EEB5B');
+    fill('#5EEB5B');//before start after hoover
   }
   else if (!startState) {
-    fill('#C9F8C9');
+    fill('#C9F8C9');//before start before hoover
   }
   else if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && startState) {
-    fill('#FF3333');
+    fill('#FF3333');//after start before hoover
   }
   else {
-    fill('#FFADAD');
+    fill('#FFADAD');//after start after hoover
   }
 
 
@@ -660,6 +677,30 @@ function draw() {
 
 
 
+  if (isLitening && (!startState)) {
+
+    timestamp2 = currentMillis - previousMillis1;//check how long from start of listening
+    //text(timestamp2, 700, 10);
+
+
+    push();
+    strokeWeight(2);
+    stroke(100, 100, 100, 200);
+
+    line(pixpsec * timestamp2 + 50, 554, pixpsec * timestamp2 + 50, 106);//vertical line used as time marker during recording
+    pop();
+
+
+
+
+    if (timestamp2 > rduration) {
+      isLitening = 0;
+      sound.stop();
+    }
+  }
+
+
+
 
   /*
     //chart from data
@@ -789,7 +830,7 @@ beginShape();
 
 
 
-    timestamp3 = currentMillis - previousMillis3;
+    timestamp3 = currentMillis - previousMillis3;//check how long from start
     if (timestamp3 > 0 && timestamp3 < 1000) {
 
       push()
@@ -1025,18 +1066,21 @@ function axisInput() {
 
 function startButtonF() {
   if (!startState) {
-    popUp = 0;
-    startState = 1;
-    fade1 = 255;
-    fade2 = 255;
-    fade3 = 255;
-    fade4 = 255;
-    previousMillis3 = currentMillis;
+    popUp = 0;//close popUp window
+    startState = 1;//start
+    fade1 = 255;//reset alpha channel for countdown numbers
+    fade2 = 255;//reset alpha channel for countdown numbers
+    fade3 = 255;//reset alpha channel for countdown numbers
+    fade4 = 255;//reset alpha channel for countdown numbers
+    previousMillis3 = currentMillis;//reset timer
     startCountdown = 1;
 
     xvals = [];//erase data
     xvalsScaled = []//erase chart
     getAudioContext().resume(); //needed by browser to use microphone and audio
+
+    sound.stop();
+    isLitening = 0;
 
 
 
@@ -1051,6 +1095,14 @@ function startButtonF() {
 
   }
 }
+
+
+function listeningF() {
+  text('Odsłuch!', 10, 10);
+
+}
+
+
 
 function stopButtonF() {
   console.log('Stop!');
@@ -1223,13 +1275,16 @@ function mousePressed() {
 
 
 
-  if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80) {//if mouse over listening button
+  if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80 && (!startState)) {//if mouse over listening button
     if (!sound.isPlaying()) {
       playButtonF();
       console.log('odsluch');
+      previousMillis1 = currentMillis;//reset listening timer
+      isLitening = 1;
     }
     else {
       sound.stop();
+      isLitening = 0;
     }
 
 
@@ -1250,3 +1305,7 @@ function mousePressed() {
   //playButtonF
 
 }
+
+
+
+
