@@ -103,6 +103,9 @@ let fade14 = 255;
 let fade15 = 255;
 let fade16 = 255;
 
+let fade17 = 0;
+let isPushed = 0;  //check if electrolarynx button is pushed or mouse is over
+
 let examplesArray = [];//Array of random, shuffled numbers from 1 to n, where n is number of examples in database
 
 //loadSound('https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/1_mod1_24-3-2021_23-26-6_kkk.wav')
@@ -515,10 +518,45 @@ function draw() {
   //text('ID:', 700, 20);
   //text(taskIndex, 720, 20);//which index is now playing
 
+
+  //fade17
+
   push();
-  fill(250, 250, 250, 210)
-  strokeWeight(0);
-  stroke(150);
+
+
+
+  if ((mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363 && !connected) || sensor > minSensorValue + 10 && connected) {
+    isPushed = 1;
+  }
+  if ((!(mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363) && !connected) || sensor < minSensorValue + 10 && connected) {
+    isPushed = 0;
+  }
+
+
+
+
+  if (isPushed) {
+
+    if (fade17 < 5) {
+
+      fade17 += 1;
+
+    }
+
+  }
+  else {
+    if (fade17 > 0) {
+
+      fade17 -= 1;
+
+    }
+  }
+
+  fill(250 - fade17 * 3, 250 - fade17 * 3, 250 - fade17 * 3, 210 - fade17 * 3);
+
+  strokeWeight(fade17);
+
+  stroke(50);
   rect(50, 105, chartlen + 1, 250, 150);// background for graph
   pop();
 
@@ -779,10 +817,12 @@ beginShape();
     }
   
   */
+  push();
+  fill('#FFE8AD');
   text('Moduł testowy', 970, 20);
   text('Próba: ' + taskIndex, 900, 20);
   //text('Audio: ' + sound.isPlaying(), 800, 20);
-
+  pop();
 
 
   push()
@@ -1305,7 +1345,7 @@ function startRecording() {
       saveJSON(json, 'test_' + str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData);
 
 
-      saveSound(soundFile, str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData); // save file
+      saveSound(soundFile, 'test_' + str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData); // save file
     }
 
     stopButtonF();

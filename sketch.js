@@ -46,7 +46,7 @@ let xvalsScaled = []; // values from sensor saved to buffer, scaled to chart hei
 let xvalsScaled2 = []; // values from file saved to buffer, scaled to chart height 
 
 let popUp = 0;//pop-up state. 0 means its off
-let isLitening = 0;//listening state
+let isListening = 0;//listening state
 
 
 let exercise2 = []; // exercise from json
@@ -677,7 +677,7 @@ function draw() {
 
 
 
-  if (isLitening && (!startState)) {
+  if (isListening && (!startState)) {
 
     timestamp2 = currentMillis - previousMillis1;//check how long from start of listening
     //text(timestamp2, 700, 10);
@@ -694,7 +694,7 @@ function draw() {
 
 
     if (timestamp2 > rduration) {
-      isLitening = 0;
+      isListening = 0;
       sound.stop();
     }
   }
@@ -1080,7 +1080,7 @@ function startButtonF() {
     getAudioContext().resume(); //needed by browser to use microphone and audio
 
     sound.stop();
-    isLitening = 0;
+    isListening = 0;
 
 
 
@@ -1280,11 +1280,11 @@ function mousePressed() {
       playButtonF();
       console.log('odsluch');
       previousMillis1 = currentMillis;//reset listening timer
-      isLitening = 1;
+      isListening = 1;
     }
     else {
       sound.stop();
-      isLitening = 0;
+      isListening = 0;
     }
 
 
