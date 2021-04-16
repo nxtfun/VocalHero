@@ -15,8 +15,8 @@ let linia8 = 50;
 
 let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/';
 
-let maxSensorValue = 50;//value from sensor at maximum force
-let minSensorValue = 8;//value from sensor at maximum force
+let maxSensorValue = 0.6;//value from sensor at maximum force
+let minSensorValue = -1;//value from sensor at maximum force
 
 let jsonContainer;//json container to load data to
 let json = {}; //new JSON Object to save data to
@@ -539,12 +539,14 @@ function draw() {
 
 
 
-  if ((mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363 && !connected) || sensor > minSensorValue + 10 && connected) {
+  if ((mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363 && !connected) || scaledSensor > 2 && connected) {
     isPushed = 1;
   }
-  if ((!(mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363) && !connected) || sensor < minSensorValue + 10 && connected) {
+  if ((!(mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363) && !connected) || scaledSensor < 2 && connected) {
     isPushed = 0;
   }
+
+  console.log(scaledSensor);
 
 
 
@@ -1230,16 +1232,17 @@ function axisInput() {
 
       for (let j = 0; j < controller.axes.length; j++) {
 
-        AllAxes = AllAxes + controller.axes[j];
+        //AllAxes = AllAxes + controller.axes[j];
 
       }
 
-      AllAxes = (AllAxes * 100) + 100;
+      //AllAxes = (AllAxes * 100) + 100;
+      AllAxes = controller.axes[0];
       console.log(AllAxes);
-      console.log(controller.axes[0]);
-      AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
+      //console.log(controller.axes[0]);
+      //AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
 
-      console.log(controller.axes);
+      //console.log(controller.axes);
 
 
       return AllAxes;
