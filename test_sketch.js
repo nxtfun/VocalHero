@@ -449,14 +449,28 @@ function draw() {
     pop()
   */
 
-  push()
+  push()// listening button
 
-  fill(250);
+  // https://coolors.co/fc9f5b-fbd1a2-ece4b7-7dcfb6-33ca7f
+
+
+  if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80 && !startState) {
+    fill('#3DA485');//before start after hoover
+  }
+  else if (!startState) {
+    fill('#7DCFB6');//before start before hoover
+  }
+  else if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80 && startState) {
+    fill(200);//after start before hoover
+  }
+  else {
+    fill(200);//after start after hoover
+  }
   //stroke('#023047');
   strokeWeight(2);
 
 
-  rect(50, 30, 230, 50, 10);//odsłuchaj
+  rect(50, 30, 230, 50, 00);//odsłuchaj
   pop()
 
 
@@ -1451,7 +1465,7 @@ function mousePressed() {
 
 
 
-  if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80) {//if mouse over listening button
+  if (mouseX > 50 && mouseX < 280 && mouseY > 30 && mouseY < 80 && (!startState)) {//if mouse over listening button
     if (!sound.isPlaying()) {
       playButtonF();
       console.log('odsluch');
