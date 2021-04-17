@@ -16,8 +16,8 @@ let linia8 = 50;
 
 let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/';
 
-let maxSensorValue = 0.6;//value from sensor at maximum force
-let minSensorValue = -1;//value from sensor at minimum force
+let maxSensorValue = -0.4;//value from sensor at maximum force
+let minSensorValue = -0.950;//value from sensor at minimum force
 
 let jsonContainer;//json container to load data to
 let json = {}; //new JSON Object to save data to
@@ -1091,6 +1091,7 @@ function axisInput() {
       //console.log(AxesOutputAxis);
 
       AxesOutput = controller.axes[AxesOutputAxis];
+      console.log(AxesOutput);
 
       //console.log(previousAxes);
 
