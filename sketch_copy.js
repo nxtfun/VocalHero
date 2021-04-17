@@ -111,14 +111,6 @@ let nextExercise = 0;
 let xvals2Length = 100;//variable to limit chart length
 
 
-
-let AxesOutput = 0;
-let AxesOutputAxis = 0;
-let previousAxes = [];
-
-
-
-
 //chartlen - rduration
 //x        - stamp
 
@@ -1038,66 +1030,24 @@ function gamepadHandler(event, connecting) {
 
 
 function axisInput() {
-
-
+  let AllAxes = 0;
   if (connected) {
     var gamepads = navigator.getGamepads()
     for (let i in controllers) {
       let controller = gamepads[i]//controllers[i]
 
-
-
-
-
-
-
-
       //return 100+controller.axes[7]*100;
       //return 100 + (controller.axes[10] + controller.axes[7]) * 100;
 
-
-
-      /*
-            for (let j = 0; j < controller.axes.length; j++) {
-      
-              if (previousAxes[j] !== controller.axes[j]) {
-                AxesOutput = j;
-              }
-      
-            }
-      
-      
-            for (let j = 0; j < controller.axes.length; j++) {
-      
-              previousAxes[j] = controller.axes[j];
-      
-            }
-      
-      
-      */
-      //AxesOutput = controller.axes[AxesOutputAxis];
-
       for (let j = 0; j < controller.axes.length; j++) {
 
-        if (previousAxes[j] !== controller.axes[j]) {
-          AxesOutputAxis = j;
-        }
+        //AllAxes = AllAxes + controller.axes[j];
 
       }
 
-      previousAxes = controller.axes;
-
-
-      //console.log(AxesOutputAxis);
-
-      AxesOutput = controller.axes[AxesOutputAxis];
-
-      //console.log(previousAxes);
-
       //AllAxes = (controller.axes[0] * 100) + 100;
-
-      //console.log(AxesOutput);
-      //console.log(AllAxes);
+      AllAxes = controller.axes[0];
+      console.log(AllAxes);
       //console.log(controller.axes[0]);
       //AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
 
@@ -1105,7 +1055,7 @@ function axisInput() {
       //console.log(controller.axes);
 
 
-      return AxesOutput;
+      return AllAxes;
 
 
 
