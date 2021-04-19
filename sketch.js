@@ -188,7 +188,7 @@ function setup() {
     rduration = 4000;//how long is one recording
     pixpsec = chartlen / rduration;
   }
-
+  console.log('new min sensor value: -0.97');
   //radio buttons
   //radio = createRadio();
   //radio.option('1');
