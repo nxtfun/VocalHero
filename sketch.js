@@ -129,6 +129,10 @@ let previousAxes = [];
 function preload() {
 
   if (currentModule != 4) {
+
+
+
+
     examplesArray = shuffleArray(checkHowManyExamples(currentModule));//number = current module 1 - 3
 
 
@@ -318,14 +322,17 @@ function draw() {
   //clear();  
   background('#fb8500');
 
+
   if (currentModule == 4) {//if pro mode
+
+    background('#8B9EB7');
     exerciseData = inputText.value();//changes char input to int input;
     rduration = 1000 * inputTime.value();//changes char input to int input;
     pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
 
 
     push();
-    fill('#FFE8AD');
+    fill('#47335C');
     text('Wpisz przykład:', 630, 40);
     text('Podaj czas nagrania: ', 602, 70);
     text('(w sekundach)', 602, 85);
@@ -466,7 +473,15 @@ function draw() {
   strokeWeight(10);
   //fill(200)
   fill(204, 153, 0);
-  fill('#FFB703')
+  if (currentModule == 4) {
+    fill('#566C8A')
+    //566C8A
+  }
+  else {
+    fill('#FFB703')
+  }
+
+
   rect(0, height, width, -scaledSensor2 - 55); //background line rising up with sensor
   pop()
 
@@ -481,6 +496,35 @@ function draw() {
   //fill('#FFB703')
   rect(900, 30, 150, 50, 10); //background to sensor value
   pop()
+
+
+  if (currentModule == 4) {
+    push()
+    strokeWeight(10);
+    //fill(200)
+    fill(240);
+    //stroke('#023047');
+    strokeWeight(2);
+    //fill('#FFB703')
+    rect(500, 30, 80, 50, 10); //background to try value
+    pop()
+
+
+    push();
+    textAlign(CENTER);
+    textSize(40)
+    text(taskIndex, 540, 70);
+    pop();
+
+
+
+
+
+  }
+
+
+
+
 
 
   push()// listening button
@@ -843,6 +887,11 @@ beginShape();
   textSize(40)
   text((round(scaledSensor * 100)) / 100, 910, 70);
   pop();
+
+
+
+
+
 
   /*
     text('Podłączony: ', 800, 20);
@@ -1220,8 +1269,9 @@ function stopButtonF() {
   startState = 0;
   startState2 = 0;
   previousMillis2 = currentMillis;
-  xvalsScaled = [];
-
+  if (currentModule != 4) {
+    xvalsScaled = [];
+  }
 }
 
 
@@ -1270,7 +1320,8 @@ function startRecording() {
     json.hour = (str(hours) + ':' + str(minutes) + ':' + str(seconds));
 
     json.duration = rduration;
-
+    json.maxSensorValue = maxSensorValue;//value from sensor at maximum force
+    json.minSensorValue = minSensorValue;//value from sensor at minimum force
 
 
     json.values = xvals;
