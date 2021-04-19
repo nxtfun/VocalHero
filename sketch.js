@@ -48,6 +48,7 @@ let xvalsScaled2 = []; // values from file saved to buffer, scaled to chart heig
 
 let popUp = 0;//pop-up state. 0 means its off
 let isListening = 0;//listening state
+let isReady = 1;//check if ready to record (checks if example and time are set)
 
 
 let exercise2 = []; // exercise from json
@@ -127,39 +128,40 @@ let previousAxes = [];
 
 function preload() {
 
-  examplesArray = shuffleArray(checkHowManyExamples(currentModule));//number = current module 1 - 3
+  if (currentModule != 4) {
+    examplesArray = shuffleArray(checkHowManyExamples(currentModule));//number = current module 1 - 3
 
 
 
-  if (thisManyExercises > examplesArray.length) {//limits number of exercises if there is less of them in database
-    thisManyExercises = examplesArray.length;
+    if (thisManyExercises > examplesArray.length) {//limits number of exercises if there is less of them in database
+      thisManyExercises = examplesArray.length;
+    }
+
+
+    //load all examples without first one
+    for (let i = 1; i < thisManyExercises; i++) {
+
+      jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
+      soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
+
+
+    }
+
+
+
+    //preload first example only
+    //jsonContainer = loadJSON('ciastko.json');
+    //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
+    jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
+    //jsonContainer = loadJSON(databaseLocation + '1/1.json');
+    sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
+    //sound = loadSound(databaseLocation + '1/1.wav');
+    //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
+
+    //console.log(examplesArray);
+
+
   }
-
-
-  //load all examples without first one
-  for (let i = 1; i < thisManyExercises; i++) {
-
-    jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
-    soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
-
-
-  }
-
-
-
-  //preload first example only
-  //jsonContainer = loadJSON('ciastko.json');
-  //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
-  jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
-  //jsonContainer = loadJSON(databaseLocation + '1/1.json');
-  sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
-  //sound = loadSound(databaseLocation + '1/1.wav');
-  //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
-
-  //console.log(examplesArray);
-
-
-
 
 
 
@@ -168,10 +170,14 @@ function preload() {
 
 function setup() {
   //start of setup
+  if (currentModule == 4) {
+    //input text
+    inputText = createInput();
+    inputText.position(800, 300);
 
-  //input text
-  //input = createInput();
-  //input.position(400, 5);
+    inputTime = createInput();
+    inputTime.position(800, 330);
+  }
 
   if (currentModule == 3) {
 
@@ -206,28 +212,30 @@ function setup() {
   //xvals2 = Object.values(jsonContainer.values);
   //xtime2 = Object.values(jsonContainer.timestamp);
   //exercise2 = jsonContainer.exercise;
-  xvals2 = Object.values(jsonArray[0].values);
-  xtime2 = Object.values(jsonArray[0].timestamp);
-  exercise2 = jsonArray[0].exercise;
+
+  if (currentModule != 4) {
+    xvals2 = Object.values(jsonArray[0].values);
+    xtime2 = Object.values(jsonArray[0].timestamp);
+    exercise2 = jsonArray[0].exercise;
 
 
 
-  if (currentModule == 3) {
-    for (let iii = 0; iii < xtime2.length; iii++) {
+    if (currentModule == 3) {
+      for (let iii = 0; iii < xtime2.length; iii++) {
 
-      if (xtime2[iii] > rduration) {
-        xvals2Length = iii;
-        break;
+        if (xtime2[iii] > rduration) {
+          xvals2Length = iii;
+          break;
+        }
+
       }
 
     }
+    else {
+      xvals2Length = xvals2.length;
+    }
 
   }
-  else {
-    xvals2Length = xvals2.length;
-  }
-
-
 
   //console.log(xvals2);
   //xvals2 = Object.values(xvals2);//to check if valid
@@ -310,9 +318,41 @@ function draw() {
   //clear();  
   background('#fb8500');
 
+  if (currentModule == 4) {//if pro mode
+    exerciseData = inputText.value();//changes char input to int input;
+    rduration = 1000 * inputTime.value();//changes char input to int input;
+    pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
 
 
-  if (nextExercise) { // this is called once, after exercise to load new example
+    push();
+    fill('#FFE8AD');
+    text('Wpisz przykład:', 630, 40);
+    text('Podaj czas nagrania: ', 602, 70);
+    text('(w sekundach)', 602, 85);
+    pop();
+
+
+
+
+    if ((exerciseData.length > 0) && (rduration > 0)) {
+      isReady = 1;
+    }
+    else {
+      isReady = 0;
+    }
+
+    console.log(isReady);
+
+
+  }
+
+
+
+
+
+
+
+  if (nextExercise && (currentModule != 4)) { // this is called once, after exercise to load new example
     nextExercise = 0;
     /*
     if (currentExercise < thisManyExercises) {//iterate to next exercise number
@@ -362,11 +402,11 @@ function draw() {
 
 
 
+  if (currentModule != 4) {
+    //exerciseData = input.value();//changes char input to int input;
+    exerciseData = exercise2;
 
-  //exerciseData = input.value();//changes char input to int input;
-  exerciseData = exercise2;
-
-
+  }
 
 
 
@@ -828,9 +868,15 @@ beginShape();
   push()
   textSize(40);
   textAlign(CENTER);
+
+
+
   text(exerciseData, 0, 150, width);
 
 
+
+
+  //inputText
   pop()
 
 
@@ -922,11 +968,21 @@ beginShape();
   }
 
 
+  if (currentModule == 4 && !isReady) {
+    push()
+    fill(0)
+    textSize(70);
+    textAlign(CENTER);
+    text('Wpisz przykład', width / 2, 300);
+    text('i podaj czas nagrywania', width / 2, 400);
+    pop()
+  }
+
 
 
 
   //pop-ups
-  if (popUp) {
+  if (popUp && (currentModule != 4)) {
     //popUp
     //greys out whole screen
     push()
@@ -1213,11 +1269,16 @@ function startRecording() {
     json.date = (str(days) + '.' + str(months) + '.' + str(years));
     json.hour = (str(hours) + ':' + str(minutes) + ':' + str(seconds));
 
+    json.duration = rduration;
+
 
 
     json.values = xvals;
     json.timestamp = xtime;
 
+    if (currentModule == 4) {
+      sound = soundFile;
+    }
 
     if (zapis) {
       saveJSON(json, str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData);
@@ -1311,9 +1372,11 @@ function checkHowManyExamples(n) {
 
 
 
+
+
 function mousePressed() {
   //console.log('Hello! MousePressed');
-  if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && !startState) {//if mouse over start button and nothing is playing
+  if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && !startState && isReady) {//if mouse over start button and nothing is playing
     //getAudioContext().resume(); //needed by browser to use microphone and audio
     startButtonF();
   }
