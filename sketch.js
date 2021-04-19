@@ -348,7 +348,7 @@ function draw() {
       isReady = 0;
     }
 
-    console.log(isReady);
+    //console.log(isReady);
 
 
   }
@@ -1226,6 +1226,7 @@ function axisInput() {
 function startButtonF() {
   if (!startState) {
     popUp = 0;//close popUp window
+    getAudioContext().resume(); //needed by browser to use microphone and audio
     startState = 1;//start
     fade1 = 255;//reset alpha channel for countdown numbers
     fade2 = 255;//reset alpha channel for countdown numbers
@@ -1236,7 +1237,7 @@ function startButtonF() {
 
     xvals = [];//erase data
     xvalsScaled = []//erase chart
-    getAudioContext().resume(); //needed by browser to use microphone and audio
+
 
     sound.stop();
     isListening = 0;
@@ -1288,7 +1289,9 @@ function startRecording() {
   if (audioRecordFlag) {
     taskIndex++;
     audioRecordFlag = 0;
-    recorder.record(soundFile);//record audio  
+    recorder.record(soundFile);//record audio 
+    console.log('recording audio from microphone');
+    //console.log(taskIndex);
   }
 
 
