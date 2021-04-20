@@ -452,7 +452,7 @@ function draw() {
     else {
 
 
-      sensor = 0;
+      sensor = minSensorValue;
     }
 
   }
