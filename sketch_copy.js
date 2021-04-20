@@ -16,8 +16,8 @@ let linia8 = 50;
 
 let databaseLocation = 'https://raw.githubusercontent.com/nxtfun/VocalHero/main/database/';
 
-let maxSensorValue = -0.4;//value from sensor at maximum force -0.4
-let minSensorValue = -0.97;//value from sensor at minimum force -0.95
+let maxSensorValue = 0.6;//value from sensor at maximum force
+let minSensorValue = -1;//value from sensor at minimum force
 
 let jsonContainer;//json container to load data to
 let json = {}; //new JSON Object to save data to
@@ -48,7 +48,6 @@ let xvalsScaled2 = []; // values from file saved to buffer, scaled to chart heig
 
 let popUp = 0;//pop-up state. 0 means its off
 let isListening = 0;//listening state
-let isReady = 1;//check if ready to record (checks if example and time are set)
 
 
 let exercise2 = []; // exercise from json
@@ -112,14 +111,6 @@ let nextExercise = 0;
 let xvals2Length = 100;//variable to limit chart length
 
 
-
-let AxesOutput = 0;
-let AxesOutputAxis = 0;
-let previousAxes = [];
-
-
-
-
 //chartlen - rduration
 //x        - stamp
 
@@ -128,44 +119,39 @@ let previousAxes = [];
 
 function preload() {
 
-  if (currentModule != 4) {
+  examplesArray = shuffleArray(checkHowManyExamples(currentModule));//number = current module 1 - 3
 
 
 
-
-    examplesArray = shuffleArray(checkHowManyExamples(currentModule));//number = current module 1 - 3
-
-
-
-    if (thisManyExercises > examplesArray.length) {//limits number of exercises if there is less of them in database
-      thisManyExercises = examplesArray.length;
-    }
+  if (thisManyExercises > examplesArray.length) {//limits number of exercises if there is less of them in database
+    thisManyExercises = examplesArray.length;
+  }
 
 
-    //load all examples without first one
-    for (let i = 1; i < thisManyExercises; i++) {
+  //load all examples without first one
+  for (let i = 1; i < thisManyExercises; i++) {
 
-      jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
-      soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
-
-
-    }
-
-
-
-    //preload first example only
-    //jsonContainer = loadJSON('ciastko.json');
-    //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
-    jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
-    //jsonContainer = loadJSON(databaseLocation + '1/1.json');
-    sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
-    //sound = loadSound(databaseLocation + '1/1.wav');
-    //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
-
-    //console.log(examplesArray);
+    jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
+    soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
 
 
   }
+
+
+
+  //preload first example only
+  //jsonContainer = loadJSON('ciastko.json');
+  //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
+  jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
+  //jsonContainer = loadJSON(databaseLocation + '1/1.json');
+  sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
+  //sound = loadSound(databaseLocation + '1/1.wav');
+  //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
+
+  //console.log(examplesArray);
+
+
+
 
 
 
@@ -174,21 +160,17 @@ function preload() {
 
 function setup() {
   //start of setup
-  if (currentModule == 4) {
-    //input text
-    inputText = createInput();
-    inputText.position(800, 300);
 
-    inputTime = createInput();
-    inputTime.position(800, 330);
-  }
+  //input text
+  //input = createInput();
+  //input.position(400, 5);
 
   if (currentModule == 3) {
 
     rduration = 4000;//how long is one recording
     pixpsec = chartlen / rduration;
   }
-  console.log('new min sensor value: -0.97');
+
   //radio buttons
   //radio = createRadio();
   //radio.option('1');
@@ -216,30 +198,28 @@ function setup() {
   //xvals2 = Object.values(jsonContainer.values);
   //xtime2 = Object.values(jsonContainer.timestamp);
   //exercise2 = jsonContainer.exercise;
-
-  if (currentModule != 4) {
-    xvals2 = Object.values(jsonArray[0].values);
-    xtime2 = Object.values(jsonArray[0].timestamp);
-    exercise2 = jsonArray[0].exercise;
+  xvals2 = Object.values(jsonArray[0].values);
+  xtime2 = Object.values(jsonArray[0].timestamp);
+  exercise2 = jsonArray[0].exercise;
 
 
 
-    if (currentModule == 3) {
-      for (let iii = 0; iii < xtime2.length; iii++) {
+  if (currentModule == 3) {
+    for (let iii = 0; iii < xtime2.length; iii++) {
 
-        if (xtime2[iii] > rduration) {
-          xvals2Length = iii;
-          break;
-        }
-
+      if (xtime2[iii] > rduration) {
+        xvals2Length = iii;
+        break;
       }
 
     }
-    else {
-      xvals2Length = xvals2.length;
-    }
 
   }
+  else {
+    xvals2Length = xvals2.length;
+  }
+
+
 
   //console.log(xvals2);
   //xvals2 = Object.values(xvals2);//to check if valid
@@ -323,43 +303,8 @@ function draw() {
   background('#fb8500');
 
 
-  if (currentModule == 4) {//if pro mode
 
-    background('#8B9EB7');
-    exerciseData = inputText.value();//changes char input to int input;
-    rduration = 1000 * inputTime.value();//changes char input to int input;
-    pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
-
-
-    push();
-    fill('#47335C');
-    text('Wpisz przykład:', 630, 40);
-    text('Podaj czas nagrania: ', 602, 70);
-    text('(w sekundach)', 602, 85);
-    pop();
-
-
-
-
-    if ((exerciseData.length > 0) && (rduration > 0)) {
-      isReady = 1;
-    }
-    else {
-      isReady = 0;
-    }
-
-    //console.log(isReady);
-
-
-  }
-
-
-
-
-
-
-
-  if (nextExercise && (currentModule != 4)) { // this is called once, after exercise to load new example
+  if (nextExercise) { // this is called once, after exercise to load new example
     nextExercise = 0;
     /*
     if (currentExercise < thisManyExercises) {//iterate to next exercise number
@@ -409,11 +354,11 @@ function draw() {
 
 
 
-  if (currentModule != 4) {
-    //exerciseData = input.value();//changes char input to int input;
-    exerciseData = exercise2;
 
-  }
+  //exerciseData = input.value();//changes char input to int input;
+  exerciseData = exercise2;
+
+
 
 
 
@@ -473,15 +418,7 @@ function draw() {
   strokeWeight(10);
   //fill(200)
   fill(204, 153, 0);
-  if (currentModule == 4) {
-    fill('#566C8A')
-    //566C8A
-  }
-  else {
-    fill('#FFB703')
-  }
-
-
+  fill('#FFB703')
   rect(0, height, width, -scaledSensor2 - 55); //background line rising up with sensor
   pop()
 
@@ -496,35 +433,6 @@ function draw() {
   //fill('#FFB703')
   rect(900, 30, 150, 50, 10); //background to sensor value
   pop()
-
-
-  if (currentModule == 4) {
-    push()
-    strokeWeight(10);
-    //fill(200)
-    fill(240);
-    //stroke('#023047');
-    strokeWeight(2);
-    //fill('#FFB703')
-    rect(500, 30, 80, 50, 10); //background to try value
-    pop()
-
-
-    push();
-    textAlign(CENTER);
-    textSize(40)
-    text(taskIndex, 540, 70);
-    pop();
-
-
-
-
-
-  }
-
-
-
-
 
 
   push()// listening button
@@ -888,11 +796,6 @@ beginShape();
   text((round(scaledSensor * 100)) / 100, 910, 70);
   pop();
 
-
-
-
-
-
   /*
     text('Podłączony: ', 800, 20);
     //text('Millis: ',10,60);
@@ -917,15 +820,9 @@ beginShape();
   push()
   textSize(40);
   textAlign(CENTER);
-
-
-
   text(exerciseData, 0, 150, width);
 
 
-
-
-  //inputText
   pop()
 
 
@@ -1017,21 +914,11 @@ beginShape();
   }
 
 
-  if (currentModule == 4 && !isReady) {
-    push()
-    fill(0)
-    textSize(70);
-    textAlign(CENTER);
-    text('Wpisz przykład', width / 2, 300);
-    text('i podaj czas nagrywania', width / 2, 400);
-    pop()
-  }
-
 
 
 
   //pop-ups
-  if (popUp && (currentModule != 4)) {
+  if (popUp) {
     //popUp
     //greys out whole screen
     push()
@@ -1143,67 +1030,24 @@ function gamepadHandler(event, connecting) {
 
 
 function axisInput() {
-
-
+  let AllAxes = 0;
   if (connected) {
     var gamepads = navigator.getGamepads()
     for (let i in controllers) {
       let controller = gamepads[i]//controllers[i]
 
-
-
-
-
-
-
-
       //return 100+controller.axes[7]*100;
       //return 100 + (controller.axes[10] + controller.axes[7]) * 100;
 
-
-
-      /*
-            for (let j = 0; j < controller.axes.length; j++) {
-      
-              if (previousAxes[j] !== controller.axes[j]) {
-                AxesOutput = j;
-              }
-      
-            }
-      
-      
-            for (let j = 0; j < controller.axes.length; j++) {
-      
-              previousAxes[j] = controller.axes[j];
-      
-            }
-      
-      
-      */
-      //AxesOutput = controller.axes[AxesOutputAxis];
-
       for (let j = 0; j < controller.axes.length; j++) {
 
-        if (previousAxes[j] !== controller.axes[j]) {
-          AxesOutputAxis = j;
-        }
+        //AllAxes = AllAxes + controller.axes[j];
 
       }
 
-      previousAxes = controller.axes;
-
-
-      //console.log(AxesOutputAxis);
-
-      AxesOutput = controller.axes[AxesOutputAxis];
-      console.log(AxesOutput);
-
-      //console.log(previousAxes);
-
       //AllAxes = (controller.axes[0] * 100) + 100;
-
-      //console.log(AxesOutput);
-      //console.log(AllAxes);
+      AllAxes = controller.axes[0];
+      console.log(AllAxes);
       //console.log(controller.axes[0]);
       //AllAxes = map(AllAxes, -860, -830, minSensorValue, maxSensorValue); // weird sensor range fix
 
@@ -1211,7 +1055,7 @@ function axisInput() {
       //console.log(controller.axes);
 
 
-      return AxesOutput;
+      return AllAxes;
 
 
 
@@ -1226,7 +1070,6 @@ function axisInput() {
 function startButtonF() {
   if (!startState) {
     popUp = 0;//close popUp window
-    getAudioContext().resume(); //needed by browser to use microphone and audio
     startState = 1;//start
     fade1 = 255;//reset alpha channel for countdown numbers
     fade2 = 255;//reset alpha channel for countdown numbers
@@ -1237,7 +1080,7 @@ function startButtonF() {
 
     xvals = [];//erase data
     xvalsScaled = []//erase chart
-
+    getAudioContext().resume(); //needed by browser to use microphone and audio
 
     sound.stop();
     isListening = 0;
@@ -1270,9 +1113,8 @@ function stopButtonF() {
   startState = 0;
   startState2 = 0;
   previousMillis2 = currentMillis;
-  if (currentModule != 4) {
-    xvalsScaled = [];
-  }
+  xvalsScaled = [];
+
 }
 
 
@@ -1289,9 +1131,7 @@ function startRecording() {
   if (audioRecordFlag) {
     taskIndex++;
     audioRecordFlag = 0;
-    recorder.record(soundFile);//record audio 
-    console.log('recording audio from microphone');
-    //console.log(taskIndex);
+    recorder.record(soundFile);//record audio  
   }
 
 
@@ -1322,17 +1162,11 @@ function startRecording() {
     json.date = (str(days) + '.' + str(months) + '.' + str(years));
     json.hour = (str(hours) + ':' + str(minutes) + ':' + str(seconds));
 
-    json.duration = rduration;
-    json.maxSensorValue = maxSensorValue;//value from sensor at maximum force
-    json.minSensorValue = minSensorValue;//value from sensor at minimum force
 
 
     json.values = xvals;
     json.timestamp = xtime;
 
-    if (currentModule == 4) {
-      sound = soundFile;
-    }
 
     if (zapis) {
       saveJSON(json, str(taskIndex) + '_' + 'mod' + '_' + str(days) + '-' + str(months) + '-' + str(years) + '_' + str(hours) + '-' + str(minutes) + '-' + str(seconds) + '_' + exerciseData);
@@ -1426,11 +1260,9 @@ function checkHowManyExamples(n) {
 
 
 
-
-
 function mousePressed() {
   //console.log('Hello! MousePressed');
-  if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && !startState && isReady) {//if mouse over start button and nothing is playing
+  if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && !startState) {//if mouse over start button and nothing is playing
     //getAudioContext().resume(); //needed by browser to use microphone and audio
     startButtonF();
   }
