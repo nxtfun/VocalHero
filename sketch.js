@@ -52,6 +52,7 @@ let isReady = 1;//check if ready to record (checks if example and time are set)
 
 
 let exercise2 = []; // exercise from json
+//let rduration2 = []; // rduration from json
 
 
 let startButton;
@@ -104,10 +105,10 @@ let xtime3 = [];
 let exercise3 = [];
 let soundArray = [];
 let thisManyExercises = 8; // set number of exercises in each module
-let currentExercise = 1;
+let currentExercise = 0;
 //let currentModule = 2;//set which module should be vieved
 
-let nextExercise = 0;
+let nextExercise = 1;
 
 let xvals2Length = 100;//variable to limit chart length
 
@@ -117,7 +118,7 @@ let AxesOutput = 0;
 let AxesOutputAxis = 0;
 let previousAxes = [];
 
-
+let state = 0;
 
 
 //chartlen - rduration
@@ -142,8 +143,8 @@ function preload() {
     }
 
 
-    //load all examples without first one
-    for (let i = 1; i < thisManyExercises; i++) {
+    //load all examples
+    for (let i = 0; i < thisManyExercises; i++) {
 
       jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
       soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
@@ -154,15 +155,10 @@ function preload() {
 
 
     //preload first example only
-    //jsonContainer = loadJSON('ciastko.json');
-    //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
-    jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
-    //jsonContainer = loadJSON(databaseLocation + '1/1.json');
-    sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
-    //sound = loadSound(databaseLocation + '1/1.wav');
-    //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
 
-    //console.log(examplesArray);
+    // jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
+
+    // sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
 
 
   }
@@ -183,11 +179,17 @@ function setup() {
     inputTime.position(800, 330);
   }
 
-  if (currentModule == 3) {
 
-    rduration = 4000;//how long is one recording
-    pixpsec = chartlen / rduration;
-  }
+  /*
+    if (currentModule == 3) {
+  
+      rduration = 4000;//how long is one recording
+      pixpsec = chartlen / rduration;
+    }
+  */
+
+
+
   console.log('new min sensor value: -0.97');
   //radio buttons
   //radio = createRadio();
@@ -218,26 +220,37 @@ function setup() {
   //exercise2 = jsonContainer.exercise;
 
   if (currentModule != 4) {
-    xvals2 = Object.values(jsonArray[0].values);
-    xtime2 = Object.values(jsonArray[0].timestamp);
-    exercise2 = jsonArray[0].exercise;
+    xvals2 = Object.values(jsonArray[0].values); //load sensor values from first example
+    xtime2 = Object.values(jsonArray[0].timestamp);//load time values from first example
+    exercise2 = jsonArray[0].exercise; //load example frim first example
+
+    rduration = jsonArray[0].duration;//takes rduration from json
+    pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
 
 
 
-    if (currentModule == 3) {
-      for (let iii = 0; iii < xtime2.length; iii++) {
-
-        if (xtime2[iii] > rduration) {
-          xvals2Length = iii;
-          break;
+    /*
+        if (currentModule == 3) {
+          for (let iii = 0; iii < xtime2.length; iii++) {
+    
+            if (xtime2[iii] > rduration) { //if example is longer than duration, trim the time to fit duration
+              xvals2Length = iii;
+              break;
+            }
+    
+          }
+    
         }
+        else {
+          xvals2Length = xvals2.length;
+        }
+    
+    
+    */
 
-      }
+    xvals2Length = xvals2.length;
 
-    }
-    else {
-      xvals2Length = xvals2.length;
-    }
+
 
   }
 
@@ -320,14 +333,14 @@ function setup() {
 
 function draw() {
   //clear();  
-  background('#fb8500');
+  background('#8B9EB7');
 
 
   if (currentModule == 4) {//if pro mode
 
-    background('#8B9EB7');
+
     exerciseData = inputText.value();//changes char input to int input;
-    rduration = 1000 * inputTime.value();//changes char input to int input;
+    rduration = 1000 * inputTime.value();//takes rduration from text input in seconds
     pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
 
 
@@ -473,13 +486,10 @@ function draw() {
   strokeWeight(10);
   //fill(200)
   fill(204, 153, 0);
-  if (currentModule == 4) {
-    fill('#566C8A')
-    //566C8A
-  }
-  else {
-    fill('#FFB703')
-  }
+
+  fill('#566C8A')
+
+
 
 
   rect(0, height, width, -scaledSensor2 - 55); //background line rising up with sensor
@@ -907,11 +917,13 @@ beginShape();
     }
   
   */
+  push();
+  fill('#47335C');
   text('Moduł: ' + currentModule, 1000, 20);
   text('Próba: ' + taskIndex, 900, 20);
   //text(timestamp, 800, 20);
   //text('Audio: ' + sound.isPlaying(), 800, 20);
-
+  pop();
 
 
   push()
@@ -1471,6 +1483,19 @@ function mousePressed() {
     console.log('dalej');
     nextExercise = 1;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   //playButtonF
