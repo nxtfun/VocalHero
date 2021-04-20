@@ -336,6 +336,11 @@ function draw() {
   background('#8B9EB7');
 
 
+
+
+
+
+
   if (currentModule == 4) {//if pro mode
 
 
@@ -416,7 +421,6 @@ function draw() {
     xvalsScaled = [];//erase chart
 
   }
-
 
 
 
@@ -846,6 +850,8 @@ function draw() {
 
 
   endShape();
+
+
 
   /*
 
