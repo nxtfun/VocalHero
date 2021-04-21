@@ -1,59 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <script src="p5.min.js"></script>
-    <script src="p5.dom.min.js"></script>
-    <script src="p5.sound.min.js"></script>
-
-    <script src="m2settings.js"></script>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
-
-    <meta charset="UTF-8">
-    <title>VocalHero</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:600,700|Rasa:300,500" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-<main class="container__task">
-    <div class="container__task--text">
-        <h1 class="task--header u--margin-bottom-medium">BLOK DRUGI</h1>
-        <p class="task--text">
-            W tej części Twoim zadaniem będzie odwzorowanie dźwięków o zmiennej wysokości za pomocą kontrolowania siły nacisku na przycisk krtani elektronicznej (siły z jaką naciskasz przycisk krtani). Zapoznaj się z dźwiękiem, który usłyszysz po kliknięciu guzika znajdującego się po prawej stronie panelu. Na wykresie poniżej polecenia wzorcowa siła nacisku jest zaznaczona kolorem czerwonym. Twoja siła nacisku zaznaczona jest kolorem zielonym. Aby uzyskać taki sam dźwięk, jak w nagraniu, postaraj się utrzymać swoją siłę nacisku na poziomie czerwonej, docelowej linii. Kontroluj tę siłę przez 10 sekund, aż do wyświetlenia informacji o zakończeniu próby.
-        </p>
-    </div>
-
-    <div class="container__task--plot" id="canvas-parent">
-
-        <script src="sketch.js"></script> <!--  Aplikacja p5 (wykres) -->
-
-    </div>
-</main>
-<footer class="footer">
-    <div class="footer__info-bar">
-        <p><span>Stan krtani elektronicznej: </span><span class="u--text-important status">PODŁĄCZONA</span></p>
-    </div>
-</footer>
-
-</body>
-
+   <head>
+      <script src="p5.min.js"></script>
+      <script src="p5.dom.min.js"></script>
+      <script src="p5.sound.min.js"></script>
+      <script src="m2settings.js"></script>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
+      <meta charset="UTF-8">
+      <title>VocalHero</title>
+      <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:600,700|Rasa:300,500" rel="stylesheet">
+      <link rel="stylesheet" href="css/style.css">
+   </head>
+   <body>
+      <main class="container__task">
+         <div class="container__task--text">
+            <h1 class="task--header u--margin-bottom-medium">BLOK DRUGI</h1>
+            <p class="task--text">
+               W tej części Twoim zadaniem jest powtórzenie dźwięków o zmiennej wysokości.
+            </p>
+            <ul class="task--text">
+               <li>Odsłuchaj nagranie dźwięku o zmieniającej się wysokości. Aby odsłuchać nagranie, kliknij w guzik ODSŁUCHAJ.</li>
+               <li>Kliknij START i po rozpoczęciu nagrywania spróbuj powtórzyć usłyszany wcześniej dźwięk.</li>
+               <li>Kontroluj siłę nacisku aż do wyświetlenia informacji o zakończeniu próby.</li>
+            </ul>
+            <p class="task--text">
+               Po zakończeniu próby zostanie pobrany plik z jej nagraniem.
+            </p>
+         </div>
+         <div class="container__task--plot" id="canvas-parent">
+            <script src="sketch.js"></script> <!--  Aplikacja p5 (wykres) -->
+         </div>
+      </main>
+      <footer class="footer">
+         <div class="footer__info-bar">
+            <p><span>Stan krtani elektronicznej: </span><span class="u--text-important status">PODŁĄCZONA</span></p>
+         </div>
+      </footer>
+   </body>
 </html>
-
 <script>
-
-    var test = 1;
-    setInterval(function () {
-        if (connected !== test) {
-            document.querySelector('.status').textContent = "niepodłączona";
-
-        } else {
-            document.querySelector('.status').textContent = "podłączona";
-        }
-    }, 100);
-
+   var test = 1;
+   setInterval(function () {
+       if (connected !== test) {
+           document.querySelector('.status').textContent = "niepodłączona";
+   
+       } else {
+           document.querySelector('.status').textContent = "podłączona";
+       }
+   }, 100);
+   
 </script>
