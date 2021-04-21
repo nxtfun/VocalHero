@@ -421,14 +421,21 @@ function draw() {
   }
 
   if (sensor > maxSensorValue) {
-    sensor = maxSensorValue;
-  }
-  if (sensor < minSensorValue) {
-    sensor = minSensorValue;
-  }
+    //sensor = maxSensorValue;
 
-  scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
-  scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
+    scaledSensor = map(maxSensorValue, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(maxSensorValue, minSensorValue, maxSensorValue, 0, 380);
+  }
+  else if (sensor < minSensorValue) {
+    //sensor = minSensorValue;
+
+    scaledSensor = map(minSensorValue, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(minSensorValue, minSensorValue, maxSensorValue, 0, 380);
+  }
+  else {
+    scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
+  }
 
 
 
@@ -547,10 +554,10 @@ function draw() {
 
 
 
-  if ((mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363 && !connected) || scaledSensor > 2 && connected) {
+  if ((mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363 && !connected) || scaledSensor > 1 && connected) {
     isPushed = 1;
   }
-  if ((!(mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363) && !connected) || scaledSensor < 2 && connected) {
+  if ((!(mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363) && !connected) || scaledSensor < 1 && connected) {
     isPushed = 0;
   }
 

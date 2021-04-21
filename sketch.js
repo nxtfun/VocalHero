@@ -504,15 +504,26 @@ function draw() {
 
   }
 
+
+
   if (sensor > maxSensorValue) {
-    sensor = maxSensorValue;
+    //sensor = maxSensorValue;
+
+    scaledSensor = map(maxSensorValue, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(maxSensorValue, minSensorValue, maxSensorValue, 0, 380);
   }
-  if (sensor < minSensorValue) {
-    sensor = minSensorValue;
+  else if (sensor < minSensorValue) {
+    //sensor = minSensorValue;
+
+    scaledSensor = map(minSensorValue, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(minSensorValue, minSensorValue, maxSensorValue, 0, 380);
+  }
+  else {
+    scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
   }
 
-  scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
-  scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
+
 
 
 
