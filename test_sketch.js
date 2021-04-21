@@ -81,6 +81,14 @@ let days;
 
 
 
+let AxesOutput = 0;
+let AxesOutputAxis = 0;
+let previousAxes = [];
+
+let state = 0;
+
+
+
 
 let mic, recorder, soundFile; //audio recorder
 
