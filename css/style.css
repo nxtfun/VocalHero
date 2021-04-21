@@ -38,6 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .task--text {
     line-height: 1.2;
+    list-style-position: inside;
 }
 
 .u--text-important {
