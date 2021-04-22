@@ -123,7 +123,7 @@ let xvals3 = [];
 let xtime3 = [];
 let exercise3 = [];
 let soundArray = [];
-let thisManyExercises = 8; // set number of exercises in each module
+let thisManyExercises = 4; // set number of exercises in each module
 let currentExercise = 1;
 //let currentModule = 2;//set which module should be vieved
 
@@ -150,26 +150,21 @@ function preload() {
 
 
   //load all examples without first one
-  for (let i = 1; i < thisManyExercises; i++) {
+  for (let i = 0; i < thisManyExercises; i++) {
 
-    jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
-    soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
+    jsonArray[i] = loadJSON(databaseLocation + 'test' + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
+    soundArray[i] = loadSound(databaseLocation + 'test' + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
 
 
   }
 
 
 
-  //preload first example only
-  //jsonContainer = loadJSON('ciastko.json');
-  //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
-  jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
-  //jsonContainer = loadJSON(databaseLocation + '1/1.json');
-  sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
-  //sound = loadSound(databaseLocation + '1/1.wav');
-  //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
 
-  //console.log(examplesArray);
+  //jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
+
+  sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
+
 
 
 
@@ -188,7 +183,7 @@ function setup() {
 
   if (currentModule == 3) {
 
-    rduration = 10000;//how long is one recording
+    rduration = 4000;//how long is one recording
     pixpsec = chartlen / rduration;
   }
 
@@ -334,8 +329,13 @@ function draw() {
 */
     currentExercise++;
 
+
+
+
+
+
     if (currentExercise > thisManyExercises) {//iterate to next exercise number
-      window.open("task" + str(currentModule + 1) + ".html", "_self");
+      window.open("test" + str(currentModule + 1) + ".html", "_self");
       currentExercise--;
     }
 
@@ -1500,7 +1500,7 @@ function UrlExists(url) {
 function checkHowManyExamples(n) {
   let ii = 0;
   for (let i = 0; i < 200; i++) {
-    if (UrlExists(databaseLocation + 'test/' + str(i + 1) + '.wav')) {
+    if (UrlExists(databaseLocation + 'test' + str(currentModule) + '/' + str(i + 1) + '.wav')) {
       ii++
     }
     else {
@@ -1548,10 +1548,10 @@ function mousePressed() {
 
 
   if (mouseX > 275 && mouseX < 825 && mouseY > 302 && mouseY < 369 && popUp) {
-    //popUp = 0;
+    popUp = 0;
     console.log('dalej');
-    //nextExercise = 1;
-    window.open("task.html", "_self");
+    nextExercise = 1;
+    //window.open("task.html", "_self");
   }
 
 

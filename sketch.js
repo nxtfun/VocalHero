@@ -1388,9 +1388,15 @@ function startRecording() {
     json.maxSensorValue = maxSensorValue;//value from sensor at maximum force
     json.minSensorValue = minSensorValue;//value from sensor at minimum force
 
+    if (currentModule != 4) {
+      json.module = currentModule;
+      json.fileNumber = examplesArray[currentExercise - 1];
+    }
 
     json.values = xvals;
     json.timestamp = xtime;
+
+
 
     if (currentModule == 4) {
       sound = soundFile;
