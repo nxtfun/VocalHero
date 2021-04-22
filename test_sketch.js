@@ -330,7 +330,10 @@ function draw() {
     currentExercise++;
 
 
-
+    if ((currentExercise > thisManyExercises) && currentModule == 3) {
+      window.open("task4.html", "_self");
+      currentExercise--;
+    }
 
 
 
