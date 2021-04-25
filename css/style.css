@@ -150,6 +150,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .container__task {
     padding: 4rem;
+    height: 100vh;
 }
 
 .content--grid {
