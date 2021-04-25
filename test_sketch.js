@@ -163,7 +163,7 @@ function preload() {
 
   //jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
 
-  sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
+  sound = loadSound(databaseLocation + 'test' + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
 
 
 
