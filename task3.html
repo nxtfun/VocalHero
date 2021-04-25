@@ -1,63 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <script src="p5.min.js"></script>
-    <script src="p5.dom.min.js"></script>
-    <script src="p5.sound.min.js"></script>
-
-    <script src="m3settings.js"></script>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
-
-    <meta charset="UTF-8">
-    <title>VocalHero</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:600,700|Rasa:300,500" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-<main class="container__task">
-    <div class="container__task--text">
-        <h1 class="task--header u--margin-bottom-medium">BLOK TRZECI</h1>
-        <p class="task--text">
-W tej części Twoim zadaniem będzie wypowiedzenie zdania z odpowiednią intonacją za pomocą kontrolowania siły nacisku na krtań elektroniczną (siły z jaką naciskasz przycisk krtani). 
-Zapoznaj się z nagraniem, które usłyszysz po naciśnięciu guzika znajdującego się po prawej stronie ekranu. Na wykresie poniżej polecenia docelowa siła nacisku jest zaznaczona kolorem czerwonym. Twoja siła nacisku zaznaczona jest kolorem zielonym. Aby uzyskać taki sam dźwięk, jak w nagraniu, postaraj się utrzymać swoją siłę nacisku na poziomie czerwonej, docelowej linii. 
-Powyżej wykresu widoczna jest transkrypcja nagrania. Postaraj się wypowiedzieć zdanie w takim samym tempie i z podobną intonacją jak na nagraniu. 
-
-
-        </p>
-    </div>
-
-    <div class="container__task--plot" id="canvas-parent">
-
-        <script src="sketch.js"></script> <!--  Aplikacja p5 (wykres) -->
-
-    </div>
-</main>
-<footer class="footer">
-    <div class="footer__info-bar">
-        <p><span>Stan krtani elektronicznej: </span><span class="u--text-important status">PODŁĄCZONA</span></p>
-    </div>
-</footer>
-
-</body>
-
+   <head>
+      <script src="p5.min.js"></script>
+      <script src="p5.dom.min.js"></script>
+      <script src="p5.sound.min.js"></script>
+      <script src="m3settings.js"></script>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
+      <meta charset="UTF-8">
+      <title>VocalHero</title>
+      <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed|Barlow:600,700|Rasa:300,500" rel="stylesheet">
+      <link rel="stylesheet" href="css/style.css">
+   </head>
+   <body>
+      <main class="container__task">
+         <div class="container__task--text">
+            <h1 class="task--header u--margin-bottom-medium">BLOK TRZECI</h1>
+            <p class="task--text">
+               W tej części Twoim zadaniem jest wypowiedzenie zdania z odpowiednią intonacją.
+            </p>
+            <ul class="task--text">
+               <li>Posłuchaj nagrania. Aby odsłuchać nagranie, kliknij w guzik ODSŁUCHAJ.</li>
+               <li>Kliknij START i po rozpoczęciu nagrywania spróbuj powtórzyć usłyszane wcześniej zdanie.</li>
+            </ul>
+            <p class="task--text">
+               Po zakończeniu próby zostanie pobrany plik z jej nagraniem.
+            </p>
+         </div>
+         <div class="container__task--plot" id="canvas-parent">
+            <script src="sketch.js"></script> <!--  Aplikacja p5 (wykres) -->
+         </div>
+      </main>
+      <footer class="footer">
+         <div class="footer__info-bar">
+            <p><span>Stan krtani elektronicznej: </span><span class="u--text-important status">PODŁĄCZONA</span></p>
+         </div>
+      </footer>
+   </body>
 </html>
-
 <script>
-
-    var test = 1;
-    setInterval(function () {
-        if (connected !== test) {
-            document.querySelector('.status').textContent = "niepodłączona";
-
-        } else {
-            document.querySelector('.status').textContent = "podłączona";
-        }
-    }, 100);
-
+   var test = 1;
+   setInterval(function () {
+       if (connected !== test) {
+           document.querySelector('.status').textContent = "niepodłączona";
+   
+       } else {
+           document.querySelector('.status').textContent = "podłączona";
+       }
+   }, 100);
+   
 </script>

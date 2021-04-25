@@ -81,14 +81,6 @@ let days;
 
 
 
-let AxesOutput = 0;
-let AxesOutputAxis = 0;
-let previousAxes = [];
-
-let state = 0;
-
-
-
 
 let mic, recorder, soundFile; //audio recorder
 
@@ -123,7 +115,7 @@ let xvals3 = [];
 let xtime3 = [];
 let exercise3 = [];
 let soundArray = [];
-let thisManyExercises = 4; // set number of exercises in each module
+let thisManyExercises = 8; // set number of exercises in each module
 let currentExercise = 1;
 //let currentModule = 2;//set which module should be vieved
 
@@ -150,21 +142,26 @@ function preload() {
 
 
   //load all examples without first one
-  for (let i = 0; i < thisManyExercises; i++) {
+  for (let i = 1; i < thisManyExercises; i++) {
 
-    jsonArray[i] = loadJSON(databaseLocation + 'test' + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
-    soundArray[i] = loadSound(databaseLocation + 'test' + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
+    jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
+    soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
 
 
   }
 
 
 
-
-  //jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
-
+  //preload first example only
+  //jsonContainer = loadJSON('ciastko.json');
+  //jsonContainer = loadJSON(databaseLocation + '1/' + str(examplesArray[1]) + '.json');
+  jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
+  //jsonContainer = loadJSON(databaseLocation + '1/1.json');
   sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
+  //sound = loadSound(databaseLocation + '1/1.wav');
+  //console.log('Ilosc przykladow w bazie:' + checkHowManyExamples(1));
 
+  //console.log(examplesArray);
 
 
 
@@ -183,7 +180,7 @@ function setup() {
 
   if (currentModule == 3) {
 
-    rduration = 4000;//how long is one recording
+    rduration = 10000;//how long is one recording
     pixpsec = chartlen / rduration;
   }
 
@@ -329,16 +326,8 @@ function draw() {
 */
     currentExercise++;
 
-
-    if ((currentExercise > thisManyExercises) && currentModule == 3) {
-      window.open("task4.html", "_self");
-      currentExercise--;
-    }
-
-
-
     if (currentExercise > thisManyExercises) {//iterate to next exercise number
-      window.open("test" + str(currentModule + 1) + ".html", "_self");
+      window.open("task" + str(currentModule + 1) + ".html", "_self");
       currentExercise--;
     }
 
@@ -424,21 +413,14 @@ function draw() {
   }
 
   if (sensor > maxSensorValue) {
-    //sensor = maxSensorValue;
+    sensor = maxSensorValue;
+  }
+  if (sensor < minSensorValue) {
+    sensor = minSensorValue;
+  }
 
-    scaledSensor = map(maxSensorValue, minSensorValue, maxSensorValue, 0, 100);
-    scaledSensor2 = map(maxSensorValue, minSensorValue, maxSensorValue, 0, 380);
-  }
-  else if (sensor < minSensorValue) {
-    //sensor = minSensorValue;
-
-    scaledSensor = map(minSensorValue, minSensorValue, maxSensorValue, 0, 100);
-    scaledSensor2 = map(minSensorValue, minSensorValue, maxSensorValue, 0, 380);
-  }
-  else {
-    scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
-    scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
-  }
+  scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
+  scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
 
 
 
@@ -557,10 +539,10 @@ function draw() {
 
 
 
-  if ((mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363 && !connected) || scaledSensor > 1 && connected) {
+  if ((mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363 && !connected) || scaledSensor > 2 && connected) {
     isPushed = 1;
   }
-  if ((!(mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363) && !connected) || scaledSensor < 1 && connected) {
+  if ((!(mouseX > 46 && mouseX < 1055 && mouseY > 103 && mouseY < 363) && !connected) || scaledSensor < 2 && connected) {
     isPushed = 0;
   }
 
@@ -1503,7 +1485,7 @@ function UrlExists(url) {
 function checkHowManyExamples(n) {
   let ii = 0;
   for (let i = 0; i < 200; i++) {
-    if (UrlExists(databaseLocation + 'test' + str(currentModule) + '/' + str(i + 1) + '.wav')) {
+    if (UrlExists(databaseLocation + 'test/' + str(i + 1) + '.wav')) {
       ii++
     }
     else {
@@ -1551,10 +1533,10 @@ function mousePressed() {
 
 
   if (mouseX > 275 && mouseX < 825 && mouseY > 302 && mouseY < 369 && popUp) {
-    popUp = 0;
+    //popUp = 0;
     console.log('dalej');
-    nextExercise = 1;
-    //window.open("task.html", "_self");
+    //nextExercise = 1;
+    window.open("task.html", "_self");
   }
 
 

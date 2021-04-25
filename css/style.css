@@ -38,6 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .task--text {
     line-height: 1.2;
+    list-style-position: inside;
 }
 
 .u--text-important {
@@ -119,11 +120,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer {
-    position: absolute;
+    position: sticky;
     left: 0;
-    width: 100%;
-    padding: 3rem 3rem;
+    bottom: 0;
+    padding: 1rem 3rem;
     background-color: #023047;
+    margin: -3rem;
 }
 
 .footer__info-bar {
@@ -223,4 +225,9 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: auto;
     display: block;
     margin-top: 20px;
+}
+
+.p5Canvas {
+    width: 100% !important;
+    height: auto !important;
 }

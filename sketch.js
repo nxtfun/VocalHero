@@ -51,6 +51,9 @@ let isListening = 0;//listening state
 let isReady = 1;//check if ready to record (checks if example and time are set)
 
 
+let jsonLoaded = 0;
+let soundLoaded = 0;
+
 let exercise2 = []; // exercise from json
 //let rduration2 = []; // rduration from json
 
@@ -83,7 +86,7 @@ let months;
 let days;
 
 
-
+let loadData = 1;
 
 
 let mic, recorder, soundFile; //audio recorder
@@ -129,8 +132,9 @@ let state = 0;
 
 function preload() {
 
-  if (currentModule != 4) {
 
+  if (currentModule != 4 && loadData && 1) {
+    loadData = 0;
 
 
 
@@ -146,23 +150,13 @@ function preload() {
     //load all examples
     for (let i = 0; i < thisManyExercises; i++) {
 
-      jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json'); //load jsons
-      soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav');
+      jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json', jsonLoaded = 1); //load jsons
+      soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav', soundLoaded = 1);
 
 
     }
 
-
-
-    //preload first example only
-
-    // jsonArray[0] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.json');
-
-    // sound = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[0]) + '.wav');
-
-
   }
-
 
 
 
@@ -220,14 +214,18 @@ function setup() {
   //exercise2 = jsonContainer.exercise;
 
   if (currentModule != 4) {
-    xvals2 = Object.values(jsonArray[0].values); //load sensor values from first example
-    xtime2 = Object.values(jsonArray[0].timestamp);//load time values from first example
-    exercise2 = jsonArray[0].exercise; //load example frim first example
-
-    rduration = jsonArray[0].duration;//takes rduration from json
-    pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
 
 
+
+    /*
+        xvals2 = Object.values(jsonArray[0].values); //load sensor values from first example
+        xtime2 = Object.values(jsonArray[0].timestamp);//load time values from first example
+        exercise2 = jsonArray[0].exercise; //load example frim first example
+    
+        rduration = jsonArray[0].duration;//takes rduration from json
+        pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
+    
+    */
 
     /*
         if (currentModule == 3) {
@@ -248,7 +246,7 @@ function setup() {
     
     */
 
-    xvals2Length = xvals2.length;
+    //xvals2Length = xvals2.length;
 
 
 
@@ -338,6 +336,37 @@ function draw() {
 
 
 
+  if (currentModule != 4 && loadData && 0) {
+    loadData = 0;
+    while (1) {
+
+
+      examplesArray = shuffleArray(checkHowManyExamples(currentModule));//number = current module 1 - 3
+
+
+
+      if (thisManyExercises > examplesArray.length) {//limits number of exercises if there is less of them in database
+        thisManyExercises = examplesArray.length;
+      }
+
+
+      //load all examples
+      for (let i = 0; i < thisManyExercises; i++) {
+
+        jsonArray[i] = loadJSON(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.json', jsonLoaded++); //load jsons
+        soundArray[i] = loadSound(databaseLocation + str(currentModule) + '/' + str(examplesArray[i]) + '.wav', soundLoaded++);
+
+
+      }
+      if ((jsonLoaded == thisManyExercises) && (soundLoaded == thisManyExercises)) break;
+
+    }
+
+  }
+
+
+
+
 
 
 
@@ -397,24 +426,28 @@ function draw() {
     exercise2 = jsonArray[currentExercise - 1].exercise;
     sound = soundArray[currentExercise - 1];
 
+    rduration = jsonArray[currentExercise - 1].duration;//takes rduration from json
+    pixpsec = chartlen / rduration;//how many pixels in 1 ms on chart
 
-    if (currentModule == 3) {
-      for (let iii = 0; iii < xtime2.length; iii++) {
 
-        if (xtime2[iii] > rduration) {
-          xvals2Length = iii;
-          break;
+    /*
+        if (currentModule == 3) {
+          for (let iii = 0; iii < xtime2.length; iii++) {
+    
+            if (xtime2[iii] > rduration) {
+              xvals2Length = iii;
+              break;
+            }
+    
+          }
+    
         }
-
-      }
-
-    }
-    else {
-      xvals2Length = xvals2.length;
-    }
-
-
-
+        else {
+          xvals2Length = xvals2.length;
+        }
+    
+    */
+    xvals2Length = xvals2.length;
 
 
 
@@ -471,15 +504,26 @@ function draw() {
 
   }
 
+
+
   if (sensor > maxSensorValue) {
-    sensor = maxSensorValue;
+    //sensor = maxSensorValue;
+
+    scaledSensor = map(maxSensorValue, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(maxSensorValue, minSensorValue, maxSensorValue, 0, 380);
   }
-  if (sensor < minSensorValue) {
-    sensor = minSensorValue;
+  else if (sensor < minSensorValue) {
+    //sensor = minSensorValue;
+
+    scaledSensor = map(minSensorValue, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(minSensorValue, minSensorValue, maxSensorValue, 0, 380);
+  }
+  else {
+    scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
+    scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
   }
 
-  scaledSensor = map(sensor, minSensorValue, maxSensorValue, 0, 100);
-  scaledSensor2 = map(sensor, minSensorValue, maxSensorValue, 0, 380);
+
 
 
 
@@ -1344,9 +1388,15 @@ function startRecording() {
     json.maxSensorValue = maxSensorValue;//value from sensor at maximum force
     json.minSensorValue = minSensorValue;//value from sensor at minimum force
 
+    if (currentModule != 4) {
+      json.module = currentModule;
+      json.fileNumber = examplesArray[currentExercise - 1];
+    }
 
     json.values = xvals;
     json.timestamp = xtime;
+
+
 
     if (currentModule == 4) {
       sound = soundFile;
