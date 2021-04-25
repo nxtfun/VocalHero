@@ -277,7 +277,7 @@ function setup() {
   // create an empty sound file that we will use to playback the recording
   soundFile = new p5.SoundFile();
 
-
+  filter = new p5.LowPass();
 
 
 
@@ -333,8 +333,9 @@ function draw() {
   //clear();  
   background('#8B9EB7');
 
-
-
+  //filter.set(2900, 15);
+  //filter.set(filterFreq, filterRes);
+  //22050 , 5-15
 
   if (currentModule != 4 && loadData && 0) {
     loadData = 0;
@@ -830,7 +831,7 @@ function draw() {
 
   if (isListening && (!startState)) {
 
-    timestamp2 = currentMillis - previousMillis1;//check how long from start of listening
+    timestamp2 = currentMillis - previousMillis1 - 300;//check how long from start of listening
     //text(timestamp2, 700, 10);
 
 
@@ -838,7 +839,7 @@ function draw() {
     strokeWeight(2);
     stroke(100, 100, 100, 200);
 
-    line(pixpsec * timestamp2 + 50, 554, pixpsec * timestamp2 + 50, 106);//vertical line used as time marker during recording
+    line(pixpsec * timestamp2 + 50, 554, pixpsec * timestamp2 + 50, 106);//vertical line used as time marker during listening
     pop();
 
 
