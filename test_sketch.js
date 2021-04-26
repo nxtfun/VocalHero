@@ -871,258 +871,439 @@ beginShape();
 
   if (startCountdown) {
 
+    if (rduration == 10000) {
 
+      timestamp3 = currentMillis - previousMillis3;
+      if (timestamp3 > 0 && timestamp3 < 1000) {
 
-    timestamp3 = currentMillis - previousMillis3;
-    if (timestamp3 > 0 && timestamp3 < 1000) {
+        push()
+        fill(0, 0, 0, fade1)
+        textSize(90);
+        textAlign(CENTER);
+        text('3', width / 2, 250);
+        pop()
 
-      push()
-      fill(0, 0, 0, fade1)
-      textSize(90);
-      textAlign(CENTER);
-      text('3', width / 2, 250);
-      pop()
-
-      fade1 = fade1 - 5;
-    }
-
-    if (timestamp3 > 1000 && timestamp3 < 2000) {
-
-      push()
-      fill(0, 0, 0, fade2)
-      textSize(90);
-      textAlign(CENTER);
-      text('2', width / 2, 250);
-      pop()
-
-      fade2 = fade2 - 5;
-
-    }
-
-    if (timestamp3 > 2000 && timestamp3 < 3000) {
-
-      push()
-      fill(0, 0, 0, fade3)
-      textSize(90);
-      textAlign(CENTER);
-      text('1', width / 2, 250);
-      pop()
-
-      fade3 = fade3 - 5;
-    }
-
-    /*
-        if (timestamp3 > 3000 && timestamp3 < 3500) {
-    
-          push()
-          fill(0, 0, 0, fade4)
-          textSize(90);
-          textAlign(CENTER);
-          text('START!', width / 2, 250);
-          pop()
-    
-          fade4 = fade4 - 10;
-    
-        }
-    */
-
-    if (timestamp3 > 3000 && timestamp3 < 4000) {
-
-      if (!startState2) {
-        audioRecordFlag = 1;
-
-        startState2 = 1; //start chart
+        fade1 = fade1 - 5;
       }
 
+      if (timestamp3 > 1000 && timestamp3 < 2000) {
+
+        push()
+        fill(0, 0, 0, fade2)
+        textSize(90);
+        textAlign(CENTER);
+        text('2', width / 2, 250);
+        pop()
+
+        fade2 = fade2 - 5;
+
+      }
+
+      if (timestamp3 > 2000 && timestamp3 < 3000) {
+
+        push()
+        fill(0, 0, 0, fade3)
+        textSize(90);
+        textAlign(CENTER);
+        text('1', width / 2, 250);
+        pop()
+
+        fade3 = fade3 - 5;
+      }
+
+      /*
+          if (timestamp3 > 3000 && timestamp3 < 3500) {
+      
+            push()
+            fill(0, 0, 0, fade4)
+            textSize(90);
+            textAlign(CENTER);
+            text('START!', width / 2, 250);
+            pop()
+      
+            fade4 = fade4 - 10;
+      
+          }
+      */
+
+      if (timestamp3 > 3000 && timestamp3 < 4000) {
+
+        if (!startState2) {
+          audioRecordFlag = 1;
+
+          startState2 = 1; //start chart
+        }
+
+      }
+
+
+
+
+
+
+      if (timestamp3 > 3000 && timestamp3 < 13000) {
+
+        push()
+        fill(0, 0, 0, 255)
+        textSize(90);
+        textAlign(CENTER);
+        text('NAGRYWASZ!', width / 2 - 100, 250);
+        pop()
+
+
+
+        push()
+        fill(0, 0, 0, 255)
+        textSize(30);
+        textAlign(CENTER);
+        text('Naciskaj przycisk krtani', width / 2 - 100, 300);
+        pop()
+
+
+        fade5 = fade5 - 5;
+
+      }
+
+      if (timestamp3 > 0 && timestamp3 < 13000) {
+
+
+
+
+
+        push()
+        fill(0, 0, 0, 255)
+        textSize(30);
+        textAlign(CENTER);
+        text('Naciskaj przycisk krtani', width / 2 - 100, 300);
+        pop()
+
+
+        fade5 = fade5 - 5;
+
+      }
+
+
+
+      if (timestamp3 > 3000 && timestamp3 < 4000) {
+
+        push()
+        fill(0, 0, 0, fade6)
+        textSize(180);
+        textAlign(CENTER);
+        text('10', width / 2 + 350, 290);
+        pop()
+
+        fade6 = fade6 - 5;
+
+      }
+      if (timestamp3 > 4000 && timestamp3 < 5000) {
+
+        push()
+        fill(0, 0, 0, fade7)
+        textSize(180);
+        textAlign(CENTER);
+        text('9', width / 2 + 350, 290);
+        pop()
+
+        fade7 = fade7 - 5;
+
+      }
+      if (timestamp3 > 5000 && timestamp3 < 6000) {
+
+        push()
+        fill(0, 0, 0, fade8)
+        textSize(180);
+        textAlign(CENTER);
+        text('8', width / 2 + 350, 290);
+        pop()
+
+        fade8 = fade8 - 5;
+
+      }
+      if (timestamp3 > 6000 && timestamp3 < 7000) {
+
+        push()
+        fill(0, 0, 0, fade9)
+        textSize(180);
+        textAlign(CENTER);
+        text('7', width / 2 + 350, 290);
+        pop()
+
+        fade9 = fade9 - 5;
+
+      }
+      if (timestamp3 > 7000 && timestamp3 < 8000) {
+
+        push()
+        fill(0, 0, 0, fade10)
+        textSize(180);
+        textAlign(CENTER);
+        text('6', width / 2 + 350, 290);
+        pop()
+
+        fade10 = fade10 - 5;
+
+      }
+      if (timestamp3 > 8000 && timestamp3 < 9000) {
+
+        push()
+        fill(0, 0, 0, fade11)
+        textSize(180);
+        textAlign(CENTER);
+        text('5', width / 2 + 350, 290);
+        pop()
+
+        fade11 = fade11 - 5;
+
+      }
+      if (timestamp3 > 9000 && timestamp3 < 10000) {
+
+        push()
+        fill(0, 0, 0, fade12)
+        textSize(180);
+        textAlign(CENTER);
+        text('4', width / 2 + 350, 290);
+        pop()
+
+        fade12 = fade12 - 5;
+
+      }
+      if (timestamp3 > 10000 && timestamp3 < 11000) {
+
+        push()
+        fill(0, 0, 0, fade13)
+        textSize(180);
+        textAlign(CENTER);
+        text('3', width / 2 + 350, 290);
+        pop()
+
+        fade13 = fade13 - 5;
+
+      }
+      if (timestamp3 > 11000 && timestamp3 < 12000) {
+
+        push()
+        fill(0, 0, 0, fade14)
+        textSize(180);
+        textAlign(CENTER);
+        text('2', width / 2 + 350, 290);
+        pop()
+
+        fade14 = fade14 - 5;
+
+      }
+      if (timestamp3 > 12000 && timestamp3 < 13000) {
+
+        push()
+        fill(0, 0, 0, fade15)
+        textSize(180);
+        textAlign(CENTER);
+        text('1', width / 2 + 350, 290);
+        pop()
+
+        fade15 = fade15 - 5;
+
+      }
+
+
+
+
+
+
+
+
+
+
+      if (timestamp3 > 13000) {
+
+        startCountdown = 0; //stop this function
+
+      }
+
+
+
     }
 
+    //--------------------------------
+
+    if (rduration == 4000) {
+
+
+
+      timestamp3 = currentMillis - previousMillis3;
+      if (timestamp3 > 0 && timestamp3 < 1000) {
+
+        push()
+        fill(0, 0, 0, fade1)
+        textSize(90);
+        textAlign(CENTER);
+        text('3', width / 2, 250);
+        pop()
+
+        fade1 = fade1 - 5;
+      }
+
+      if (timestamp3 > 1000 && timestamp3 < 2000) {
+
+        push()
+        fill(0, 0, 0, fade2)
+        textSize(90);
+        textAlign(CENTER);
+        text('2', width / 2, 250);
+        pop()
+
+        fade2 = fade2 - 5;
+
+      }
+
+      if (timestamp3 > 2000 && timestamp3 < 3000) {
+
+        push()
+        fill(0, 0, 0, fade3)
+        textSize(90);
+        textAlign(CENTER);
+        text('1', width / 2, 250);
+        pop()
+
+        fade3 = fade3 - 5;
+      }
+
+      /*
+          if (timestamp3 > 3000 && timestamp3 < 3500) {
+      
+            push()
+            fill(0, 0, 0, fade4)
+            textSize(90);
+            textAlign(CENTER);
+            text('START!', width / 2, 250);
+            pop()
+      
+            fade4 = fade4 - 10;
+      
+          }
+      */
+
+      if (timestamp3 > 3000 && timestamp3 < 4000) {
+
+        if (!startState2) {
+          audioRecordFlag = 1;
+
+          startState2 = 1; //start chart
+        }
+
+      }
 
 
 
 
 
-    if (timestamp3 > 3000 && timestamp3 < 13000) {
 
-      push()
-      fill(0, 0, 0, 255)
-      textSize(90);
-      textAlign(CENTER);
-      text('TRZYMAJ!', width / 2 - 100, 250);
-      pop()
+      if (timestamp3 > 3000 && timestamp3 < 7000) {
 
-
-
-      push()
-      fill(0, 0, 0, 255)
-      textSize(30);
-      textAlign(CENTER);
-      text('Naciskaj przycisk krtani', width / 2 - 100, 300);
-      pop()
+        push()
+        fill(0, 0, 0, 255)
+        textSize(90);
+        textAlign(CENTER);
+        text('NAGRYWASZ!', width / 2 - 100, 250);
+        pop()
 
 
-      fade5 = fade5 - 5;
+
+        push()
+        fill(0, 0, 0, 255)
+        textSize(30);
+        textAlign(CENTER);
+        text('Naciskaj przycisk krtani', width / 2 - 100, 300);
+        pop()
+
+
+        fade5 = fade5 - 5;
+
+      }
+
+      if (timestamp3 > 0 && timestamp3 < 7000) {
+
+
+
+
+
+        push()
+        fill(0, 0, 0, 255)
+        textSize(30);
+        textAlign(CENTER);
+        text('Naciskaj przycisk krtani', width / 2 - 100, 300);
+        pop()
+
+
+        fade5 = fade5 - 5;
+
+      }
+
+
+
+      if (timestamp3 > 3000 && timestamp3 < 4000) {
+
+        push()
+        fill(0, 0, 0, fade6)
+        textSize(180);
+        textAlign(CENTER);
+        text('4', width / 2 + 350, 290);
+        pop()
+
+        fade6 = fade6 - 5;
+
+      }
+      if (timestamp3 > 4000 && timestamp3 < 5000) {
+
+        push()
+        fill(0, 0, 0, fade7)
+        textSize(180);
+        textAlign(CENTER);
+        text('3', width / 2 + 350, 290);
+        pop()
+
+        fade7 = fade7 - 5;
+
+      }
+      if (timestamp3 > 5000 && timestamp3 < 6000) {
+
+        push()
+        fill(0, 0, 0, fade8)
+        textSize(180);
+        textAlign(CENTER);
+        text('2', width / 2 + 350, 290);
+        pop()
+
+        fade8 = fade8 - 5;
+
+      }
+      if (timestamp3 > 6000 && timestamp3 < 7000) {
+
+        push()
+        fill(0, 0, 0, fade9)
+        textSize(180);
+        textAlign(CENTER);
+        text('1', width / 2 + 350, 290);
+        pop()
+
+        fade9 = fade9 - 5;
+
+      }
+
+
+
+
+
+      if (timestamp3 > 7000) {
+
+        startCountdown = 0; //stop this function
+
+      }
+
+
+
 
     }
-
-    if (timestamp3 > 0 && timestamp3 < 13000) {
-
-
-
-
-
-      push()
-      fill(0, 0, 0, 255)
-      textSize(30);
-      textAlign(CENTER);
-      text('Naciskaj przycisk krtani', width / 2 - 100, 300);
-      pop()
-
-
-      fade5 = fade5 - 5;
-
-    }
-
-
-
-    if (timestamp3 > 3000 && timestamp3 < 4000) {
-
-      push()
-      fill(0, 0, 0, fade6)
-      textSize(180);
-      textAlign(CENTER);
-      text('10', width / 2 + 350, 290);
-      pop()
-
-      fade6 = fade6 - 5;
-
-    }
-    if (timestamp3 > 4000 && timestamp3 < 5000) {
-
-      push()
-      fill(0, 0, 0, fade7)
-      textSize(180);
-      textAlign(CENTER);
-      text('9', width / 2 + 350, 290);
-      pop()
-
-      fade7 = fade7 - 5;
-
-    }
-    if (timestamp3 > 5000 && timestamp3 < 6000) {
-
-      push()
-      fill(0, 0, 0, fade8)
-      textSize(180);
-      textAlign(CENTER);
-      text('8', width / 2 + 350, 290);
-      pop()
-
-      fade8 = fade8 - 5;
-
-    }
-    if (timestamp3 > 6000 && timestamp3 < 7000) {
-
-      push()
-      fill(0, 0, 0, fade9)
-      textSize(180);
-      textAlign(CENTER);
-      text('7', width / 2 + 350, 290);
-      pop()
-
-      fade9 = fade9 - 5;
-
-    }
-    if (timestamp3 > 7000 && timestamp3 < 8000) {
-
-      push()
-      fill(0, 0, 0, fade10)
-      textSize(180);
-      textAlign(CENTER);
-      text('6', width / 2 + 350, 290);
-      pop()
-
-      fade10 = fade10 - 5;
-
-    }
-    if (timestamp3 > 8000 && timestamp3 < 9000) {
-
-      push()
-      fill(0, 0, 0, fade11)
-      textSize(180);
-      textAlign(CENTER);
-      text('5', width / 2 + 350, 290);
-      pop()
-
-      fade11 = fade11 - 5;
-
-    }
-    if (timestamp3 > 9000 && timestamp3 < 10000) {
-
-      push()
-      fill(0, 0, 0, fade12)
-      textSize(180);
-      textAlign(CENTER);
-      text('4', width / 2 + 350, 290);
-      pop()
-
-      fade12 = fade12 - 5;
-
-    }
-    if (timestamp3 > 10000 && timestamp3 < 11000) {
-
-      push()
-      fill(0, 0, 0, fade13)
-      textSize(180);
-      textAlign(CENTER);
-      text('3', width / 2 + 350, 290);
-      pop()
-
-      fade13 = fade13 - 5;
-
-    }
-    if (timestamp3 > 11000 && timestamp3 < 12000) {
-
-      push()
-      fill(0, 0, 0, fade14)
-      textSize(180);
-      textAlign(CENTER);
-      text('2', width / 2 + 350, 290);
-      pop()
-
-      fade14 = fade14 - 5;
-
-    }
-    if (timestamp3 > 12000 && timestamp3 < 13000) {
-
-      push()
-      fill(0, 0, 0, fade15)
-      textSize(180);
-      textAlign(CENTER);
-      text('1', width / 2 + 350, 290);
-      pop()
-
-      fade15 = fade15 - 5;
-
-    }
-
-
-
-
-
-
-
-
-
-
-    if (timestamp3 > 13000) {
-
-      startCountdown = 0; //stop this function
-
-    }
-
-
-
-
 
 
 
@@ -1132,8 +1313,6 @@ beginShape();
 
 
   }
-
-
 
 
 
