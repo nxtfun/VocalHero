@@ -40,7 +40,8 @@
 
 <script>
     var pic = document.getElementById('chonker-of-the-day');
-    const chonker = Math.floor(Math.random() * (13 - 1)) + 1;
+    const chonker = Math.floor(Math.random() * (19 - 1)) + 1;
+    console.log(chonker);
 
     function chonkify() {
         pic.src = `https://raw.githubusercontent.com/nxtfun/VocalHero/main/chonkers/${chonker}.jpg`;
