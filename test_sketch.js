@@ -1701,7 +1701,7 @@ function checkHowManyExamples(n) {
 
 
 
-function mousePressed() {
+function mouseClicked() {
   //console.log('Hello! MousePressed');
   if (mouseX > 320 && mouseX < 470 && mouseY > 30 && mouseY < 80 && !startState) {//if mouse over start button and nothing is playing
     //getAudioContext().resume(); //needed by browser to use microphone and audio
