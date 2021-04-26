@@ -123,7 +123,7 @@ let xvals3 = [];
 let xtime3 = [];
 let exercise3 = [];
 let soundArray = [];
-let thisManyExercises = 4; // set number of exercises in each module
+let thisManyExercises = 2; // set number of exercises in each module
 let currentExercise = 1;
 //let currentModule = 2;//set which module should be vieved
 
@@ -1344,6 +1344,8 @@ function startButtonF() {
     previousMillis3 = currentMillis;
     startCountdown = 1;
 
+    sound.stop();
+
     xvals = [];//erase data
     xvalsScaled = []//erase chart
     getAudioContext().resume(); //needed by browser to use microphone and audio
@@ -1417,7 +1419,12 @@ function startRecording() {
     json.date = (str(days) + '.' + str(months) + '.' + str(years));
     json.hour = (str(hours) + ':' + str(minutes) + ':' + str(seconds));
 
+    json.duration = rduration;
+    json.maxSensorValue = maxSensorValue;//value from sensor at maximum force
+    json.minSensorValue = minSensorValue;//value from sensor at minimum force
 
+    json.module = ('test' + str(currentModule));
+    json.fileNumber = examplesArray[currentExercise - 1];
 
     json.values = xvals;
     json.timestamp = xtime;

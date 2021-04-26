@@ -107,7 +107,7 @@ let xvals3 = [];
 let xtime3 = [];
 let exercise3 = [];
 let soundArray = [];
-let thisManyExercises = 8; // set number of exercises in each module
+let thisManyExercises = 2; // set number of exercises in each module
 let currentExercise = 0;
 //let currentModule = 2;//set which module should be vieved
 
