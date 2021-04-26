@@ -5,6 +5,7 @@
       <script src="p5.dom.min.js"></script>
       <script src="p5.sound.min.js"></script>
       <script src="m1settings.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
       <meta charset="UTF-8">
@@ -27,6 +28,7 @@
             <p class="task--text">
                Po zakończeniu próby zostanie pobrany plik z jej nagraniem.
             </p>
+            <a href="#" class="scroll-down" address="true"></a>
          </div>
          <div class="container__task--plot" id="canvas-parent">
             <script src="test_sketch.js"></script> 
@@ -50,6 +52,13 @@
            document.querySelector('.u--text-important').textContent = "podłączona";
        }
    }, 100);
+   
+    $(function() {
+    $('.scroll-down').click (function() {
+      $('html, body').animate({scrollTop: $('div.container__task--plot').offset().top }, 'slow');
+      return false;
+    });
+  });
    
    
 </script>
